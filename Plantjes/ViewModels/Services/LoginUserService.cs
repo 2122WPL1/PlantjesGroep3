@@ -24,24 +24,27 @@ namespace Plantjes.ViewModels.Services
         }
         #region Login Region
         //globale gebruiker om te gebruiken in de service
-        public Gebruiker gebruiker = new Gebruiker();
+        public Gebruiker Gebruiker 
+        {
+            get { return this._gebruiker ??= new Gebruiker(); }
+            set { this._gebruiker = value; }
+        }
         //zorgen dat de INotifyPropertyChanged geimplementeerd wordt
         public event PropertyChangedEventHandler PropertyChanged;
         
         //het eigenlijke loginsysteem
-        public LoginResult CheckCredentials(string userNameInput, string passwordInput)
+        public bool IsLogin(string userNameInput, string passwordInput)
         {   //Nieuw loginResult om te gebruiken, status op NotLoggedIn zetten
-            var loginResult = new LoginResult() {loginStatus = LoginStatus.NotLoggedIn};
+            //var loginResult = new LoginResult() {loginStatus = LoginStatus.NotLoggedIn};
            
             //check if email is valid email
             if (userNameInput != null && userNameInput.Contains("@student.vives.be"))
             {   //gebruiker zoeken in de databank
-                gebruiker = _dao.GetGebruikerWithEmail(userNameInput);
-                loginResult.gebruiker = gebruiker;
+                Gebruiker = _dao.GetGebruikerWithEmail(userNameInput);
             }
             else
             {//indien geen geldig emailadress, errorMessage opvullen
-                loginResult.errorMessage = "Dit is geen geldig Vives emailadres.";
+                throw new Exception("Dit is geen geldig Vives emailadres.");
             }
 
             //omzetten van het ingegeven passwoord naar een gehashed passwoord
@@ -49,25 +52,18 @@ namespace Plantjes.ViewModels.Services
             var md5Hasher = new MD5CryptoServiceProvider();
             var passwordHashed = md5Hasher.ComputeHash(passwordBytes);
 
-            if (gebruiker != null)
-            {
-                _gebruiker = gebruiker;
-                loginResult.gebruiker = gebruiker;
-                //passwoord controle
-                if (gebruiker.HashPaswoord != null && passwordHashed.SequenceEqual(gebruiker.HashPaswoord))
-                {   //indien true status naar LoggedIn zetten
-                    loginResult.loginStatus = LoginStatus.LoggedIn;
-                }
-                else
-                {   //indien false errorMessage opvullen
-                    loginResult.errorMessage += "\r\n"+"Het ingegeven wachtwoord is niet juist, probeer opnieuw";
-                }
-            }
-            else
+            if (Gebruiker == null)
             {   // als de gebruiker niet gevonden wordt, errorMessage invullen
-                loginResult.errorMessage = $"Er is geen account gevonden voor {userNameInput} "+"\r\n"+" gelieve eerst te registreren";
+                throw new Exception($"Er is geen account gevonden voor {userNameInput} " + "\r\n" + " gelieve eerst te registreren");
             }
-            return loginResult;
+
+            //passwoord controle
+            if (Gebruiker.HashPaswoord == null || !passwordHashed.SequenceEqual(Gebruiker.HashPaswoord))
+            {   //indien false errorMessage opvullen
+                throw new Exception("\r\n" + "Het ingegeven wachtwoord is niet juist, probeer opnieuw");
+            }
+
+            return true;
         }
 
         //functie om naam weer te geven in loginWindow

@@ -3,7 +3,9 @@ using Plantjes.ViewModels.Interfaces;
 using Plantjes.Models.Classes;
 using Plantjes.Models.Enums;
 using Plantjes.Views.Home;
+using System;
 using System.Windows;
+using Plantjes.Models.Db;
 //written by kenny
 namespace Plantjes.ViewModels
 {
@@ -40,25 +42,26 @@ namespace Plantjes.ViewModels
 
         private void LoginButtonClick()
         {
-            if (!string.IsNullOrWhiteSpace(userNameInput))
+            try
             {
-                LoginResult loginResult = _loginService.CheckCredentials(userNameInput, passwordInput);
-
-                if (loginResult.loginStatus == LoginStatus.LoggedIn)
+                if (!string.IsNullOrWhiteSpace(userNameInput))
                 {
-                  //  loggedInMessage = _loginService.LoggedInMessage(userNameInput);
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show();
-                    Application.Current.Windows[0]?.Close();
+                    if (_loginService.IsLogin(userNameInput, passwordInput))
+                    {
+                        //  loggedInMessage = _loginService.LoggedInMessage(userNameInput);
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.Show();
+                        Application.Current.Windows[0]?.Close();
+                    }
                 }
                 else
                 {
-                    errorMessage = loginResult.errorMessage;
+                    throw new Exception("gebruikersnaam invullen");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                errorMessage = "gebruikersnaam invullen";
+                errorMessage = ex.Message;
             }
 
         }
