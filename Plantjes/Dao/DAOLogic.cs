@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using Plantjes.Models;
 using Plantjes.Models.Db;
+using Microsoft.EntityFrameworkCore;
 /*comments kenny*/
 //using System.Windows.Controls;
 
@@ -28,8 +29,8 @@ namespace Plantjes.Dao
             this.context = new plantenContext();
         }
         //3.publieke methode instance die altijd kan aangeroepen worden
-            //door zijn statische eigenschappen kan hij altijd aangeroepen worden 
-            //zonder er een instantie van te maken
+        //door zijn statische eigenschappen kan hij altijd aangeroepen worden 
+        //zonder er een instantie van te maken
         public static DAOLogic Instance()
         {
             return instance;
@@ -190,6 +191,12 @@ namespace Plantjes.Dao
         //}
         #endregion
         /* HELP FUNCTIONS */
+        public IEnumerable<TEntity> GetList<TEntity>(bool distinct = false) where TEntity : class
+        {
+            var dbset = context.Set<TEntity>();
+
+            return distinct ? dbset.Distinct() : dbset;
+        }
 
         //get a list of all the plants.
         ///Kenny
@@ -280,6 +287,7 @@ namespace Plantjes.Dao
 
         ///Owen, Robin, Christophe
         #region Fill Tfgsv
+
         public IQueryable<TfgsvType> fillTfgsvType()
         {
             // request List of wanted type
