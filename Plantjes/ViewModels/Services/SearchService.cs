@@ -168,6 +168,16 @@ namespace Plantjes.ViewModels.Services
         //changes all the ' and " chars and replaces them by a space
         //next it deletes al the spaces and returns the string.
 
+        public IEnumerable<TEntity> GetList<TEntity>(bool distinct = false) where TEntity : class
+        {
+            return _dao.GetList<TEntity>(distinct);
+        }
+
+        public IEnumerable<TEntity> GetListWhere<TEntity>(Func<TEntity, bool> predicate, bool distinct = false) where TEntity : class
+        {
+            return _dao.GetList<TEntity>(distinct).Where(predicate);
+        }
+
         //geschreven door kenny
         public string Simplify(string stringToSimplify)
         {
