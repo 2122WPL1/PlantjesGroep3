@@ -31,9 +31,9 @@ namespace Plantjes.ViewModels.Services
         //Geschreven door Owen op basis van de eerste Search van Kenny.
         //Christophe & Owen: gedeeltelijke omzetting naar mvvm
         //Omgezet naar service door kenny
-        public List<Plant> ApplyFilter(TfgsvType SelectedtType, TfgsvFamilie SelectedFamilie, TfgsvGeslacht SelectedGeslacht, TfgsvSoort SelectedSoort, TfgsvVariant SelectedVariant, string SelectedNederlandseNaam, string SelectedRatioBloeiBlad)
+        public IEnumerable<Plant> ApplyFilter(TfgsvType SelectedtType, TfgsvFamilie SelectedFamilie, TfgsvGeslacht SelectedGeslacht, TfgsvSoort SelectedSoort, TfgsvVariant SelectedVariant, string SelectedNederlandseNaam, string SelectedRatioBloeiBlad)
         {
-            var listPlants = _dao.getAllPlants();
+            var listPlants = _dao.GetList<Plant>().ToList();
 
             if (SelectedtType != null)
             {

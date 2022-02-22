@@ -23,7 +23,7 @@ namespace Plantjes.ViewModels.Interfaces
         ImageSource GetImageLocation(string ImageCatogrie, Plant SelectedPlantInResult);
 
 
-        List<Plant> ApplyFilter(TfgsvType selectedType, TfgsvFamilie selectedFamilie, TfgsvGeslacht selectedGeslacht,
+        IEnumerable<Plant> ApplyFilter(TfgsvType selectedType, TfgsvFamilie selectedFamilie, TfgsvGeslacht selectedGeslacht,
             TfgsvSoort selectedSoort, TfgsvVariant selectedVariant, string selectedNederlandseNaam, string selectedRatioBloeiBlad);
 
         //void Reset(ObservableCollection<Plant> filteredPlantResults, ObservableCollection<TfgsvType> cmbTypes,
