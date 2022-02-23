@@ -6,6 +6,8 @@ using Plantjes.Models.Db;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Plantjes.ViewModels
 {
@@ -23,16 +25,16 @@ namespace Plantjes.ViewModels
 
             //Observable Collections 
             ////Obserbable collections to fill with the necessary objects to show in the comboboxes
-            cmbTypes = new ObservableCollection<TfgsvType>();
-            cmbFamilies = new ObservableCollection<TfgsvFamilie>();
-            cmbGeslacht = new ObservableCollection<TfgsvGeslacht>();
-            cmbSoort = new ObservableCollection<TfgsvSoort>();
-            cmbVariant = new ObservableCollection<TfgsvVariant>();
-            cmbRatioBladBloei = new ObservableCollection<Fenotype>();
+            //cmbTypes = new ObservableCollection<TfgsvType>();
+            //cmbFamilies = new ObservableCollection<TfgsvFamilie>();
+            //cmbGeslacht = new ObservableCollection<TfgsvGeslacht>();
+            //cmbSoort = new ObservableCollection<TfgsvSoort>();
+            //cmbVariant = new ObservableCollection<TfgsvVariant>();
+            //cmbRatioBladBloei = new ObservableCollection<Fenotype>();
 
             ////Observable Collections to bind to listboxes
-            filteredPlantResults = new ObservableCollection<Plant>();
-            detailsSelectedPlant = new ObservableCollection<string>();
+            //filteredPlantResults = new ObservableCollection<Plant>();
+            //detailsSelectedPlant = new ObservableCollection<string>();
 
             //ICommands
             ////These will be used to bind our buttons in the xaml and to give them functionality
@@ -48,42 +50,26 @@ namespace Plantjes.ViewModels
 
         public void fillComboboxes()
         {
-            _searchService.fillComboBoxType(cmbTypes);
-            _searchService.fillComboBoxFamilie(SelectedType, cmbFamilies);
-            _searchService.fillComboBoxGeslacht(SelectedFamilie, cmbGeslacht);
-            _searchService.fillComboBoxSoort(SelectedGeslacht, cmbSoort);
-            _searchService.fillComboBoxVariant(cmbVariant);
-            _searchService.fillComboBoxRatioBloeiBlad(cmbRatioBladBloei);
+            //_searchService.fillComboBoxType(cmbTypes);
+            //_searchService.fillComboBoxFamilie(SelectedType, cmbFamilies);
+            //_searchService.fillComboBoxGeslacht(SelectedFamilie, cmbGeslacht);
+            //_searchService.fillComboBoxSoort(SelectedGeslacht, cmbSoort);
+            //_searchService.fillComboBoxVariant(cmbVariant);
+            //_searchService.fillComboBoxRatioBloeiBlad(cmbRatioBladBloei);
         }
 
         public void ResetClick()
         {
 
-            filteredPlantResults.Clear();
+            filteredPlantResults = Enumerable.Empty<Plant>();
 
-            cmbTypes.Clear();
-            cmbFamilies.Clear();
-            cmbGeslacht.Clear();
-            cmbSoort.Clear();
-            cmbVariant.Clear();
-            cmbRatioBladBloei.Clear();
             SelectedNederlandseNaam = null;
-
-            fillComboboxes();
-
         }
-
-        
 
         public void ApplyFilterClick()
         {
-            filteredPlantResults.Clear();
-            var listPlants = this._searchService.ApplyFilter(SelectedType, SelectedFamilie, SelectedGeslacht,
+            filteredPlantResults = this._searchService.ApplyFilter(SelectedType, SelectedFamilie, SelectedGeslacht,
                 SelectedSoort, SelectedVariant, SelectedNederlandseNaam, SelectedRatioBloeiBlad);
-            foreach (var item in listPlants)
-            {
-                filteredPlantResults.Add(item);
-            }
         }
 
         #endregion
@@ -91,17 +77,44 @@ namespace Plantjes.ViewModels
 
         //Observable collections
         ////Bind to comboboxes
-        public ObservableCollection<TfgsvType> cmbTypes { get; set; }
-        public ObservableCollection<TfgsvFamilie> cmbFamilies { get; set; }
-        public ObservableCollection<TfgsvGeslacht> cmbGeslacht { get; set; }
-        public ObservableCollection<TfgsvSoort> cmbSoort { get; set; }
-        public ObservableCollection<TfgsvVariant> cmbVariant { get; set; }
-        public ObservableCollection<Fenotype> cmbRatioBladBloei { get; set; }
+        public IEnumerable<TfgsvType> cmbTypes
+        {
+            get => _searchService.GetList<TfgsvType>().OrderBy(t => t.Planttypenaam);
+        }
+        public IEnumerable<TfgsvFamilie> cmbFamilies
+        {
+            get => SelectedType == null ?
+                Enumerable.Empty<TfgsvFamilie>() :
+                _searchService.GetListWhere<TfgsvFamilie>(f => f.TypeTypeid == SelectedType.Planttypeid).OrderBy(f => f.Familienaam);
+        }
+        public IEnumerable<TfgsvGeslacht> cmbGeslacht
+        {
+            get => SelectedFamilie == null ?
+                Enumerable.Empty<TfgsvGeslacht>() :
+                _searchService.GetListWhere<TfgsvGeslacht>(g => g.FamilieFamileId == SelectedFamilie.FamileId).OrderBy(g => g.Geslachtnaam);
+        }
+        public IEnumerable<TfgsvSoort> cmbSoort
+        {
+            get => SelectedGeslacht == null ?
+                Enumerable.Empty<TfgsvSoort>() :
+                _searchService.GetListWhere<TfgsvSoort>(s => s.GeslachtGeslachtId == SelectedGeslacht.GeslachtId).OrderBy(s => s.Soortnaam);
+        }
+        public IEnumerable<TfgsvVariant> cmbVariant
+        {
+            get => SelectedSoort == null ?
+                Enumerable.Empty<TfgsvVariant>() :
+                _searchService.GetListWhere<TfgsvVariant>(v => v.SoortSoortid == SelectedSoort.Soortid).OrderBy(v => v.Variantnaam);
+        }
+        public IEnumerable<Fenotype> cmbRatioBladBloei
+        {
+            get => _searchService.GetList<Fenotype>().OrderBy(f => f.RatioBloeiBlad);
+        }
 
         ////Bind to ListBoxes
-        public ObservableCollection<Plant> filteredPlantResults { get; set; }
+        public IEnumerable<Plant> filteredPlantResults { get; set; } = Enumerable.Empty<Plant>();
 
-        public ObservableCollection<String> detailsSelectedPlant { get; set; }
+        public IEnumerable<string> detailsSelectedPlant { get; set; } = Enumerable.Empty<string>();
+        ////
         ////
 
         #region RelayCommands
@@ -124,13 +137,13 @@ namespace Plantjes.ViewModels
             {
                 _selectedType = value;
 
-                cmbFamilies.Clear();
-                cmbGeslacht.Clear();
-                cmbSoort.Clear();
-                cmbVariant.Clear();
+                //cmbFamilies.Clear();
+                //cmbGeslacht.Clear();
+                //cmbSoort.Clear();
+                //cmbVariant.Clear();
 
-                _searchService.fillComboBoxFamilie(SelectedType, cmbFamilies);
-                OnPropertyChanged();
+                //_searchService.fillComboBoxFamilie(SelectedType, cmbFamilies);
+                OnPropertyChanged("cmbFamilies");
             }
         }
 
@@ -144,12 +157,12 @@ namespace Plantjes.ViewModels
                 _selectedFamilie = value;
 
 
-                cmbGeslacht.Clear();
-                cmbSoort.Clear();
-                cmbVariant.Clear();
+                //cmbGeslacht.Clear();
+                //cmbSoort.Clear();
+                //cmbVariant.Clear();
 
-                _searchService.fillComboBoxGeslacht(SelectedFamilie, cmbGeslacht);
-                OnPropertyChanged();
+                //_searchService.fillComboBoxGeslacht(SelectedFamilie, cmbGeslacht);
+                OnPropertyChanged("cmbGeslacht");
             }
         }
 
@@ -164,11 +177,11 @@ namespace Plantjes.ViewModels
 
 
 
-                cmbSoort.Clear();
-                cmbVariant.Clear();
+                //cmbSoort.Clear();
+                //cmbVariant.Clear();
 
-                _searchService.fillComboBoxSoort(SelectedGeslacht, cmbSoort);
-                OnPropertyChanged();
+                //_searchService.fillComboBoxSoort(SelectedGeslacht, cmbSoort);
+                OnPropertyChanged("cmbSoort");
             }
         }
 
@@ -181,9 +194,9 @@ namespace Plantjes.ViewModels
             {
                 _selectedSoort = value;
 
-                cmbVariant.Clear();
+                //cmbVariant.Clear();
 
-                OnPropertyChanged();
+                OnPropertyChanged("cmbVariant");
             }
         }
 
@@ -243,7 +256,7 @@ namespace Plantjes.ViewModels
                 _selectedPlantInResult = value;
                 FillAllImages();
                 OnPropertyChanged();
-                _searchService.FillDetailPlantResult(detailsSelectedPlant, SelectedPlantInResult);
+                //_searchService.FillDetailPlantResult(detailsSelectedPlant, SelectedPlantInResult);
                
                 //Make the currently selected plant in the Result list available in the SearchService
              
