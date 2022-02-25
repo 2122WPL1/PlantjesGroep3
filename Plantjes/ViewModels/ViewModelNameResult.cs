@@ -68,7 +68,7 @@ namespace Plantjes.ViewModels
 
         public void ApplyFilterClick()
         {
-            filteredPlantResults = this._searchService.ApplyFilter(SelectedType, SelectedFamilie, SelectedGeslacht,
+            filteredPlantResults = this._searchService.GetFilteredPlants(SelectedType, SelectedFamilie, SelectedGeslacht,
                 SelectedSoort, SelectedVariant, SelectedNederlandseNaam, SelectedRatioBloeiBlad);
         }
 

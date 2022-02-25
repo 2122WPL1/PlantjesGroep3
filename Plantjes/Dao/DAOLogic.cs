@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-//using Plantjes.DAL.Models;
 using System.Security.Cryptography;
 using Plantjes.Models;
 using Plantjes.Models.Db;
@@ -9,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using Plantjes.Models.Enums;
 /*comments kenny*/
-//using System.Windows.Controls;
 
 namespace Plantjes.Dao
 {
@@ -38,7 +36,8 @@ namespace Plantjes.Dao
             return instance;
         }
 
-        //search functions
+
+        #region Get methods
         //written by Warre
         /// <summary>
         /// Gets a list of type <see cref="DbSet{TEntity}"/>.
@@ -68,7 +67,7 @@ namespace Plantjes.Dao
 
         //written by Warre
         /// <summary>
-        /// <see cref="GetListWhere{TEntity}(Func{TEntity, bool}, bool)"/>.
+        /// <see cref="GetListWhere{Gebruiker}(Func{Gebruiker, bool}, bool)"/>.
         /// </summary>
         /// <param name="email">The email to be parsed.</param>
         /// <returns>Retursn the user with said email.</returns>
@@ -91,9 +90,8 @@ namespace Plantjes.Dao
 
             return null;
         }
-        ///Robin
-        #region Lists of all the plant properties with multiple values, used to display plant details
 
+        ///Robin
         //Get a list of all the Abiotiek types
         public List<Abiotiek> GetAllAbiotieks()
         {
@@ -111,6 +109,7 @@ namespace Plantjes.Dao
 
             return abioMultiList;
         }
+
         //Get a list of all the Beheermaand types
         public List<BeheerMaand> GetBeheerMaanden()
         {
@@ -123,6 +122,7 @@ namespace Plantjes.Dao
             var commensalisme = context.Commensalismes.ToList();
             return commensalisme;
         }
+
         public List<CommensalismeMulti> GetAllCommensalismeMulti()
         {
             //List is unfiltered, a plantId can be present multiple times
@@ -131,6 +131,7 @@ namespace Plantjes.Dao
             var commensalismeMulti = context.CommensalismeMultis.ToList();
             return commensalismeMulti;
         }
+
         public List<ExtraEigenschap> GetAllExtraEigenschap()
         {
             var extraEigenschap = context.ExtraEigenschaps.ToList();
@@ -143,15 +144,71 @@ namespace Plantjes.Dao
                 .ToList();
             return fenoTypes;
         }
+
         public List<Foto> GetAllFoto()
         {
             var foto = context.Fotos.ToList();
             return foto;
         }
+
         public List<UpdatePlant> GetAllUpdatePlant()
         {
             var updatePlant = context.UpdatePlants.ToList();
             return updatePlant;
+        }
+
+        public List<ExtraPollenwaarde> FillExtraPollenwaardes()
+        {
+            var selection = context.ExtraPollenwaardes.ToList();
+            return selection;
+        }
+
+        public List<ExtraNectarwaarde> FillExtraNectarwaardes()
+        {
+            var selection = context.ExtraNectarwaardes.ToList();
+            return selection;
+        }
+
+        public List<BeheerMaand> FillBeheerdaad()
+        {
+            var selection = context.BeheerMaands.ToList();
+            return selection;
+        }
+        #endregion
+
+        #region Add/Set methods
+        /// <summary>
+        /// Adds a user to the db.
+        /// </summary>
+        /// <param name="vivesNr">The vives nr of the user.</param>
+        /// <param name="firstName">The firstname of the user.</param>
+        /// <param name="lastName">The lastname of the user.</param>
+        /// <param name="emailadres">The email of the user.</param>
+        /// <param name="password">The password of the user.</param>
+        public void AddUser(string vivesNr, string firstName, string lastName, string emailadres, string password)
+        {
+            var passwordBytes = Encoding.ASCII.GetBytes(password);
+            var md5Hasher = new MD5CryptoServiceProvider();
+            var passwordHashed = md5Hasher.ComputeHash(passwordBytes);
+
+            //written by Warre
+            UserRole role = UserRole.GradStudent;
+            if (emailadres.Contains("@vives.be"))
+                role = UserRole.Docent;
+            if (emailadres.Contains("@student.vives.be"))
+                role = UserRole.Student;
+
+            var gebruiker = new Gebruiker()
+            {
+                Vivesnr = vivesNr,
+                Voornaam = firstName,
+                Achternaam = lastName,
+                Emailadres = emailadres,
+                Rol = role.ToString(),
+                HashPaswoord = passwordHashed
+            };
+            context.Gebruikers.Add(gebruiker);
+            _ = context.SaveChanges();
         }
         #endregion
 
@@ -233,64 +290,5 @@ namespace Plantjes.Dao
         #endregion
 
         #endregion
-        //Christophe: Op basis van basiscode Owen
-        #region Fill Combobox Pollenwaarde en Nectarwaarde
-        
-        public List<ExtraPollenwaarde> FillExtraPollenwaardes()
-        {
-            var selection = context.ExtraPollenwaardes.ToList();
-            return selection;
-        }
-
-        public List<ExtraNectarwaarde> FillExtraNectarwaardes()
-        {
-            var selection = context.ExtraNectarwaardes.ToList();
-            return selection;
-        }
-
-        #endregion
-
-        public List<BeheerMaand> FillBeheerdaad()
-        {
-            var selection = context.BeheerMaands.ToList();
-            return selection;
-        }
-
-        /// <summary>
-        /// Adds a user to the db.
-        /// </summary>
-        /// <param name="vivesNr">The vives nr of the user.</param>
-        /// <param name="firstName">The firstname of the user.</param>
-        /// <param name="lastName">The lastname of the user.</param>
-        /// <param name="emailadres">The email of the user.</param>
-        /// <param name="password">The password of the user.</param>
-        public void AddUser(string vivesNr, string firstName, string lastName, string emailadres, string password)
-        {
-            var passwordBytes = Encoding.ASCII.GetBytes(password);
-            var md5Hasher = new MD5CryptoServiceProvider();
-            var passwordHashed = md5Hasher.ComputeHash(passwordBytes);
-
-            //written by Warre
-            UserRole role = UserRole.GradStudent;
-            if (emailadres.Contains("@vives.be"))
-                role = UserRole.Docent;
-            if (emailadres.Contains("@student.vives.be"))
-                role = UserRole.Student;
-
-            var gebruiker = new Gebruiker()
-            {
-                Vivesnr = vivesNr,
-                Voornaam = firstName,
-                Achternaam = lastName,
-                Emailadres = emailadres,
-                Rol = role.ToString(),
-                HashPaswoord = passwordHashed
-            };
-            context.Gebruikers.Add(gebruiker);
-            _ = context.SaveChanges();
-        }
-
     }
-
-
 }
