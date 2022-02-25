@@ -20,7 +20,7 @@
         </Grid.Background>
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image x:Name="VivesLogo" Source="/image/vives.png" MaxWidth="250"/>
+            <Image x:Name="VivesLogo" Source="/image/vives-planten.png" MaxWidth="250"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblVivesNr" Content="Vives Nummer:" HorizontalAlignment="Left"/>

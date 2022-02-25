@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="Font\password.ttf" />
+    <None Remove="Image\vives-planten.png" />
     <None Remove="Image\vives.png" />
     <None Remove="Image\waterval.jpeg" />
   </ItemGroup>
@@ -15,6 +16,9 @@
   <ItemGroup>
     <Content Include="Font\password.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Image\vives-planten.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Image\vives.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
