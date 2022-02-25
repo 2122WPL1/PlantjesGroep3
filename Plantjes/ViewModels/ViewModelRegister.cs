@@ -15,12 +15,12 @@ namespace Plantjes.ViewModels
         public ViewModelRegister(ILoginUserService loginUserService)
         {
             this._loginService = loginUserService;
-            registerCommand = new RelayCommand(RegisterButtonClick);
-            backCommand = new RelayCommand(BackButtonClick);
+            RegisterCommand = new RelayCommand(RegisterButtonClick);
+            BackCommand = new RelayCommand(BackButtonClick);
         }
 
-        public RelayCommand registerCommand { get; set; }
-        public RelayCommand backCommand { get; set; }
+        public RelayCommand RegisterCommand { get; set; }
+        public RelayCommand BackCommand { get; set; }
 
         public void BackButtonClick()
         {
