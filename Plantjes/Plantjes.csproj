@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Image\vives.png" />
     <None Remove="Image\waterval.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Image\vives.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
