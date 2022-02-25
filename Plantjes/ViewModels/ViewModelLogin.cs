@@ -11,42 +11,43 @@ namespace Plantjes.ViewModels
 {
     public class ViewModelLogin : ViewModelBase
     {
-        private IloginUserService _loginService { get; }
-        public RelayCommand loginCommand { get; set; }
-        public RelayCommand cancelCommand { get; set; }
-        public RelayCommand registerCommand { get; set; }
+        private string userNameInput;
+        private string passwordInput;
+        private string errorMessage;
 
-        private string _userNameInput;
-        private string _passwordInput;
-        private string _errorMessage;
-        private string _loggedInMessage;
+        private ILoginUserService _loginService { get; }
+        public RelayCommand LoginCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
+        public RelayCommand RegisterCommand { get; set; }
 
-        public ViewModelLogin(IloginUserService loginUserService)
+        public ViewModelLogin(ILoginUserService loginUserService)
         {
-
             this._loginService = loginUserService;
-            loginCommand = new RelayCommand(LoginButtonClick);
-            cancelCommand = new RelayCommand(CancelButton);
-            registerCommand = new RelayCommand(RegisterButtonView);
+            LoginCommand = new RelayCommand(LoginButtonClick);
+            CancelCommand = new RelayCommand(CancelButton);
+            RegisterCommand = new RelayCommand(RegisterButtonView);
         }
+
         public void RegisterButtonView()
         {
             RegisterWindow registerWindow = new RegisterWindow();
             registerWindow.Show();
             Application.Current.Windows[0]?.Close();
         }
+
         public void CancelButton()
         {
             Application.Current.Shutdown();
         }
 
+        //written by Warre
         private void LoginButtonClick()
         {
             try
             {
-                if (!string.IsNullOrWhiteSpace(userNameInput))
+                if (!string.IsNullOrWhiteSpace(UserNameInput))
                 {
-                    if (_loginService.IsLogin(userNameInput, passwordInput))
+                    if (_loginService.IsLogin(UserNameInput, PasswordInput))
                     {
                         //  loggedInMessage = _loginService.LoggedInMessage(userNameInput);
                         MainWindow mainWindow = new MainWindow();
@@ -56,52 +57,44 @@ namespace Plantjes.ViewModels
                 }
                 else
                 {
-                    throw new Exception("gebruikersnaam invullen");
+                    throw new Exception("Gebruikersnaam invullen!");
                 }
             }
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                OnPropertyChanged("ErrorMessage");
             }
-
         }
-        public string errorMessage
+        public string ErrorMessage
         {
             get
             {
-                return _errorMessage;
-            }
-            set
-            {
-                _errorMessage = value;
-
-                RaisePropertyChanged("errorMessage");
+                return errorMessage;
             }
         }
      
-        public string userNameInput
+        public string UserNameInput
         {
             get
             {
-                return _userNameInput;
+                return userNameInput;
             }
             set
             {
-                _userNameInput = value;
-                OnPropertyChanged();
+                userNameInput = value;
             }
         }
 
-        public string passwordInput
+        public string PasswordInput
         {
             get
             {
-                return _passwordInput;
+                return passwordInput;
             }
             set
             {
-                _passwordInput = value;
-                OnPropertyChanged();
+                passwordInput = value;
             }
         }
     }

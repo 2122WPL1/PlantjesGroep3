@@ -20,9 +20,9 @@ namespace Plantjes.ViewModels
             set { SetProperty(ref _currentViewModel, value); }
         }
 
-        public IloginUserService loginUserService;
+        public ILoginUserService loginUserService;
         private ISearchService _searchService;
-        public ViewModelMain(IloginUserService loginUserService, ISearchService searchService)
+        public ViewModelMain(ILoginUserService loginUserService, ISearchService searchService)
         {
             loggedInMessage = loginUserService.LoggedInMessage();
             this._viewModelRepo = iocc.GetInstance<ViewModelRepo>();

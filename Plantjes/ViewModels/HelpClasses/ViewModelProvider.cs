@@ -22,7 +22,7 @@ namespace Plantjes.ViewModels.HelpClasses
             var iocc = SimpleIoc.Default;
 
             // haal singletons (elke keer dezelfde instantie) van de services om de viewmodels te voorzien van de nodige services(service locator)
-            var loginService = iocc.GetInstance<IloginUserService>();
+            var loginService = iocc.GetInstance<ILoginUserService>();
             var searchService = iocc.GetInstance<ISearchService>();
             var detailService = iocc.GetInstance<IDetailService>();
 

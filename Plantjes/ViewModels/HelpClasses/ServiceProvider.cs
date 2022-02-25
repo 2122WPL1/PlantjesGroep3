@@ -16,7 +16,7 @@ namespace Plantjes.ViewModels.HelpClasses
             SimpleIoc iocc = SimpleIoc.Default;
 
             // registreren van utility services
-            iocc.Register<IloginUserService, LoginUserService>();
+            iocc.Register<ILoginUserService, LoginUserService>();
             iocc.Register<ISearchService, SearchService>();
             iocc.Register<IDetailService, DetailService>();
         }

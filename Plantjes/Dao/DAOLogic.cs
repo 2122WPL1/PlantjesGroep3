@@ -6,6 +6,8 @@ using System.Security.Cryptography;
 using Plantjes.Models;
 using Plantjes.Models.Db;
 using Microsoft.EntityFrameworkCore;
+using System;
+using Plantjes.Models.Enums;
 /*comments kenny*/
 //using System.Windows.Controls;
 
@@ -35,162 +37,15 @@ namespace Plantjes.Dao
         {
             return instance;
         }
-        /* 4.gebruik: var example = DAOLogic.Instance();
-}
-
-
-
-
-
-
-
-         */
-
 
         //search functions
-
-        /* NARROW DOWN FUNCTIONS */
-
-        #region Kenny's first search
-
-        //DIT IS KENNY ZIJN CODE KAN ZIJN DAT WE DIT NOG GEBRUIKEN IN HET VOLGEND KWARTAAL.
-
-        //A function that looks if the given list of plants contains the given string in plant.type .
-        //if this is the case the plant will stay in the list.
-        //if this is not the case, the plant will be deleted out of the list.
-        //public void narrowDownOnType(List<Plant> listPlants, string type)
-        //{
-        //    foreach (Plant plant in listPlants.ToList())
-        //    {           
-        //        if (plant.Type != null)
-        //        {
-        //            var simplifyString = Simplify(plant.Geslacht.ToString());
-        //            if (simplifyString.Contains(Simplify(type)) != true)
-        //            {
-        //                listPlants.Remove(plant);
-        //            }
-        //        }
-        //    }
-        //}
-
-        ////A function that looks if the given list of plants contains the given string in plant.geslacht .
-        ////if this is the case the plant will stay in the list.
-        ////if this is not the case, the plant will be deleted out of the list.
-
-        //public void narrowDownOnGeslacht(List<Plant> listPlants, string geslacht)
-        //{
-        //    foreach (Plant plant in listPlants.ToList())
-        //    {
-        //        if (plant.Geslacht != null)
-        //        {
-        //            var simplifyString = Simplify(plant.Geslacht.ToString());
-        //            if (simplifyString.Contains(Simplify(geslacht)) != true)
-        //            {
-        //                listPlants.Remove(plant);
-        //            }
-        //        }
-        //    }
-        //}
-        ////A function that looks if the given list of plants contains the given string in plant.Family .
-        ////if this is the case the plant will stay in the list.
-        ////if this is not the case, the plant will be deleted out of the list.
-        //public void narrowDownOnFamily(List<Plant> listPlants, string Familie)
-        //{
-        //    foreach (Plant plant in listPlants.ToList())
-        //    {
-        //        if (plant.Familie != null)
-        //        {
-        //            var simplifyString = Simplify(plant.Familie.ToString());
-        //            if (simplifyString.Contains(Simplify(Familie)) != true)
-        //            {
-        //                listPlants.Remove(plant);
-        //            }
-        //        }
-        //    }
-        //}
-        ////A function that looks if the given list of plants contains the given string in plant.soort .
-        ////if this is the case the plant will stay in the list.
-        ////if this is not the case, the plant will be deleted out of the list.
-        //public void narrowDownOnSoort(List<Plant> listPlants, string soort)
-        //{
-        //    foreach (Plant plant in listPlants.ToList())
-        //    {
-        //        if (plant.Soort != null)
-        //        {
-        //            var simplifyString = Simplify(plant.Soort.ToString());
-        //            if (simplifyString.Contains(Simplify(soort)) != true)
-        //            {
-        //                listPlants.Remove(plant);
-        //            }
-        //        }
-        //    }
-        //}
-        ////A function that looks if the given list of plants contains the given string in plant.naam .
-        ////if this is the case the plant will stay in the list.
-        ////if this is not the case, the plant will be deleted out of the list.
-        //public void narrowDownOnName(List<Plant> listPlants, string naam)
-        //{
-        //    foreach (Plant plant in listPlants.ToList())
-        //    {
-        //        if (plant.Fgsv != null)
-        //        {
-        //            var simplifyString = Simplify(plant.Fgsv.ToString());
-        //            if (simplifyString.Contains(Simplify(naam)) != true)
-        //            {
-        //                listPlants.Remove(plant);
-        //            }
-        //        }
-        //    }
-        //}
-        ////A function that looks if the given list of plants contains the given string in plant.variant .
-        ////if this is the case the plant will stay in the list.
-        ////if this is not the case, the plant will be deleted out of the list.
-        //public void narrowDownOnVariant(List<Plant> listPlants, string variant)
-        //{
-        //    foreach (Plant plant in listPlants.ToList())
-        //    {
-        //        if (plant.Variant != null)
-        //        {
-        //            var simplifyString = Simplify(plant.Variant.ToString());
-        //            if (simplifyString.Contains(Simplify(variant)) != true)
-        //            {
-        //                listPlants.Remove(plant);
-        //            }
-        //        }
-        //    }
-        //}
-        //A function that returns a list of plants
-        //the returned list are all the plants that contain the given string in their geslacht
-
-
-
-        //Robin: removed "static", couldn't reach context
-        //public List<Plant> OnGeslacht(string geslacht)
-        //{
-        //    var listPlants = context.Plant.Where(p => p.Geslacht.Contains(geslacht)).ToList();
-        //    return listPlants;
-        //}
-        ////A function that returns a list of plants
-        ////the returned list are all the plants that contain the given string in their latin name
-        //public List<Plant> OnName(string name)
-        //{
-        //    var listPlants = context.Plant.Where(p => p.Fgsv.Contains(name)).ToList();
-        //    return listPlants;
-        //}
-        //public List<Plant> OnVariant(string variant)
-        //{
-        //    var listPlants = context.Plant.Where(p => p.Variant.Contains(variant)).ToList();
-        //    return listPlants;
-        //}
-        ////A function that returns a list of plants
-        ////the returned list are al the plants that contain the given string in their family
-        //public List<Plant> OnFamily(string family)
-        //{
-        //    var listPlants = context.Plant.Where(p => p.Familie.Contains(family)).ToList();
-        //    return listPlants;
-        //}
-        #endregion
-        /* HELP FUNCTIONS */
+        //written by Warre
+        /// <summary>
+        /// Gets a list of type <see cref="DbSet{TEntity}"/>.
+        /// </summary>
+        /// <typeparam name="TEntity">The type of the list.</typeparam>
+        /// <param name="distinct">Boolean which decides if list must be distinct.</param>
+        /// <returns>Returns of a list of type <see cref="DbSet{TEntity}"/>.</returns>
         public IEnumerable<TEntity> GetList<TEntity>(bool distinct = false) where TEntity : class
         {
             var dbset = context.Set<TEntity>();
@@ -198,15 +53,30 @@ namespace Plantjes.Dao
             return distinct ? dbset.Distinct() : dbset;
         }
 
-        //get a list of all the plants.
-        ///Kenny
-        public List<Plant> getAllPlants()
+        //written by Warre
+        /// <summary>
+        /// <see cref="GetList{TEntity}(bool)"/> with a where predicate.
+        /// </summary>
+        /// <typeparam name="TEntity">The type of the list.</typeparam>
+        /// <param name="predicate">The requirement of the where.</param>
+        /// <param name="distinct"><see cref="GetList{TEntity}(bool)"/>.</param>
+        /// <returns>Returns of a list of type <see cref="DbSet{TEntity}"/>.</returns>
+        public IEnumerable<TEntity> GetListWhere<TEntity>(Func<TEntity, bool> predicate, bool distinct = false) where TEntity : class
         {
-            // kijken hoeveel er zijn geselecteerd
-
-            var plants = context.Plants.ToList();
-            return plants;
+            return GetList<TEntity>(distinct).Where(predicate);
         }
+
+        //written by Warre
+        /// <summary>
+        /// <see cref="GetListWhere{TEntity}(Func{TEntity, bool}, bool)"/>.
+        /// </summary>
+        /// <param name="email">The email to be parsed.</param>
+        /// <returns>Retursn the user with said email.</returns>
+        public Gebruiker GetGebruiker(string email)
+        {
+            return GetListWhere<Gebruiker>(g => g.Emailadres == email).First();
+        }
+
         ///Owen
         public string GetImages(long id , string ImageCategorie)
         {
@@ -283,115 +153,6 @@ namespace Plantjes.Dao
             var updatePlant = context.UpdatePlants.ToList();
             return updatePlant;
         }
-        #endregion
-
-        ///Owen, Robin, Christophe
-        #region Fill Tfgsv
-
-        public IQueryable<TfgsvType> fillTfgsvType()
-        {
-            // request List of wanted type
-            // distinct to prevrent more than one of each type
-            // Here we use IQueryable<T>, it makes it easier for us to use our search queries and find the objects that we need.
-            // This will also make it possible for us to use all the properties instead of only a selection of an object in our ViewModels.
-            // Good way to interact with our datacontext
-            var selection = context.TfgsvTypes.Distinct();
-            return selection;
-        }
-
-        public IQueryable<TfgsvFamilie> fillTfgsvFamilie(int selectedItem)
-        {
-            // request List of wanted type
-            // distinct to prevrent more than one of each type
-            // The if else is to check if something is selected in the previous combobox. if its not he doesn't filter
-            // Here we use IQueryable<T>, it makes it easier for us to use our search queries and find the objects that we need.
-            // This will also make it possible for us to use all the properties instead of only a selection of an object in our ViewModels.
-            // Good way to interact with our datacontext
-
-            if (selectedItem > 0)
-            {
-                var selection = context.TfgsvFamilies.Distinct().OrderBy(s => s.Familienaam).Where(s => s.TypeTypeid == selectedItem);
-                return selection;
-
-            }
-            else
-            {
-                var selection = context.TfgsvFamilies.Distinct().OrderBy(s => s.Familienaam);
-                return selection;
-            }
-
-        }
-        public IQueryable<TfgsvGeslacht> fillTfgsvGeslacht(int selectedItem)
-        {
-            // request List of wanted type
-            // distinct to prevrent more than one of each type
-            // The if else is to check if something is selected in the previous combobox. if its not he doesn't filter
-            // Here we use IQueryable<T>, it makes it easier for us to use our search queries and find the objects that we need.
-            // This will also make it possible for us to use all the properties instead of only a selection of an object in our ViewModels.
-            // Good way to interact with our datacontext
-            if (selectedItem > 0)
-            {
-                var selection = context.TfgsvGeslachts.Distinct().OrderBy(s => s.Geslachtnaam)
-                    .Where(s => s.FamilieFamileId == selectedItem);
-                return selection;
-            }
-            else
-            {
-                var selection = context.TfgsvGeslachts.Distinct().OrderBy(s => s.Geslachtnaam);
-                return selection;
-            }
-
-        }
-        public IQueryable<TfgsvSoort> fillTfgsvSoort(int selectedItem)
-        {
-            // request List of wanted type
-            // distinct to prevrent more than one of each type
-            // The if else is to check if something is selected in the previous combobox. if its not he doesn't filter
-            // Here we use IQueryable<T>, it makes it easier for us to use our search queries and find the objects that we need.
-            // This will also make it possible for us to use all the properties instead of only a selection of an object in our ViewModels.
-            // Good way to interact with our datacontext
-            if (selectedItem > 0)
-            {
-                var selection = context.TfgsvSoorts.Where(s => s.GeslachtGeslachtId == selectedItem).OrderBy(s => s.Soortnaam).Distinct();
-                return selection;
-            }
-            else
-            {
-                var selection = context.TfgsvSoorts.Distinct().OrderBy(s => s.Soortnaam);
-                return selection;
-            }
-
-        }
-
-        public IQueryable<TfgsvVariant> fillTfgsvVariant()
-        {
-            // request List of wanted type
-            // distinct to prevrent more than one of each type
-            // The if else is to check if something is selected in the previous combobox. if its not he doesn't filter
-            // Here we use IQueryable<T>, it makes it easier for us to use our search queries and find the objects that we need.
-            // This will also make it possible for us to use all the properties instead of only a selection of an object in our ViewModels.
-            // Good way to interact with our datacontext
-
-            var selection = context.TfgsvVariants.Distinct().OrderBy(s => s.Variantnaam);
-            return selection;
-
-        }
-        public IQueryable<Fenotype> fillFenoTypeRatioBloeiBlad()
-        {
-            // this is NOT part of the cascade function and wil not be added as it is not needed 
-            // request List of wanted type
-            // distinct to prevrent more than one of each type
-            // The if else is to check if something is selected in the previous combobox. if its not he doesn't filter.
-            // Here we use IQueryable<T>, it makes it easier for us to use our search queries and find the objects that we need.
-            // This will also make it possible for us to use all the properties instead of only a selection of an object in our ViewModels.
-            // Good way to interact with our datacontext
-
-            var selection = context.Fenotypes.Distinct().OrderBy(s => s.RatioBloeiBlad);
-            return selection;
-
-        }
-
-
         #endregion
 
         #region FilterFromPlant
@@ -495,50 +256,38 @@ namespace Plantjes.Dao
             return selection;
         }
 
-
-        //written by kenny
-        public Gebruiker GetGebruikerWithEmail(string userEmail)
-        {
-            var gebruiker = context.Gebruikers.SingleOrDefault(g => g.Emailadres == userEmail);
-            return gebruiker;
-
-        }
-
-        //written by kenny
-        public void RegisterUser(string vivesNr, string firstName, string lastName, string rol, string emailadres, string password)
+        /// <summary>
+        /// Adds a user to the db.
+        /// </summary>
+        /// <param name="vivesNr">The vives nr of the user.</param>
+        /// <param name="firstName">The firstname of the user.</param>
+        /// <param name="lastName">The lastname of the user.</param>
+        /// <param name="emailadres">The email of the user.</param>
+        /// <param name="password">The password of the user.</param>
+        public void AddUser(string vivesNr, string firstName, string lastName, string emailadres, string password)
         {
             var passwordBytes = Encoding.ASCII.GetBytes(password);
             var md5Hasher = new MD5CryptoServiceProvider();
             var passwordHashed = md5Hasher.ComputeHash(passwordBytes);
+
+            //written by Warre
+            UserRole role = UserRole.GradStudent;
+            if (emailadres.Contains("@vives.be"))
+                role = UserRole.Docent;
+            if (emailadres.Contains("@student.vives.be"))
+                role = UserRole.Student;
 
             var gebruiker = new Gebruiker()
             {
                 Vivesnr = vivesNr,
                 Voornaam = firstName,
                 Achternaam = lastName,
-                Rol = rol,
                 Emailadres = emailadres,
+                Rol = role.ToString(),
                 HashPaswoord = passwordHashed
             };
             context.Gebruikers.Add(gebruiker);
             _ = context.SaveChanges();
-        }
-        //written by kenny
-        public List<Gebruiker> getAllGebruikers()
-        {
-            var gebruiker = context.Gebruikers.ToList();
-            return gebruiker;
-        }
-        //written by kenny
-        public bool CheckIfEmailAlreadyExists(string email)
-        {
-            bool result = false;
-            if (GetGebruikerWithEmail(email) == null)
-            {
-                result = true;
-            }
-
-            return result;
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using Plantjes.ViewModels.Interfaces;
 using Plantjes.Views.Home;
+using System;
 using System.Windows;
 
 namespace Plantjes.ViewModels
@@ -8,16 +9,18 @@ namespace Plantjes.ViewModels
     //written by kenny
     public class ViewModelRegister : ViewModelBase
     {
-        private IloginUserService _loginService { get; }
+        private string errorMessage;
+        private ILoginUserService _loginService;
 
-        public RelayCommand registerCommand { get; set; }
-        public RelayCommand backCommand { get; set; }
-        public ViewModelRegister(IloginUserService loginUserService)
+        public ViewModelRegister(ILoginUserService loginUserService)
         {
             this._loginService = loginUserService;
             registerCommand = new RelayCommand(RegisterButtonClick);
             backCommand = new RelayCommand(BackButtonClick);
         }
+
+        public RelayCommand registerCommand { get; set; }
+        public RelayCommand backCommand { get; set; }
 
         public void BackButtonClick()
         {
@@ -25,126 +28,51 @@ namespace Plantjes.ViewModels
             loginWindow.Show();
             Application.Current.Windows[0]?.Close();
         }
+
+        //written by Warre
         public void RegisterButtonClick()
         {
-            errorMessage = _loginService.RegisterButton(vivesNrInput, lastNameInput,
-                 firstNameInput, emailAdresInput,
-                 passwordInput, passwordRepeatInput, rolInput);
-            
+            try
+            {
+                _loginService.Register(VivesNrInput, LastNameInput,
+                 FirstNameInput, EmailAdresInput,
+                 PasswordInput, PasswordRepeatInput);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+                OnPropertyChanged("ErrorMessage");
+            }
+
         }
+
         #region MVVM TextFieldsBinding
-        private string _vivesNrInput;
-        private string _firstNameInput;
-        private string _lastNameInput;
-        private string _emailAdresInput;
-        private string _passwordInput;
-        private string _passwordRepeatInput;
-        private string _rolInput;
-        private string _errorMessage;
-
-        public string errorMessage
+        public string ErrorMessage
         {
             get
             {
-                return _errorMessage;
+                return errorMessage;
             }
             set
             {
-                _errorMessage = value;
-
-                RaisePropertyChanged("errorMessage");
-            }
-        }
-        public string vivesNrInput
-        {
-            get
-            {
-                return _vivesNrInput;
-            }
-            set
-            {
-                _vivesNrInput = value;
-                OnPropertyChanged();
+                errorMessage = value;
             }
         }
 
-        public string firstNameInput
-        {
-            get
-            {
-                return _firstNameInput;
-            }
-            set
-            {
-                _firstNameInput = value;
-                OnPropertyChanged();
-            }
-        }
-        public string lastNameInput
-        {
-            get
-            {
-                return _lastNameInput;
-            }
-            set
-            {
-                _lastNameInput = value;
-                OnPropertyChanged();
-            }
-        }
-        public string emailAdresInput
-        {
-            get
-            {
-                return _emailAdresInput;
-            }
-            set
-            {
-                _emailAdresInput = value;
-                OnPropertyChanged();
-            }
-        }
-        public string passwordInput
-        {
-            get
-            {
-                return _passwordInput;
-            }
-            set
-            {
-                _passwordInput = value;
-                OnPropertyChanged();
-            }
-        }
-        public string passwordRepeatInput
-        {
-            get
-            {
-                return _passwordRepeatInput;
-            }
-            set
-            {
-                _passwordRepeatInput = value;
-                OnPropertyChanged();
-            }
-        }
-        public string rolInput
-        {
-            get
-            {
-                return _rolInput;
-            }
-            set
-            {
-                _rolInput = value;
-                OnPropertyChanged();
-            }
-        }
+        public string VivesNrInput { get; set; }
+
+        public string FirstNameInput { get; set; }
+
+        public string LastNameInput { get; set; }
+
+        public string EmailAdresInput { get; set; }
+
+        public string PasswordInput { get; set; }
+
+        public string PasswordRepeatInput { get; set; }
+
+        public string RolInput { get; set; }
         #endregion
-
-
-      
-
-}
+    }
 }
 
