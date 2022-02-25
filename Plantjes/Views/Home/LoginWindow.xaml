@@ -7,13 +7,13 @@
         xmlns:uc="clr-namespace:Plantjes.Views.UserControls"
         mc:Ignorable="d"
         Title="LoginWindow" Height="300" Width="450">
+    
     <!--Written by Kenny-->
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:ViewModelLogin}">
             <uc:UserControlName/>
         </DataTemplate>
-
     </Window.Resources>
 
 
@@ -24,6 +24,7 @@
             <!-- ImageBrush  Stretch="Fill" ImageSource="../../../Image/waterval.jpeg"/ -->
         <!-- /Grid.Background -->
 
+        <!-- Written by Ian on 25/02 -->
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image Source="/image/vives.png" MaxWidth="250"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
