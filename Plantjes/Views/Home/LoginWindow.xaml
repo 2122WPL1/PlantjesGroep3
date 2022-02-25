@@ -25,12 +25,12 @@
             <Image x:Name="VivesLogo" Source="/image/vives.png" MaxWidth="250"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblUserName" Content="e-mail:"/>
-                <TextBox Name="txtGebruikersnaam" Text="{Binding UserNameInput}" MinWidth="150" MaxWidth="200" Margin="5"/>
+                <TextBox Name="txtGebruikersnaam" Text="{Binding UserNameInput}" MinWidth="200" MaxWidth="250" Margin="5"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblPasword" Content="wachtwoord:"/>
-                <TextBox x:Name="txtWachtwoord" Text="{Binding PasswordInput}" MinWidth="150" MaxWidth="200" Margin="5" FontFamily="/font/password.ttf"/>
+                <TextBox x:Name="txtWachtwoord" Text="{Binding PasswordInput}" MinWidth="200" MaxWidth="250" Margin="5" FontFamily="/font/password.ttf"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
