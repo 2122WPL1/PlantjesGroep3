@@ -125,9 +125,13 @@ namespace Plantjes.ViewModels.Services
                 passwordRepeatInput != null)
             {
                 //checken als het emailadres een geldig vives email is.
-                if (!IsEmail(emailInput) || _dao.GetGebruiker(emailInput) == null)
+                if (!IsEmail(emailInput))
                 {
-                    throw new Exception($"{emailInput} is geen geldig emailadres, " + "\r\n" + " of het eamiladres is al in gebruik.");
+                    throw new Exception($"{emailInput} is geen geldig emailadres!");
+                }
+                if (_dao.GetGebruiker(emailInput) != null)
+                {
+                    throw new Exception($"{emailInput} is al geregistreert!");
                 }
                 //checken als het herhaalde wachtwoord klopt of niet.
                 if (passwordInput != passwordRepeatInput)

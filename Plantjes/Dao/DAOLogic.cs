@@ -73,7 +73,7 @@ namespace Plantjes.Dao
         /// <returns>Retursn the user with said email.</returns>
         public Gebruiker GetGebruiker(string email)
         {
-            return GetListWhere<Gebruiker>(g => g.Emailadres == email).First();
+            return GetListWhere<Gebruiker>(g => g.Emailadres == email).FirstOrDefault();
         }
 
         ///Owen
