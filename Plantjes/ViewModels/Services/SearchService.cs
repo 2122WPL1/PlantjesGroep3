@@ -24,6 +24,7 @@ namespace Plantjes.ViewModels.Services
 
         }
 
+        //written by Warre
         #region Get methods
         public IEnumerable<TEntity> GetList<TEntity>(bool distinct = false) where TEntity : class
         {
@@ -35,11 +36,40 @@ namespace Plantjes.ViewModels.Services
             return _dao.GetListWhere<TEntity>(predicate, distinct);
         }
 
+        /// <summary>
+        /// Uses <see cref="GetListWhere{TEntity}(Func{TEntity, bool}, bool)"/> to filter to the filled in params.
+        /// </summary>
+        /// <param name="SelectedtType">The selected type.</param>
+        /// <param name="SelectedFamilie">The selected familie.</param>
+        /// <param name="SelectedGeslacht">The selected geslacht.</param>
+        /// <param name="SelectedSoort">The selected soort.</param>
+        /// <param name="SelectedVariant">The selected variant.</param>
+        /// <param name="SelectedNederlandseNaam">The filled in naam.</param>
+        /// <param name="SelectedRatioBloeiBlad">The filled in ratio.</param>
+        /// <returns>Returns an <see cref="IEnumerable{T}"/> of filtered plants.</returns>
         public IEnumerable<Plant> GetFilteredPlants(TfgsvType SelectedtType, TfgsvFamilie SelectedFamilie, TfgsvGeslacht SelectedGeslacht, TfgsvSoort SelectedSoort, TfgsvVariant SelectedVariant, string SelectedNederlandseNaam, string SelectedRatioBloeiBlad)
         {
-            return Enumerable.Empty<Plant>(); 
-                //_dao.GetListWhere<Plant>( 
-                //);
+            IEnumerable<Plant> plants = _dao.GetList<Plant>().ToList();
+
+            if (SelectedtType != null)
+                plants = plants.Where(p => p.TypeId == SelectedtType.Planttypeid);
+
+            if (SelectedFamilie != null)
+                plants = plants.Where(p => p.FamilieId == SelectedFamilie.FamileId);
+
+            if (SelectedGeslacht != null)
+                plants = plants.Where(p => p.GeslachtId == SelectedGeslacht.GeslachtId);
+
+            if (SelectedSoort != null)
+                plants = plants.Where(p => p.SoortId == SelectedSoort.Soortid);
+
+            if (SelectedVariant != null)
+                plants = plants.Where(p => p.VariantId == SelectedVariant.VariantId);
+
+            if (SelectedNederlandseNaam != null)
+                plants = plants.Where(p => p.NederlandsNaam.ToLower().Contains(SelectedNederlandseNaam.ToLower().Trim()));
+
+            return plants;
         }
         #endregion
 
@@ -48,40 +78,39 @@ namespace Plantjes.ViewModels.Services
         /// Plant detail listbox methods, geschreven door Robin, omgezet voor de service door kenny
         /// </summary>
         /// <param name="detailsSelectedPlant"></param>
-        /// <param name="SelectedPlantInResult"></param>
-        public void FillDetailPlantResult(ObservableCollection<string> detailsSelectedPlant, Plant SelectedPlantInResult)
+        /// <param name="selectedPlant"></param>
+        public IEnumerable<string> GetDetailPlantResult(Plant selectedPlant)
         {
-            detailsSelectedPlant.Clear();
+            List<string> list = new List<string>();
             //Every property of the selected plant will be added to the OC
             //Now when I bind it to the list in the xaml, they will be displayed
-            if (SelectedPlantInResult != null)
+            if (selectedPlant != null)
             {
                 //Add every available plant property to the OC
                 ////start with the properties consisting of a single value              
-                FillSingleValuePlantDetails(detailsSelectedPlant,SelectedPlantInResult);
-
+                FillSingleValuePlantDetails(list, selectedPlant);
                 //Tables linked to Plant by PlantId
                 ////Abiotiek
-                FillDetailsPlantAbiotiek(detailsSelectedPlant, SelectedPlantInResult);
+                FillDetailsPlantAbiotiek(list, selectedPlant);
                 ////Abiotiek_Multi
-                FillDetailsPlantAbiotiekMulti(detailsSelectedPlant, SelectedPlantInResult);
+                FillDetailsPlantAbiotiekMulti(list, selectedPlant);
                 ////Beheermaand
-                FillDetailsPlantBeheermaand(detailsSelectedPlant,SelectedPlantInResult);
+                FillDetailsPlantBeheermaand(list, selectedPlant);
                 ////Commensalisme
-                FillDetailsPlantCommensalisme(detailsSelectedPlant, SelectedPlantInResult);
+                FillDetailsPlantCommensalisme(list, selectedPlant);
                 ////CommensalismeMulti
-                FillDetailsPlantCommensalismeMulti(detailsSelectedPlant, SelectedPlantInResult);
+                FillDetailsPlantCommensalismeMulti(list, selectedPlant);
                 ////ExtraEigenschap
-                FillExtraEigenschap(detailsSelectedPlant, SelectedPlantInResult);
+                FillExtraEigenschap(list, selectedPlant);
                 ////FenoType
-                FillFenotype(detailsSelectedPlant, SelectedPlantInResult);
+                FillFenotype(list, selectedPlant);
 
                 ////Foto
                 ////UpdatePlant
             }
-
+            return list;
         }
-        public void FillSingleValuePlantDetails(ObservableCollection<string> detailsSelectedPlant, Plant SelectedPlantInResult)
+        public void FillSingleValuePlantDetails(List<string> detailsSelectedPlant, Plant SelectedPlantInResult)
         {
             //These are single value properties and can be added to the details screen immediatly
             detailsSelectedPlant.Add("Plant Id: " + SelectedPlantInResult.PlantId);
@@ -97,7 +126,7 @@ namespace Plantjes.ViewModels.Services
             detailsSelectedPlant.Add("status: " + SelectedPlantInResult.Status);
         }
 
-        public void FillDetailsPlantAbiotiek(ObservableCollection<string> detailsSelectedPlant, Plant SelectedPlantInResult)
+        public void FillDetailsPlantAbiotiek(List<string> detailsSelectedPlant, Plant SelectedPlantInResult)
         {
             ////The following property consist of multiple values in a different table
             ////First we need an Abiotiek list, then we'll need to filter that list
@@ -120,7 +149,7 @@ namespace Plantjes.ViewModels.Services
                 }
             }
         }
-        public void FillDetailsPlantAbiotiekMulti(ObservableCollection<string> detailsSelectedPlant, Plant SelectedPlantInResult)
+        public void FillDetailsPlantAbiotiekMulti(List<string> detailsSelectedPlant, Plant SelectedPlantInResult)
         {
             ////The following property consist of multiple values in a different table
             ////First we need an Abiotiek_Multi list, then we'll need to filter that list
@@ -149,7 +178,7 @@ namespace Plantjes.ViewModels.Services
         }
 
         //Table without data
-        public void FillDetailsPlantBeheermaand(ObservableCollection<string> detailsSelectedPlant, Plant SelectedPlantInResult)
+        public void FillDetailsPlantBeheermaand(List<string> detailsSelectedPlant, Plant SelectedPlantInResult)
         {
             ////The following property consist of multiple values in a different table
             ////First we need an BeheerMaand list consisting of every possible property, then we'll need to filter that list
@@ -186,7 +215,7 @@ namespace Plantjes.ViewModels.Services
         }
 
         //Table without data
-        public void FillDetailsPlantCommensalisme(ObservableCollection<string> detailsSelectedPlant, Plant SelectedPlantInResult)
+        public void FillDetailsPlantCommensalisme(List<string> detailsSelectedPlant, Plant SelectedPlantInResult)
         {
             ////The following property consist of multiple values in a different table
             ////First we need an Commensalisme list consisting of every possible property, then we'll need to filter that list
@@ -209,7 +238,7 @@ namespace Plantjes.ViewModels.Services
             }
         }
 
-        public void FillDetailsPlantCommensalismeMulti(ObservableCollection<string> detailsSelectedPlant, Plant SelectedPlantInResult)
+        public void FillDetailsPlantCommensalismeMulti(List<string> detailsSelectedPlant, Plant SelectedPlantInResult)
         {
             ////The following property consist of multiple values in a different table
             ////First we need an CommensalismeMulti list consisting of every possible property, then we'll need to filter that list
@@ -236,7 +265,7 @@ namespace Plantjes.ViewModels.Services
             }
         }
 
-        public void FillExtraEigenschap(ObservableCollection<string> detailsSelectedPlant, Plant SelectedPlantInResult)
+        public void FillExtraEigenschap(List<string> detailsSelectedPlant, Plant SelectedPlantInResult)
         {
             ////The following property consist of multiple values in a different table
             ////First we need an ExtraEigenschap list, then we'll need to filter that list
@@ -308,7 +337,7 @@ namespace Plantjes.ViewModels.Services
             }
         }
 
-        public void FillFenotype(ObservableCollection<string> detailsSelectedPlant, Plant SelectedPlantInResult)
+        public void FillFenotype(List<string> detailsSelectedPlant, Plant SelectedPlantInResult)
         {
             ////The following property consist of multiple values in a different table
             ////First we need an Fenotype list, then we'll need to filter that list

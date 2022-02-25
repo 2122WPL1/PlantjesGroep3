@@ -14,7 +14,7 @@ namespace Plantjes.ViewModels.Interfaces
         IEnumerable<Plant> GetFilteredPlants(TfgsvType selectedType, TfgsvFamilie selectedFamilie, TfgsvGeslacht selectedGeslacht,
             TfgsvSoort selectedSoort, TfgsvVariant selectedVariant, string selectedNederlandseNaam, string selectedRatioBloeiBlad);
 
-        void FillDetailPlantResult(ObservableCollection<string> detailsSelectedPlant, Plant SelectedPlantInResult);
+        IEnumerable<string> GetDetailPlantResult(Plant SelectedPlantInResult);
 
         ImageSource GetImageLocation(string ImageCatogrie, Plant SelectedPlantInResult);
 
