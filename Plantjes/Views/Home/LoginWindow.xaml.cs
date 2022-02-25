@@ -13,5 +13,10 @@ namespace Plantjes.Views.Home
             DataContext = GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<ViewModelLogin>();
             InitializeComponent();
         }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
