@@ -7,6 +7,7 @@ using Plantjes.Dao;
 using Plantjes.Models;
 using Plantjes.ViewModels.Interfaces;
 using Plantjes.ViewModels;
+using Plantjes.Models.Db;
 
 namespace Plantjes.ViewModels
 {
@@ -27,7 +28,7 @@ namespace Plantjes.ViewModels
 
         public void fillComboBoxBeheerdaad()
         {
-            var list = _dao.FillBeheerdaad().ToList();
+            var list = _dao.GetList<BeheerMaand>();
 
             
                 foreach (var item in list)

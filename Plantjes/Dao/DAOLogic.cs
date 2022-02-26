@@ -67,20 +67,19 @@ namespace Plantjes.Dao
 
         //written by Warre
         /// <summary>
-        /// <see cref="GetListWhere{Gebruiker}(Func{Gebruiker, bool}, bool)"/>.
+        /// <see cref="GetList{Gebruiker}(bool)"/>.
         /// </summary>
         /// <param name="email">The email to be parsed.</param>
         /// <returns>Retursn the user with said email.</returns>
         public Gebruiker GetGebruiker(string email)
         {
-            return GetListWhere<Gebruiker>(g => g.Emailadres == email).FirstOrDefault();
+            return GetList<Gebruiker>().FirstOrDefault(g => g.Emailadres == email);
         }
 
         ///Owen
-        public string GetImages(long id , string ImageCategorie)
+        public string GetImageLocation(long plantId , string imageCategorie)
         {
-            var foto = context.Fotos.Where(s=>s.Eigenschap == ImageCategorie).SingleOrDefault(s=> s.Plant == id);
-            
+            var foto = context.Fotos.Where(s=>s.Eigenschap == imageCategorie).SingleOrDefault(s=> s.Plant == plantId);
 
             if (foto != null)
             {
@@ -89,90 +88,6 @@ namespace Plantjes.Dao
             }
 
             return null;
-        }
-
-        ///Robin
-        //Get a list of all the Abiotiek types
-        public List<Abiotiek> GetAllAbiotieks()
-        {
-            var abiotiek = context.Abiotieks.ToList();
-            return abiotiek;
-        }
-
-        //Get a list of all the AbiotiekMulti types
-        public List<AbiotiekMulti> GetAllAbiotieksMulti()
-        {
-            //List is unfiltered, a plantId can be present multiple times
-            //The aditional filteren will take place in the ViewModel
-
-            var abioMultiList = context.AbiotiekMultis.ToList();
-
-            return abioMultiList;
-        }
-
-        //Get a list of all the Beheermaand types
-        public List<BeheerMaand> GetBeheerMaanden()
-        {
-            var beheerMaanden = context.BeheerMaands.ToList();
-            return beheerMaanden;
-        }
-
-        public List<Commensalisme> GetAllCommensalisme()
-        {
-            var commensalisme = context.Commensalismes.ToList();
-            return commensalisme;
-        }
-
-        public List<CommensalismeMulti> GetAllCommensalismeMulti()
-        {
-            //List is unfiltered, a plantId can be present multiple times
-            //The aditional filtering will take place in the ViewModel
-
-            var commensalismeMulti = context.CommensalismeMultis.ToList();
-            return commensalismeMulti;
-        }
-
-        public List<ExtraEigenschap> GetAllExtraEigenschap()
-        {
-            var extraEigenschap = context.ExtraEigenschaps.ToList();
-            return extraEigenschap;
-        }
-
-        public List<Fenotype> GetAllFenoTypes()
-        {
-            var fenoTypes = context.Fenotypes
-                .ToList();
-            return fenoTypes;
-        }
-
-        public List<Foto> GetAllFoto()
-        {
-            var foto = context.Fotos.ToList();
-            return foto;
-        }
-
-        public List<UpdatePlant> GetAllUpdatePlant()
-        {
-            var updatePlant = context.UpdatePlants.ToList();
-            return updatePlant;
-        }
-
-        public List<ExtraPollenwaarde> FillExtraPollenwaardes()
-        {
-            var selection = context.ExtraPollenwaardes.ToList();
-            return selection;
-        }
-
-        public List<ExtraNectarwaarde> FillExtraNectarwaardes()
-        {
-            var selection = context.ExtraNectarwaardes.ToList();
-            return selection;
-        }
-
-        public List<BeheerMaand> FillBeheerdaad()
-        {
-            var selection = context.BeheerMaands.ToList();
-            return selection;
         }
         #endregion
 
@@ -210,85 +125,6 @@ namespace Plantjes.Dao
             context.Gebruikers.Add(gebruiker);
             _ = context.SaveChanges();
         }
-        #endregion
-
-        #region FilterFromPlant
-        ///Owen: op basis van basiscode Kenny, Christophe
-        #region FilterFenoTypeFromPlant 
-
-        public IQueryable<Fenotype> filterFenoTypeFromPlant(int selectedItem)
-        {
-
-            var selection = context.Fenotypes.Distinct().Where(s => s.PlantId == selectedItem);
-            return selection;
-        }
-
-        public IQueryable<FenotypeMulti> FilterFenotypeMultiFromPlant(int selectedItem)
-        {
-
-            var selection = context.FenotypeMultis.Distinct().Where(s => s.PlantId == selectedItem);
-            return selection;
-        }
-        #endregion
-
-        #region FilterAbiotiekFromPlant
-        public IQueryable<Abiotiek> filterAbiotiekFromPlant(int selectedItem)
-        {
-
-            var selection = context.Abiotieks.Distinct().Where(s => s.PlantId == selectedItem);
-            return selection;
-        }
-
-        public IQueryable<AbiotiekMulti> filterAbiotiekMultiFromPlant(int selectedItem)
-        {
-
-            var selection = context.AbiotiekMultis.Distinct().Where(s => s.PlantId == selectedItem);
-            return selection;
-        }
-
-
-        #endregion
-
-        #region FilterBeheerMaandFromPlant
-        public IQueryable<BeheerMaand> FilterBeheerMaandFromPlant(int selectedItem)
-        {
-
-            var selection = context.BeheerMaands.Distinct().Where(s => s.PlantId == selectedItem);
-            return selection;
-        }
-
-
-        #endregion
-
-        #region FilterCommensalismeFromPlant
-        public IQueryable<Commensalisme> FilterCommensalismeFromPlant(int selectedItem)
-        {
-
-            var selection = context.Commensalismes.Distinct().Where(s => s.PlantId == selectedItem);
-            return selection;
-        }
-
-        public IQueryable<CommensalismeMulti> FilterCommensalismeMulti(int selectedItem)
-        {
-
-            var selection = context.CommensalismeMultis.Distinct().Where(s => s.PlantId == selectedItem);
-            return selection;
-        }
-
-
-        #endregion
-
-        #region FilterExtraEigenschapFromPlant
-        public IQueryable<ExtraEigenschap> FilterExtraEigenschapFromPlant(int selectedItem)
-        {
-
-            var selection = context.ExtraEigenschaps.Distinct().Where(s => s.PlantId == selectedItem);
-            return selection;
-        }
-
-
-        #endregion
-
         #endregion
     }
 }

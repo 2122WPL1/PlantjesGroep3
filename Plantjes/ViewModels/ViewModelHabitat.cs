@@ -32,7 +32,7 @@ namespace Plantjes.ViewModels
         //geschreven door christophe, op basis van een voorbeeld van owen
         public void fillComboBoxPollenwaarde()
         {
-            var list = _dao.FillExtraPollenwaardes();
+            var list = _dao.GetList<ExtraPollenwaarde>();
 
             foreach (var item in list)
             {
@@ -57,7 +57,7 @@ namespace Plantjes.ViewModels
 
         public void fillComboBoxNectarwaarde()
         {
-            var list = _dao.FillExtraNectarwaardes();
+            var list = _dao.GetList<ExtraNectarwaarde>();
 
             foreach (var item in list)
             {
