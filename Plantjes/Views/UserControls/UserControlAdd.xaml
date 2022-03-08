@@ -20,8 +20,56 @@
             <Button x:Name="btnCommensalism" Content="Commensalisme" Width="100" Margin="5"/>
         </StackPanel>
 
-        <Grid>
-            
-        </Grid>
+        <GroupBox Margin="0,50,0,0">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Orientation="Vertical">
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblType" Content="Type:"/>
+                        <ComboBox x:Name="cbType" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblFamilie" Content="Familie:"/>
+                        <TextBox x:Name="txtFamilie" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblGeslacht" Content="Geslacht:"/>
+                        <TextBox x:Name="txtGeslacht" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblSoort" Content="Soort:"/>
+                        <TextBox x:Name="txtSoort" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblVariant" Content="Variant:"/>
+                        <TextBox x:Name="txtVariant" Width="200"/>
+                    </StackPanel>
+                    
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,40,0,0">
+                    
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblFotoBloei" Content="Bloei Foto:"/>
+                        <Button x:Name="btnFotoBloei" Content="Bladeren..." Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblFotoHabitus" Content="Habitus Foto:"/>
+                        <Button x:Name="btnFotoHabitus" Content="Bladeren..." Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblFotoBlad" Content="Blad Foto:"/>
+                        <Button x:Name="btnFotoBlad" Content="Bladeren..." Width="200"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        <Button Content="Toevoegen" Width="150" Height="50" Margin="0, 0, 100, 100" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>
