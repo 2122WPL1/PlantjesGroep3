@@ -13,7 +13,7 @@ namespace Plantjes.ViewModels
 
         private ViewModelBase _currentViewModel;
 
-        public MyICommand<string> mainNavigationCommand { get; set; }
+        public Command<string> mainNavigationCommand { get; set; }
         public ViewModelBase currentViewModel
         {
             get { return _currentViewModel; }
@@ -29,7 +29,7 @@ namespace Plantjes.ViewModels
             this._searchService = searchService;
             this.loginUserService = loginUserService;
 
-            mainNavigationCommand = new MyICommand<string>(this._onNavigationChanged);
+            mainNavigationCommand = new Command<string>(this._onNavigationChanged);
             //  dialogService.ShowMessageBox(this, "", "");
         }
 
