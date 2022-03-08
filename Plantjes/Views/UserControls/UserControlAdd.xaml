@@ -6,6 +6,8 @@
              xmlns:local="clr-namespace:Plantjes.Views.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="834" d:DesignWidth="1250">
+
+    <!-- Written by Ian on 25/02 -->
     <Grid Background="#eeeeee">
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="10">
 
@@ -20,7 +22,7 @@
             <Button x:Name="btnCommensalism" Content="Commensalisme" Width="100" Margin="5"/>
         </StackPanel>
 
-        <GroupBox Margin="0,50,0,0">
+        <GroupBox x:Name="gbMainInfo" Margin="0,50,0,0" Visibility="Collapsed">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Vertical">
 
@@ -70,6 +72,82 @@
                 </StackPanel>
             </StackPanel>
         </GroupBox>
+
+        <GroupBox x:Name="gbFenotype" Margin="0,50,0,0" Visibility="Visible">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblBladGrootte" Content="Bladgrootte tot:"/>
+                        <TextBox x:Name="txtBladGrootte" Width="200"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblBladVorm" Content="Bladvorm:"/>
+                        <TextBox x:Name="txtBladVorm" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblBloeiBladRatio" Content="Ratio Bloed/Blad:"/>
+                        <TextBox x:Name="txtBloeiBladRatio" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblSpruitfenologie" Content="Spruitfenologie:"/>
+                        <TextBox x:Name="txtSpruitfenologie" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblBloeiwijze" Content="Bloeiwijze:"/>
+                        <ComboBox x:Name="cbBloeiwijze" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblHabitus" Content="Habitus:"/>
+                        <ComboBox x:Name="cbHabitus" Width="200"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Margin="30,0,0,0">
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblMaand" Content="Maand:"/>
+                        <ComboBox x:Name="cbMaand" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblBladkleur" Content="Bladkleur:"/>
+                        <ComboBox x:Name="cbBladkleur" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblBloeikleur" Content="Bloeikleur:"/>
+                        <ComboBox x:Name="cbBloeikleur" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblMaxBladhoogte" Content="Bladhoogte Max:"/>
+                        <TextBox x:Name="txtMaxBladhoogte" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblMinBloeihoogte" Content="Bloeihoogte Min:"/>
+                        <TextBox x:Name="txtMinBloeihoogte" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblMaxBloeihoogte" Content="Bloeihoogte Max:"/>
+                        <TextBox x:Name="txtMaxBloeihoogte" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblBloeit" Content="Bloeit:"/>
+                        <CheckBox x:Name="txtBloeit" Margin="0,5"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+        
+        <!-- Button met algemene afhandeling van toevoegingscode. -->
         <Button Content="Toevoegen" Width="150" Height="50" Margin="0, 0, 100, 100" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>
