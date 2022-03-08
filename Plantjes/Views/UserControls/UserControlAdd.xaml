@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Plantjes.Views.UserControls.UserControlAdd"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Plantjes.Views.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="834" d:DesignWidth="1250">
+    <Grid Background="#eeeeee">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="10">
+
+            <Button x:Name="btnMainInfo" Content="Algemene Info" Width="100" Margin="5"/>
+
+            <Button x:Name="btnFenotype" Content="Fenotype" Width="100" Margin="5"/>
+
+            <Button x:Name="btnAbioFactors" Content="Abiotische Factoren" Width="120" Margin="5"/>
+
+            <Button x:Name="btnActs" Content="Beheersdaden" Width="100" Margin="5"/>
+
+            <Button x:Name="btnCommensalism" Content="Commensalisme" Width="100" Margin="5"/>
+        </StackPanel>
+
+        <Grid>
+            
+        </Grid>
+    </Grid>
+</UserControl>

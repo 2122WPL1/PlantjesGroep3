@@ -41,6 +41,11 @@
 
     <Grid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="10">
+
+            <Button x:Name="btnAdd" Content="Toevoegen" Width="100" Margin="5" 
+                    Command="{Binding mainNavigationCommand}" 
+                    CommandParameter="VIEWADD"/>
+            
             <Button x:Name="btnBloei" Content="Bloei" Width="100" Margin="5" 
                     Command="{Binding mainNavigationCommand}" 
                     CommandParameter="VIEWBLOOM"/>
@@ -66,7 +71,15 @@
                     CommandParameter="VIEWNAME"/>
         </StackPanel>
 
-        <Grid x:Name="MainContent" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20,0,0,0">
+        <Grid x:Name="MainContent" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Height="834" MaxHeight="1300" RenderTransformOrigin="0.5,0.5" Width="1250" MaxWidth="2000">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
             <ContentControl Content="{Binding currentViewModel}"/>
         </Grid>
     </Grid>
@@ -146,9 +159,11 @@
 
 
 
-        --><!--<Frame x:Name="MainFrame" Margin="0,190,0,0"  Content=""/>-->
+        -->
+    <!--<Frame x:Name="MainFrame" Margin="0,190,0,0"  Content=""/>-->
 
-        <!-- hier doe je de binding van het currentViewModel !Clue van het systeem --><!--
+    <!-- hier doe je de binding van het currentViewModel !Clue van het systeem -->
+    <!--
         <Grid x:Name="MainContent" HorizontalAlignment="Center" Width="1230" Margin="0,101,0,0" Height="773" VerticalAlignment="Top">
             <ContentControl Content="{Binding currentViewModel}" HorizontalAlignment="Left" Width="1210" Height="754" VerticalAlignment="Center" Margin="10,0,0,0"/>
         </Grid>
