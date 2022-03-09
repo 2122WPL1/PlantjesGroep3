@@ -52,6 +52,17 @@ namespace Plantjes.ViewModels
             }
         }
 
+        private IEnumerable<StackPanel> MakeCheckCombobox<TEntity>(Func<TEntity, string> selector) where TEntity : class
+        {
+            foreach (TEntity item in searchService.GetList<TEntity>())
+            {
+                StackPanel panel = new StackPanel() { Orientation = Orientation.Horizontal };
+                panel.Children.Add(new CheckBox());
+                panel.Children.Add(new Label() { Content = selector(item) });
+                yield return panel;
+            }
+        }
+
         private void AddPlant(object parameters)
         {
             
@@ -197,7 +208,26 @@ namespace Plantjes.ViewModels
         #endregion
 
         #region Abiotische Factoren
-        
+        IEnumerable<StackPanel> CmbBezonning
+        {
+            get => MakeCheckCombobox<AbioBezonning>(a => a.Naam);
+        }
+        IEnumerable<StackPanel> CmbGrondsoort
+        {
+            get => MakeCheckCombobox<AbioGrondsoort>(a => a.Grondsoort);
+        }
+        IEnumerable<StackPanel> CmbVochtbehoefte
+        {
+            get => MakeCheckCombobox<AbioVochtbehoefte>(a => a.Vochtbehoefte);
+        }
+        IEnumerable<StackPanel> CmbVoedingsbehoefte
+        {
+            get => MakeCheckCombobox<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
+        }
+        IEnumerable<StackPanel> CmbHabitat
+        {
+            get => MakeCheckCombobox<AbioHabitat>(a => a.Waarde);
+        }
         #endregion
 
         #region Beheersdaden
@@ -205,7 +235,18 @@ namespace Plantjes.ViewModels
         #endregion
 
         #region Commensalisme
-
+        IEnumerable<StackPanel> CmbOntwikkelingssnelheid
+        {
+            get => MakeCheckCombobox<AbioBezonning>(a => a.Naam);
+        }
+        IEnumerable<StackPanel> CmbConcurrentiekracht
+        {
+            get => MakeCheckCombobox<AbioGrondsoort>(a => a.Grondsoort);
+        }
+        IEnumerable<StackPanel> CmbSociabiliteit
+        {
+            get => MakeCheckCombobox<AbioVochtbehoefte>(a => a.Vochtbehoefte);
+        }
         #endregion
     }
 }
