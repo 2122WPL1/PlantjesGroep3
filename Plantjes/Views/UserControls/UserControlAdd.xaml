@@ -153,6 +153,20 @@
                             <CheckBox x:Name="txtBloeit" Margin="0,5"/>
                         </StackPanel>
                     </WrapPanel>
+                    
+                    <ItemsControl x:Name="icFenotypeMonth">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    
                     <Button x:Name="btnAddMonthFenotype" Content="+" Width="20"/>
                 </StackPanel>
             </StackPanel>
