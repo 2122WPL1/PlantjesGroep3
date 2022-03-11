@@ -83,6 +83,7 @@
             <ContentControl Content="{Binding currentViewModel}"/>
         </Grid>
     </Grid>
+    
     <!--<Button x:Name="btnLopendVerzoek" Content="Lopend verzoek" HorizontalAlignment="Left" Margin="948,14,0,0" VerticalAlignment="Top" Height="32" Width="125" BorderBrush="#FF2AE633" Background="#FF474029" FontWeight="Bold" FontSize="15" Foreground="#FFA2BC5B">
             <Button.Effect>
                 <DropShadowEffect/>
