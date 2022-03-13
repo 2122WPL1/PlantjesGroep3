@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using Plantjes.Models.Extensions;
 
 namespace Plantjes.ViewModels
 {
@@ -36,30 +37,37 @@ namespace Plantjes.ViewModels
             ToevoegenCommand = new Command<object>(new Action<object>(AddPlant));
         }
 
-        private IEnumerable<StackPanel> MakeColorCombobox()
+        private IEnumerable<MenuItem> ColorMenuItemList()
         {
             foreach (FenoKleur item in searchService.GetList<FenoKleur>())
             {
-                StackPanel panel = new StackPanel() { Orientation = Orientation.Horizontal };
-                panel.Children.Add(new Rectangle()
+                yield return new MenuItem()
                 {
-                    Width = 16,
-                    Height = 16,
-                    Fill = (Brush)new System.Windows.Media.BrushConverter().ConvertFromString(item.HexWaarde.ToString())
-                });
-                panel.Children.Add(new Label() { Content = item.NaamKleur });
-                yield return panel;
+                    Width = double.NaN,
+                    IsCheckable = true,
+                    StaysOpenOnClick = true,
+                    Header = new Rectangle()
+                    {
+                        Width = 20,
+                        Height = 20,
+                        Fill = (SolidColorBrush)new BrushConverter().ConvertFromString("#" + Convert.ToHexString(item.HexWaarde)),
+                    },
+                    InputGestureText = item.NaamKleur.FirstToUpper(),
+                };
             }
         }
 
-        private IEnumerable<StackPanel> MakeCheckCombobox<TEntity>(Func<TEntity, string> selector) where TEntity : class
+        private IEnumerable<MenuItem> MenuItemList<TEntity>(Func<TEntity, string> selector) where TEntity : class
         {
             foreach (TEntity item in searchService.GetList<TEntity>())
             {
-                StackPanel panel = new StackPanel() { Orientation = Orientation.Horizontal };
-                panel.Children.Add(new CheckBox());
-                panel.Children.Add(new Label() { Content = selector(item) });
-                yield return panel;
+                yield return new MenuItem()
+                {
+                    Width = double.NaN,
+                    IsCheckable = true,
+                    StaysOpenOnClick = true,
+                    Header = selector(item).FirstToUpper(),
+                };
             }
         }
 
@@ -171,13 +179,13 @@ namespace Plantjes.ViewModels
         {
             get => CultureInfo.GetCultureInfo("nl-BE").DateTimeFormat.MonthNames;
         }
-        public IEnumerable<StackPanel> CmbBladkleur
+        public IEnumerable<MenuItem> CmbBladkleur
         {
-            get => MakeColorCombobox();
+            get => ColorMenuItemList();
         }
-        public IEnumerable<StackPanel> CmbBloeikleur
+        public IEnumerable<MenuItem> CmbBloeikleur
         {
-            get => MakeColorCombobox();
+            get => ColorMenuItemList();
         }
         public IEnumerable<string> CmbBladhoogteMax
         {
@@ -208,25 +216,25 @@ namespace Plantjes.ViewModels
         #endregion
 
         #region Abiotische Factoren
-        IEnumerable<StackPanel> CmbBezonning
+        IEnumerable<MenuItem> CmbBezonning
         {
-            get => MakeCheckCombobox<AbioBezonning>(a => a.Naam);
+            get => MenuItemList<AbioBezonning>(a => a.Naam);
         }
-        IEnumerable<StackPanel> CmbGrondsoort
+        IEnumerable<MenuItem> CmbGrondsoort
         {
-            get => MakeCheckCombobox<AbioGrondsoort>(a => a.Grondsoort);
+            get => MenuItemList<AbioGrondsoort>(a => a.Grondsoort);
         }
-        IEnumerable<StackPanel> CmbVochtbehoefte
+        IEnumerable<MenuItem> CmbVochtbehoefte
         {
-            get => MakeCheckCombobox<AbioVochtbehoefte>(a => a.Vochtbehoefte);
+            get => MenuItemList<AbioVochtbehoefte>(a => a.Vochtbehoefte);
         }
-        IEnumerable<StackPanel> CmbVoedingsbehoefte
+        IEnumerable<MenuItem> CmbVoedingsbehoefte
         {
-            get => MakeCheckCombobox<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
+            get => MenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
         }
-        IEnumerable<StackPanel> CmbHabitat
+        IEnumerable<MenuItem> CmbHabitat
         {
-            get => MakeCheckCombobox<AbioHabitat>(a => a.Waarde);
+            get => MenuItemList<AbioHabitat>(a => a.Waarde);
         }
         #endregion
 
@@ -235,17 +243,17 @@ namespace Plantjes.ViewModels
         #endregion
 
         #region Commensalisme
-        IEnumerable<StackPanel> CmbOntwikkelingssnelheid
+        IEnumerable<MenuItem> CmbOntwikkelingssnelheid
         {
-            get => MakeCheckCombobox<AbioBezonning>(a => a.Naam);
+            get => MenuItemList<AbioBezonning>(a => a.Naam);
         }
-        IEnumerable<StackPanel> CmbConcurrentiekracht
+        IEnumerable<MenuItem> CmbConcurrentiekracht
         {
-            get => MakeCheckCombobox<AbioGrondsoort>(a => a.Grondsoort);
+            get => MenuItemList<AbioGrondsoort>(a => a.Grondsoort);
         }
-        IEnumerable<StackPanel> CmbSociabiliteit
+        IEnumerable<MenuItem> CmbSociabiliteit
         {
-            get => MakeCheckCombobox<AbioVochtbehoefte>(a => a.Vochtbehoefte);
+            get => MenuItemList<AbioVochtbehoefte>(a => a.Vochtbehoefte);
         }
         #endregion
     }
