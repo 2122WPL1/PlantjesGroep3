@@ -20,41 +20,41 @@
         </Grid.Background>
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image x:Name="VivesLogo" Source="/image/vives.png" MaxWidth="250"/>
+            <Image x:Name="VivesLogo" Source="/image/vives-planten.png" MaxWidth="250"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblVivesNr" Content="Vives Nummer:" HorizontalAlignment="Left"/>
-                <TextBox Name="txtVivesNr" Text="{Binding VivesNrInput}" MinWidth="150" MaxWidth="200" Margin="5"/>
+                <TextBox Name="txtVivesNr" Text="{Binding VivesNrInput}" MinWidth="200" MaxWidth="250" Margin="5"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblVoornaam" Content="Voornaam:" HorizontalAlignment="Left"/>
-                <TextBox x:Name="txtVoornaam" Text="{Binding FirstNameInput}" MinWidth="150" MaxWidth="200" Margin="5"/>
+                <TextBox x:Name="txtVoornaam" Text="{Binding FirstNameInput}" MinWidth="200" MaxWidth="250" Margin="5"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblAchternaam" Content="Achternaam:" HorizontalAlignment="Left"/>
-                <TextBox x:Name="txtAchternaam" Text="{Binding LastNameInput}" MinWidth="150" MaxWidth="200" Margin="5"/>
+                <TextBox x:Name="txtAchternaam" Text="{Binding LastNameInput}" MinWidth="200" MaxWidth="250" Margin="5"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblEmailadres" Content="e-mail:" HorizontalAlignment="Left"/>
-                <TextBox x:Name="txtEmailAdres" Text="{Binding EmailAdresInput}" MinWidth="150" MaxWidth="200" Margin="5"/>
+                <TextBox x:Name="txtEmailAdres" Text="{Binding EmailAdresInput}" MinWidth="200" MaxWidth="250" Margin="5"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblWachtwoord" Content="wachtwoord:"  HorizontalAlignment="Left"/>
-                <TextBox x:Name="txtWachtwoord" Text="{Binding PasswordInput}" MinWidth="150" MaxWidth="200" Margin="5"/>
+                <TextBox x:Name="txtWachtwoord" Text="{Binding PasswordInput}" MinWidth="200" MaxWidth="250" Margin="5"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblWachtwoordHerhaal" Content="herhaal wachtwoord:" HorizontalAlignment="Left"/>
-                <TextBox x:Name="txtWachtwoordHerhaal" Text="{Binding PasswordRepeatInput}" MinWidth="150" MaxWidth="200" Margin="5"/>
+                <TextBox x:Name="txtWachtwoordHerhaal" Text="{Binding PasswordRepeatInput}" MinWidth="200" MaxWidth="250" Margin="5"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblRol" Content="Rol:" HorizontalAlignment="Left"/>
-                <TextBox x:Name="txtRol" Text="{Binding RolInput}" MinWidth="150" MaxWidth="200" Margin="5"/>
+                <TextBox x:Name="txtRol" Text="{Binding RolInput}" MinWidth="200" MaxWidth="250" Margin="5"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
