@@ -226,23 +226,23 @@ namespace Plantjes.ViewModels
         #endregion
 
         #region Abiotische Factoren
-        IEnumerable<MenuItem> CmbBezonning
+        public IEnumerable<MenuItem> CmbBezonning
         {
             get => makeMenuItemList<AbioBezonning>(a => a.Naam);
         }
-        IEnumerable<MenuItem> CmbGrondsoort
+        public IEnumerable<MenuItem> CmbGrondsoort
         {
             get => makeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
         }
-        IEnumerable<MenuItem> CmbVochtbehoefte
+        public IEnumerable<MenuItem> CmbVochtbehoefte
         {
             get => makeMenuItemList<AbioVochtbehoefte>(a => a.Vochtbehoefte);
         }
-        IEnumerable<MenuItem> CmbVoedingsbehoefte
+        public IEnumerable<MenuItem> CmbVoedingsbehoefte
         {
             get => makeMenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
         }
-        IEnumerable<MenuItem> CmbHabitat
+        public IEnumerable<MenuItem> CmbHabitat
         {
             get => makeMenuItemList<AbioHabitat>(a => a.Waarde);
         }
@@ -256,15 +256,15 @@ namespace Plantjes.ViewModels
         #endregion
 
         #region Commensalisme
-        IEnumerable<MenuItem> CmbOntwikkelingssnelheid
+        public IEnumerable<MenuItem> CmbOntwikkelingssnelheid
         {
             get => makeMenuItemList<AbioBezonning>(a => a.Naam);
         }
-        IEnumerable<MenuItem> CmbConcurrentiekracht
+        public IEnumerable<MenuItem> CmbConcurrentiekracht
         {
             get => makeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
         }
-        IEnumerable<MenuItem> CmbSociabiliteit
+        public IEnumerable<MenuItem> CmbSociabiliteit
         {
             get => makeMenuItemList<AbioVochtbehoefte>(a => a.Vochtbehoefte);
         }
