@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using Plantjes.Models.Extensions;
+using Plantjes.Models.Classes;
 
 namespace Plantjes.ViewModels
 {
@@ -30,14 +31,17 @@ namespace Plantjes.ViewModels
 
         private string selectedFenotypeMaand;
 
+        private List<StackPanel> beheersdaden;
+
         public ViewModelAdd(ISearchService searchService)
         {
             dao = DAOLogic.Instance();
             this.searchService = searchService;
+            AddBeheersdaadCommand = new Command<List<StackPanel>>(new Action<List<StackPanel>>(addBeheersdaadItem));
             ToevoegenCommand = new Command<object>(new Action<object>(AddPlant));
         }
 
-        private IEnumerable<MenuItem> ColorMenuItemList()
+        private IEnumerable<MenuItem> makeColorMenuItemList()
         {
             foreach (FenoKleur item in searchService.GetList<FenoKleur>())
             {
@@ -57,7 +61,7 @@ namespace Plantjes.ViewModels
             }
         }
 
-        private IEnumerable<MenuItem> MenuItemList<TEntity>(Func<TEntity, string> selector) where TEntity : class
+        private IEnumerable<MenuItem> makeMenuItemList<TEntity>(Func<TEntity, string> selector) where TEntity : class
         {
             foreach (TEntity item in searchService.GetList<TEntity>())
             {
@@ -71,11 +75,17 @@ namespace Plantjes.ViewModels
             }
         }
 
+        private void addBeheersdaadItem(List<StackPanel> panels)
+        {
+            panels.Insert(panels.Count - 1, new Beheersdaad());
+        }
+
         private void AddPlant(object parameters)
         {
             
         }
 
+        public Command<List<StackPanel>> AddBeheersdaadCommand { get; set; }
         public Command<object> ToevoegenCommand { get; set; }
 
         #region Algemene Info
@@ -181,11 +191,11 @@ namespace Plantjes.ViewModels
         }
         public IEnumerable<MenuItem> CmbBladkleur
         {
-            get => ColorMenuItemList();
+            get => makeColorMenuItemList();
         }
         public IEnumerable<MenuItem> CmbBloeikleur
         {
-            get => ColorMenuItemList();
+            get => makeColorMenuItemList();
         }
         public IEnumerable<string> CmbBladhoogteMax
         {
@@ -218,42 +228,45 @@ namespace Plantjes.ViewModels
         #region Abiotische Factoren
         IEnumerable<MenuItem> CmbBezonning
         {
-            get => MenuItemList<AbioBezonning>(a => a.Naam);
+            get => makeMenuItemList<AbioBezonning>(a => a.Naam);
         }
         IEnumerable<MenuItem> CmbGrondsoort
         {
-            get => MenuItemList<AbioGrondsoort>(a => a.Grondsoort);
+            get => makeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
         }
         IEnumerable<MenuItem> CmbVochtbehoefte
         {
-            get => MenuItemList<AbioVochtbehoefte>(a => a.Vochtbehoefte);
+            get => makeMenuItemList<AbioVochtbehoefte>(a => a.Vochtbehoefte);
         }
         IEnumerable<MenuItem> CmbVoedingsbehoefte
         {
-            get => MenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
+            get => makeMenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
         }
         IEnumerable<MenuItem> CmbHabitat
         {
-            get => MenuItemList<AbioHabitat>(a => a.Waarde);
+            get => makeMenuItemList<AbioHabitat>(a => a.Waarde);
         }
         #endregion
 
         #region Beheersdaden
-
+        public List<StackPanel> IctrlBeheersdaad
+        {
+            get => beheersdaden;
+        }
         #endregion
 
         #region Commensalisme
         IEnumerable<MenuItem> CmbOntwikkelingssnelheid
         {
-            get => MenuItemList<AbioBezonning>(a => a.Naam);
+            get => makeMenuItemList<AbioBezonning>(a => a.Naam);
         }
         IEnumerable<MenuItem> CmbConcurrentiekracht
         {
-            get => MenuItemList<AbioGrondsoort>(a => a.Grondsoort);
+            get => makeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
         }
         IEnumerable<MenuItem> CmbSociabiliteit
         {
-            get => MenuItemList<AbioVochtbehoefte>(a => a.Vochtbehoefte);
+            get => makeMenuItemList<AbioVochtbehoefte>(a => a.Vochtbehoefte);
         }
         #endregion
     }
