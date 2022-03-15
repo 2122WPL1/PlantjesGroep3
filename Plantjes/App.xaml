@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Plantjes"
              StartupUri="Views/Home/LoginWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="Password">./Font/password.ttf#Password</FontFamily>
     </Application.Resources>
 </Application>

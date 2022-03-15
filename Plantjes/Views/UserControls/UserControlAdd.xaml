@@ -7,181 +7,261 @@
              mc:Ignorable="d" 
              d:DesignHeight="834" d:DesignWidth="1250">
 
-    <!-- Written by Ian on 25/02 -->
+    <!-- Design and base WPF by Ian on 25/02 ; Last edited on 15/03 -->
     <Grid Background="#eeeeee">
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="10">
+        <TabControl>
+            <!--#region MainInfo-->
+            <TabItem Header="Algemene Info" IsSelected="True" x:Name="tiMainInfo">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical">
 
-            <Button x:Name="btnMainInfo" Content="Algemene Info" Width="100" Margin="5"/>
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblType" Content="Type:"/>
+                            <ComboBox x:Name="cbType" Width="200"/>
+                        </StackPanel>
 
-            <Button x:Name="btnFenotype" Content="Fenotype" Width="100" Margin="5"/>
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblFamilie" Content="Familie:"/>
+                            <ComboBox x:Name="cbFamilie" Width="200"/>
+                        </StackPanel>
 
-            <Button x:Name="btnAbioFactors" Content="Abiotische Factoren" Width="120" Margin="5"/>
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblGeslacht" Content="Geslacht:"/>
+                            <ComboBox x:Name="cbGeslacht" Width="200"/>
+                        </StackPanel>
 
-            <Button x:Name="btnActs" Content="Beheersdaden" Width="100" Margin="5"/>
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblSoort" Content="Soort:"/>
+                            <ComboBox x:Name="cbSoort" Width="200"/>
+                        </StackPanel>
 
-            <Button x:Name="btnCommensalism" Content="Commensalisme" Width="100" Margin="5"/>
-        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblVariant" Content="Variant:"/>
+                            <ComboBox x:Name="cbVariant" Width="200"/>
+                        </StackPanel>
 
-        <GroupBox x:Name="gbMainInfo" Margin="0,50,0,0" Visibility="Collapsed">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <StackPanel Orientation="Vertical">
-
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblType" Content="Type:"/>
-                        <ComboBox x:Name="cbType" Width="200"/>
                     </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,40,0,0">
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblFamilie" Content="Familie:"/>
-                        <TextBox x:Name="txtFamilie" Width="200"/>
-                    </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblFotoBloei" Content="Bloei Foto:"/>
+                            <Button x:Name="btnFotoBloei" Content="Bladeren..." Width="200"/>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblGeslacht" Content="Geslacht:"/>
-                        <TextBox x:Name="txtGeslacht" Width="200"/>
-                    </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblFotoHabitus" Content="Habitus Foto:"/>
+                            <Button x:Name="btnFotoHabitus" Content="Bladeren..." Width="200"/>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblSoort" Content="Soort:"/>
-                        <TextBox x:Name="txtSoort" Width="200"/>
-                    </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblFotoBlad" Content="Blad Foto:"/>
+                            <Button x:Name="btnFotoBlad" Content="Bladeren..." Width="200"/>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblVariant" Content="Variant:"/>
-                        <TextBox x:Name="txtVariant" Width="200"/>
-                    </StackPanel>
-                    
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,40,0,0">
-                    
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblFotoBloei" Content="Bloei Foto:"/>
-                        <Button x:Name="btnFotoBloei" Content="Bladeren..." Width="200"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblFotoHabitus" Content="Habitus Foto:"/>
-                        <Button x:Name="btnFotoHabitus" Content="Bladeren..." Width="200"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblFotoBlad" Content="Blad Foto:"/>
-                        <Button x:Name="btnFotoBlad" Content="Bladeren..." Width="200"/>
-                    </StackPanel>
-
-                </StackPanel>
-            </StackPanel>
-        </GroupBox>
-
-        <GroupBox x:Name="gbFenotype" Margin="0,50,0,0" Visibility="Collapsed">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                
-                <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblBladGrootte" Content="Bladgrootte tot:"/>
-                        <TextBox x:Name="txtBladGrootte" Width="200"/>
-                    </StackPanel>
-                    
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblBladVorm" Content="Bladvorm:"/>
-                        <TextBox x:Name="txtBladVorm" Width="200"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblBloeiBladRatio" Content="Ratio Bloed/Blad:"/>
-                        <TextBox x:Name="txtBloeiBladRatio" Width="200"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblSpruitfenologie" Content="Spruitfenologie:"/>
-                        <TextBox x:Name="txtSpruitfenologie" Width="200"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblBloeiwijze" Content="Bloeiwijze:"/>
-                        <ComboBox x:Name="cbBloeiwijze" Width="200"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblHabitus" Content="Habitus:"/>
-                        <ComboBox x:Name="cbHabitus" Width="200"/>
                     </StackPanel>
                 </StackPanel>
+            </TabItem>
+            <!--#endregion-->
+            
+            <!--#region Fenotype-->
+            <TabItem Header="Fenotype" IsSelected="False" x:Name="tiFenotype">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical">
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                                <Label x:Name="lblBladVorm" Content="Bladvorm:"/>
+                                <TextBox x:Name="txtBladVorm" Width="200"/>
+                            </StackPanel>
 
-                <StackPanel Orientation="Vertical" Margin="30,0,0,0">
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblMaand" Content="Maand:"/>
-                        <ComboBox x:Name="cbMaand" Width="200"/>
-                    </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                                <Label x:Name="lblBloeiBladRatio" Content="Ratio Bloed/Blad:"/>
+                                <TextBox x:Name="txtBloeiBladRatio" Width="200"/>
+                            </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblBladkleur" Content="Bladkleur:"/>
-                        <ComboBox x:Name="cbBladkleur" Width="200"/>
-                    </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                                <Label x:Name="lblBloeiwijze" Content="Bloeiwijze:"/>
+                                <ComboBox x:Name="cbBloeiwijze" Width="200"/>
+                            </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblBloeikleur" Content="Bloeikleur:"/>
-                        <ComboBox x:Name="cbBloeikleur" Width="200"/>
-                    </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                                <Label x:Name="lblHabitus" Content="Habitus:"/>
+                                <ComboBox x:Name="cbHabitus" Width="200"/>
+                            </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblMaxBladhoogte" Content="Bladhoogte Max:"/>
-                        <TextBox x:Name="txtMaxBladhoogte" Width="200"/>
-                    </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblMinBloeihoogte" Content="Bloeihoogte Min:"/>
-                        <TextBox x:Name="txtMinBloeihoogte" Width="200"/>
-                    </StackPanel>
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblMaxBloeihoogte" Content="Bloeihoogte Max:"/>
-                        <TextBox x:Name="txtMaxBloeihoogte" Width="200"/>
-                    </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                                <Label x:Name="lblMinBloeihoogte" Content="Bloeihoogte Min:"/>
+                                <TextBox x:Name="txtMinBloeihoogte" Width="200"/>
+                            </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblBloeit" Content="Bloeit:"/>
-                        <CheckBox x:Name="txtBloeit" Margin="0,5"/>
+                            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                                <Label x:Name="lblMaxBloeihoogte" Content="Bloeihoogte Max:"/>
+                                <TextBox x:Name="txtMaxBloeihoogte" Width="200"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                                <Label x:Name="lblSpruitfenologie" Content="Spruitfenologie:"/>
+                                <TextBox x:Name="txtSpruitfenologie" Width="200"/>
+                            </StackPanel>
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                                <Label x:Name="lblBladkleur" Content="Bladkleur:"/>
+                                <ComboBox x:Name="cbBladkleur" Width="200"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                                <Label x:Name="lblBloeikleur" Content="Bloeikleur:"/>
+                                <ComboBox x:Name="cbBloeikleur" Width="200"/>
+                            </StackPanel>
+                        </WrapPanel>
+                        <Rectangle Fill="#888888" Height="1" Margin="0,10,0,10"/>
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                                <Label x:Name="lblMaand" Content="Maand:"/>
+                                <ComboBox x:Name="cbMaand" Width="200"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                                <Label x:Name="lblBladGrootte" Content="Bladgrootte tot:"/>
+                                <TextBox x:Name="txtBladGrootte" Width="200"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                                <Label x:Name="lblMaxBladhoogte" Content="Bladhoogte Max:"/>
+                                <TextBox x:Name="txtMaxBladhoogte" Width="200"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                                <Label x:Name="lblBloeitIn" Content="Bloeit in:"/>
+                                <CheckBox x:Name="cbBloeitIn" Margin="0,5"/>
+                            </StackPanel>
+                        </WrapPanel>
+
+                        <ItemsControl x:Name="icFenotypeMonth">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <Button x:Name="btnAddMonthFenotype" Content="+" Width="20"/>
                     </StackPanel>
                 </StackPanel>
-            </StackPanel>
-        </GroupBox>
+            </TabItem>
+            <!--#endregion-->
 
-        <GroupBox x:Name="gbAbioFactors" Margin="0,50,0,0" Visibility="Visible">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <StackPanel Orientation="Vertical">
-                    
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblBezonning" Content="Bezonning:"/>
-                        <ComboBox x:Name="cbBezonning" Width="200"/>
-                    </StackPanel>
+            <!--#region Abiofactors-->
+            <TabItem Header="Abiotische Factoren" IsSelected="False" x:Name="tiAbiofactors">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical">
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblGrondsoort" Content="Grondsoort:"/>
-                        <ComboBox x:Name="cbGrondsoort" Width="200"/>
-                    </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblBezonning" Content="Bezonning:"/>
+                            <ComboBox x:Name="cbBezonning" Width="200"/>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblVochtbehoefte" Content="Vochtbehoefte:"/>
-                        <ComboBox x:Name="cbVochtbehoefte" Width="200"/>
-                    </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblGrondsoort" Content="Grondsoort:"/>
+                            <ComboBox x:Name="cbGrondsoort" Width="200"/>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblVoedingsbehoefte" Content="Voedingsbehoefte:"/>
-                        <ComboBox x:Name="cbVoedingsbehoefte" Width="200"/>
-                    </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblVochtbehoefte" Content="Vochtbehoefte:"/>
+                            <ComboBox x:Name="cbVochtbehoefte" Width="200"/>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                        <Label x:Name="lblHabitat" Content="Habitat:"/>
-                        <ComboBox x:Name="cbHabitat" Width="200"/>
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblVoedingsbehoefte" Content="Voedingsbehoefte:"/>
+                            <ComboBox x:Name="cbVoedingsbehoefte" Width="200"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblHabitat" Content="Habitat:"/>
+                            <ComboBox x:Name="cbHabitat" Width="200"/>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
-            </StackPanel>
-        </GroupBox>
+            </TabItem>
+            <!--#endregion-->
 
-        <!-- Button met algemene afhandeling van toevoegingscode. -->
-        <!-- Note: Algemene Info moet verplicht ingevuld zijn,
-                    anders wordt plant niet toegevoegd -->
+            <!--#region Beheersdaden-->
+            <TabItem Header="Beheersdaden" IsSelected="False" x:Name="tiBeheersdaden">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ItemsControl x:Name="icBeheesdaadMonth">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Button x:Name="btnAddMonthBeheersdaad" Content="+" Width="20"/>
+                </StackPanel>
+            </TabItem>
+            <!--#endregion-->
+
+            <!--#region Commensalism-->
+            <TabItem Header="Commensalisme" IsSelected="False" x:Name="tiCommensalism">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblOntwikkelingSnelheid" Content="Ontwikkelingssnelheid:"/>
+                        <ComboBox x:Name="cbOntwikkelingSnelheid" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                        <Label x:Name="lblConcurrentie" Content="Levensduur/Concurrentiekracht:"/>
+                        <ComboBox x:Name="cbConcurrentie" Width="200"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
+                        <Label x:Name="lblSociabiliteit" Content="Sociabiliteit:"/>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">
+                            <CheckBox x:Name="chbSocI"/>
+                            <Label Content="I"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">
+                            <CheckBox x:Name="chbSocII"/>
+                            <Label Content="II"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">
+                            <CheckBox x:Name="chbSocIII"/>
+                            <Label Content="III"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">
+                            <CheckBox x:Name="chbSocIV"/>
+                            <Label Content="IV"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">
+                            <CheckBox x:Name="chbSocV"/>
+                            <Label Content="V"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="Optimale plantdictheid tussen:"/>
+                        <TextBox x:Name="txtDichtheidMin" Width="40"/>
+                        <Label Content="en"/>
+                        <TextBox x:Name="txtDichtheidMax" Width="40"/>
+                        <Label Content="m²"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <!--#endregion-->
+        </TabControl>
         <Button Content="Toevoegen" Width="150" Height="50" Margin="0, 0, 100, 100" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>

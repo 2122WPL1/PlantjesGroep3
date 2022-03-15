@@ -10,5 +10,7 @@ namespace Plantjes.Models.Db
         public string Eigenschap { get; set; }
         public string Maand { get; set; }
         public string Waarde { get; set; }
+
+        public virtual Plant Plant { get; set; }
     }
 }
