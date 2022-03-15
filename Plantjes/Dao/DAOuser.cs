@@ -37,6 +37,11 @@ namespace Plantjes.Dao
             var passwordHashed = md5Hasher.ComputeHash(passwordBytes);
 
             //written by Warre
+            int role = 2;
+            if (emailadres.ToLower().Contains("@vives.be"))
+                role = 0;
+            if (emailadres.ToLower().Contains("@student.vives.be"))
+                role = 1;
 
             var gebruiker = new Gebruiker()
             {
@@ -44,6 +49,7 @@ namespace Plantjes.Dao
                 Voornaam = firstName,
                 Achternaam = lastName,
                 Emailadres = emailadres,
+                RolId = role,
                 HashPaswoord = passwordHashed
             };
             context.Gebruikers.Add(gebruiker);
