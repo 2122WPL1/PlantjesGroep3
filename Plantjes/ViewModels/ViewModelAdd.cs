@@ -127,6 +127,7 @@ namespace Plantjes.ViewModels
                 OnPropertyChanged("CmbFamilies");
             }
         }
+        public string TextFamilie { get; set; }
         public TfgsvFamilie SelectedFamilie
         {
             get { return selectedFamilie; }
@@ -136,6 +137,7 @@ namespace Plantjes.ViewModels
                 OnPropertyChanged("CmbGeslacht");
             }
         }
+        public string TextGeslacht { get; set; }
         public TfgsvGeslacht SelectedGeslacht
         {
             get { return selectedGeslacht; }
@@ -145,6 +147,7 @@ namespace Plantjes.ViewModels
                 OnPropertyChanged("CmbSoort");
             }
         }
+        public string TextSoort { get; set; }
         public TfgsvSoort SelectedSoort
         {
             get { return selectedSoort; }
@@ -154,6 +157,7 @@ namespace Plantjes.ViewModels
                 OnPropertyChanged("CmbVariant");
             }
         }
+        public string TextVariant { get; set; }
         public TfgsvVariant SelectedVariant
         {
             get { return selectedVariant; }

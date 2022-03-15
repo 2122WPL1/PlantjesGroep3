@@ -11,6 +11,10 @@
         Title="MainWindow" Height="900" Width="1250">
 
     <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModels:ViewModelAdd}">
+            <pages:UserControlAdd/>
+        </DataTemplate>
+        
         <DataTemplate DataType = "{x:Type viewModels:ViewModelNameResult}">
             <pages:UserControlName/>
         </DataTemplate>
@@ -72,14 +76,6 @@
         </StackPanel>
 
         <Grid x:Name="MainContent" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" Height="834" MaxHeight="1300" RenderTransformOrigin="0.5,0.5" Width="1250" MaxWidth="2000">
-            <Grid.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleY="-1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Grid.RenderTransform>
             <ContentControl Content="{Binding currentViewModel}"/>
         </Grid>
     </Grid>
