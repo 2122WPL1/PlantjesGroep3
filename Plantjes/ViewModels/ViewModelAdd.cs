@@ -7,13 +7,13 @@ using Plantjes.Models.Db;
 using Plantjes.Dao;
 using Plantjes.ViewModels.Interfaces;
 using System.Globalization;
-using Plantjes.ViewModels.HelpClasses;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using Plantjes.Models.Extensions;
 using Plantjes.Models.Classes;
+using MvvmHelpers.Commands;
 
 namespace Plantjes.ViewModels
 {
@@ -37,7 +37,9 @@ namespace Plantjes.ViewModels
         {
             dao = DAOLogic.Instance();
             this.searchService = searchService;
-            AddBeheersdaadCommand = new Command<List<StackPanel>>(new Action<List<StackPanel>>(addBeheersdaadItem));
+            beheersdaden = new List<StackPanel>();
+            addBeheersdaadItem();
+            AddBeheersdaadCommand = new Command(new Action(addBeheersdaadItem));
             ToevoegenCommand = new Command<object>(new Action<object>(AddPlant));
         }
 
@@ -75,9 +77,9 @@ namespace Plantjes.ViewModels
             }
         }
 
-        private void addBeheersdaadItem(List<StackPanel> panels)
+        private void addBeheersdaadItem()
         {
-            panels.Insert(panels.Count - 1, new Beheersdaad());
+            beheersdaden.Add(new Beheersdaad());
         }
 
         private void AddPlant(object parameters)
@@ -85,7 +87,7 @@ namespace Plantjes.ViewModels
             
         }
 
-        public Command<List<StackPanel>> AddBeheersdaadCommand { get; set; }
+        public Command AddBeheersdaadCommand { get; set; }
         public Command<object> ToevoegenCommand { get; set; }
 
         #region Algemene Info
