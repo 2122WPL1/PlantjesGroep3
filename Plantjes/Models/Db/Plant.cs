@@ -13,6 +13,7 @@ namespace Plantjes.Models.Db
             CommensalismeMultis = new HashSet<CommensalismeMulti>();
             Commensalismes = new HashSet<Commensalisme>();
             ExtraEigenschaps = new HashSet<ExtraEigenschap>();
+            FenotypeMultis = new HashSet<FenotypeMulti>();
             Fenotypes = new HashSet<Fenotype>();
             Fotos = new HashSet<Foto>();
             UpdatePlants = new HashSet<UpdatePlant>();
@@ -42,6 +43,7 @@ namespace Plantjes.Models.Db
         public virtual ICollection<CommensalismeMulti> CommensalismeMultis { get; set; }
         public virtual ICollection<Commensalisme> Commensalismes { get; set; }
         public virtual ICollection<ExtraEigenschap> ExtraEigenschaps { get; set; }
+        public virtual ICollection<FenotypeMulti> FenotypeMultis { get; set; }
         public virtual ICollection<Fenotype> Fenotypes { get; set; }
         public virtual ICollection<Foto> Fotos { get; set; }
         public virtual ICollection<UpdatePlant> UpdatePlants { get; set; }

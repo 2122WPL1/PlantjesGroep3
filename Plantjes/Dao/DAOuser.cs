@@ -44,7 +44,6 @@ namespace Plantjes.Dao
                 Voornaam = firstName,
                 Achternaam = lastName,
                 Emailadres = emailadres,
-                Rol = role.ToString(),
                 HashPaswoord = passwordHashed
             };
             context.Gebruikers.Add(gebruiker);
