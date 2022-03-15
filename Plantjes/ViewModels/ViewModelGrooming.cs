@@ -13,11 +13,11 @@ namespace Plantjes.ViewModels
 {
     public class ViewModelGrooming : ViewModelBase
     {
-        private DAOLogic _dao;
+        private DAObase _dao;
 
         public ViewModelGrooming(IDetailService detailservice)
         {
-            this._dao = DAOLogic.Instance();
+            this._dao = DAObase.Instance();
 
             cmbBeheerdaad = new ObservableCollection<string>();
 

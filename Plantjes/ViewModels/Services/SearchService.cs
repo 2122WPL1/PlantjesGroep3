@@ -16,11 +16,11 @@ namespace Plantjes.ViewModels.Services
     /*written by kenny and robin from an example of Roy and some help of Killian*/
     public class SearchService : ISearchService
     {
-        private DAOLogic _dao;
+        private DAObase _dao;
 
         public SearchService()
         {
-            this._dao = DAOLogic.Instance();
+            this._dao = DAObase.Instance();
 
         }
 

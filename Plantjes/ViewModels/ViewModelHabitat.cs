@@ -9,11 +9,11 @@ namespace Plantjes.ViewModels
 {
     public class ViewModelHabitat : ViewModelBase
     {
-        private DAOLogic _dao;
+        private DAObase _dao;
 
         public ViewModelHabitat(IDetailService detailservice)
         {
-            this._dao = DAOLogic.Instance();
+            this._dao = DAObase.Instance();
 
 
 

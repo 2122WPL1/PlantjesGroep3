@@ -6,11 +6,11 @@ namespace Plantjes.ViewModels
 {
     public class ViewModelAppearance : ViewModelBase
     {
-        private DAOLogic _dao;
+        private DAObase _dao;
 
         public ViewModelAppearance(IDetailService detailservice)
         {
-            this._dao = DAOLogic.Instance();
+            this._dao = DAObase.Instance();
         }
 
         private string _selectedBladHoogte;

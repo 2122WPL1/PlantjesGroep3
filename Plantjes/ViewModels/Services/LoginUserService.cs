@@ -16,12 +16,12 @@ namespace Plantjes.ViewModels.Services
     public class LoginUserService : ILoginUserService
     {
         //dao verklaren om data op te vragen en te setten in de databank
-        private DAOLogic _dao;
+        private DAObase _dao;
         private Gebruiker gebruiker;
 
         public LoginUserService()
         {
-            this._dao = DAOLogic.Instance();
+            this._dao = DAObase.Instance();
         }
 
         //written by Warre
