@@ -9,7 +9,7 @@
 
     <!-- Design and base WPF by Ian on 25/02 ; Last edited on 15/03 -->
     <Grid Background="#eeeeee">
-        <TabControl>
+        <TabControl Margin="5">
             <!--#region MainInfo-->
             <TabItem Header="Algemene Info" IsSelected="True" x:Name="tiMainInfo">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -80,12 +80,16 @@
 
                             <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                                 <Label x:Name="lblBloeiwijze" Content="Bloeiwijze:"/>
-                                <ComboBox x:Name="cbBloeiwijze" Width="200"/>
+                                <Menu x:Name="mBloeiwijze" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <MenuItem Header="Bloeiwijzes Selecteren..."/>
+                                </Menu>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                                 <Label x:Name="lblHabitus" Content="Habitus:"/>
-                                <ComboBox x:Name="cbHabitus" Width="200"/>
+                                <Menu x:Name="mHabitus" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <MenuItem Header="Habitus Selecteren..."/>
+                                </Menu>
                             </StackPanel>
 
 
@@ -110,12 +114,16 @@
                         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                                 <Label x:Name="lblBladkleur" Content="Bladkleur:"/>
-                                <ComboBox x:Name="cbBladkleur" Width="200"/>
+                                <Menu x:Name="mBladkleur" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <MenuItem Header="Bladkleur Selecteren..."/>
+                                </Menu>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                                 <Label x:Name="lblBloeikleur" Content="Bloeikleur:"/>
-                                <ComboBox x:Name="cbBloeikleur" Width="200"/>
+                                <Menu x:Name="mBloeikleur" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <MenuItem Header="Bloeikleur Selecteren..."/>
+                                </Menu>
                             </StackPanel>
                         </WrapPanel>
                         <Rectangle Fill="#888888" Height="1" Margin="0,10,0,10"/>
@@ -167,27 +175,37 @@
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                             <Label x:Name="lblBezonning" Content="Bezonning:"/>
-                            <ComboBox x:Name="cbBezonning" Width="200"/>
+                            <Menu x:Name="mBezonning" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <MenuItem Header="Bezonning Selecteren..."/>
+                            </Menu>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                             <Label x:Name="lblGrondsoort" Content="Grondsoort:"/>
-                            <ComboBox x:Name="cbGrondsoort" Width="200"/>
+                            <Menu x:Name="mGrondsoort" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <MenuItem Header="Grondsoort Selecteren..."/>
+                            </Menu>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                             <Label x:Name="lblVochtbehoefte" Content="Vochtbehoefte:"/>
-                            <ComboBox x:Name="cbVochtbehoefte" Width="200"/>
+                            <Menu x:Name="mVochtbehoefte" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <MenuItem Header="Vochtbehoefte Selecteren..."/>
+                            </Menu>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                             <Label x:Name="lblVoedingsbehoefte" Content="Voedingsbehoefte:"/>
-                            <ComboBox x:Name="cbVoedingsbehoefte" Width="200"/>
+                            <Menu x:Name="mVoedingsbehoefte" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <MenuItem Header="Voedingsbehoefte Selecteren..."/>
+                            </Menu>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                             <Label x:Name="lblHabitat" Content="Habitat:"/>
-                            <ComboBox x:Name="cbHabitat" Width="200"/>
+                            <Menu x:Name="mHabitat" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <MenuItem Header="Habitat Selecteren..."/>
+                            </Menu>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
@@ -220,12 +238,16 @@
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                         <Label x:Name="lblOntwikkelingSnelheid" Content="Ontwikkelingssnelheid:"/>
-                        <ComboBox x:Name="cbOntwikkelingSnelheid" Width="200"/>
+                        <Menu x:Name="cbOntwikkelingSnelheid" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <MenuItem Header="Ontwikkelingssnelheid Selecteren..."/>
+                        </Menu>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                         <Label x:Name="lblConcurrentie" Content="Levensduur/Concurrentiekracht:"/>
-                        <ComboBox x:Name="cbConcurrentie" Width="200"/>
+                        <Menu x:Name="cbConcurrentie" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <MenuItem Header="Concurrentie Selecteren..."/>
+                        </Menu>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
