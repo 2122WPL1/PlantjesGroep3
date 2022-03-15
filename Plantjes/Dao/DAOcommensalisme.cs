@@ -9,7 +9,7 @@ namespace Plantjes.Dao
 {
     internal class DAOcommensalisme:DAObase
     {
-        public static void AddCommensalisme(long id, long plantid, string ontwikkelinssnelheid,
+        public static Commensalisme AddCommensalisme(long id, long plantid, string ontwikkelinssnelheid,
             string strategie)
         {
             Commensalisme commensalisme = new Commensalisme()
@@ -19,6 +19,21 @@ namespace Plantjes.Dao
                 Ontwikkelsnelheid = ontwikkelinssnelheid,
                 Strategie = strategie
             };
+            context.Commensalismes.Add(commensalisme);
+            return commensalisme;
+        }
+
+        public static CommensalismeMulti AddCommensalismeMulti(long id, long plantid, string eigenschap, string waarde)
+        {
+            CommensalismeMulti commensalismemulti = new CommensalismeMulti()
+            {
+                Id = id,
+                PlantId = plantid,
+                Eigenschap = eigenschap,
+                Waarde = waarde
+            };
+            context.CommensalismeMultis.Add(commensalismemulti);
+            return commensalismemulti;
         }
     }
 }
