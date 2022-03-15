@@ -265,7 +265,7 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
-                        <Label x:Name="lblSociabiliteit" Content="Sociabiliteit:"/>
+                        <Label x:Name="lblSociabiliteit" Content="Sociabiliteit:" VerticalAlignment="Center"/>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">
                             <CheckBox x:Name="chbSocI"/>
                             <Label Content="I"/>
