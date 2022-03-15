@@ -44,12 +44,12 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblWachtwoord" Content="wachtwoord:"  HorizontalAlignment="Left"/>
-                <TextBox x:Name="txtWachtwoord" Text="{Binding PasswordInput}" MinWidth="200" MaxWidth="250" Margin="5"/>
+                <TextBox x:Name="txtWachtwoord" Text="{Binding PasswordInput}" MinWidth="200" MaxWidth="250" Margin="5" FontFamily="{StaticResource Password}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblWachtwoordHerhaal" Content="herhaal wachtwoord:" HorizontalAlignment="Left"/>
-                <TextBox x:Name="txtWachtwoordHerhaal" Text="{Binding PasswordRepeatInput}" MinWidth="200" MaxWidth="250" Margin="5"/>
+                <TextBox x:Name="txtWachtwoordHerhaal" Text="{Binding PasswordRepeatInput}" MinWidth="200" MaxWidth="250" Margin="5" FontFamily="{StaticResource Password}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

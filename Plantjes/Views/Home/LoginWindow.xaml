@@ -8,9 +8,9 @@
         mc:Ignorable="d"
         Title="LoginWindow" Height="300" Width="450">
     <Window.Resources>
-        <DataTemplate DataType="{x:Type vm:ViewModelLogin}">
+        <!--<DataTemplate DataType="{x:Type vm:ViewModelLogin}">
             <uc:UserControlName/>
-        </DataTemplate>
+        </DataTemplate>-->
     </Window.Resources>
 
 
@@ -30,7 +30,7 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblPasword" Content="wachtwoord:"/>
-                <TextBox x:Name="txtWachtwoord" Text="{Binding PasswordInput}" MinWidth="200" MaxWidth="250" Margin="5" FontFamily="/font/password.ttf"/>
+                <TextBox x:Name="txtWachtwoord" Text="{Binding PasswordInput}" MinWidth="200" MaxWidth="250" Margin="5" FontFamily="{StaticResource Password}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
