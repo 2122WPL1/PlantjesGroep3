@@ -6,17 +6,17 @@ using System.Windows.Input;
 namespace Plantjes.ViewModels.HelpClasses
 {
     /*kenny copied from code roy*/
-    public class MyICommand<T> : ICommand
+    public class Command<T> : ICommand
     {
         Action<T> _TargetExecuteMethod;
         Func<T, bool> _TargetCanExecuteMethod;
 
-        public MyICommand(Action<T> executeMethod)
+        public Command(Action<T> executeMethod)
         {
             _TargetExecuteMethod = executeMethod;
         }
 
-        public MyICommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod)
+        public Command(Action<T> executeMethod, Func<T, bool> canExecuteMethod)
         {
             _TargetExecuteMethod = executeMethod;
             _TargetCanExecuteMethod = canExecuteMethod;

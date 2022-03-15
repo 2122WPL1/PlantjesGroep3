@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Plantjes.Models.Db;
+using Plantjes.Dao;
 
-namespace Plantjes.Dao
-{ 
+namespace Plantjes.Models.Db
+{
     public partial class plantenContext : DbContext
     {
         public plantenContext()
@@ -559,6 +559,12 @@ namespace Plantjes.Dao
                 entity.Property(e => e.Waarde)
                     .HasMaxLength(50)
                     .HasColumnName("waarde");
+
+                entity.HasOne(d => d.Plant)
+                    .WithMany(p => p.FenotypeMultis)
+                    .HasForeignKey(d => d.PlantId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Fenotype_Multi_Plant");
             });
 
             modelBuilder.Entity<Foto>(entity =>
@@ -610,10 +616,7 @@ namespace Plantjes.Dao
                     .HasColumnType("date")
                     .HasColumnName("last_login");
 
-                entity.Property(e => e.Rol)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .HasColumnName("rol");
+                entity.Property(e => e.RolId).HasColumnName("rolId");
 
                 entity.Property(e => e.Vivesnr)
                     .HasMaxLength(15)
@@ -622,6 +625,12 @@ namespace Plantjes.Dao
                 entity.Property(e => e.Voornaam)
                     .HasMaxLength(50)
                     .HasColumnName("voornaam");
+
+                entity.HasOne(d => d.Rol)
+                    .WithMany(p => p.Gebruikers)
+                    .HasForeignKey(d => d.RolId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Gebruiker_Rol");
             });
 
             modelBuilder.Entity<Plant>(entity =>
@@ -798,6 +807,12 @@ namespace Plantjes.Dao
                 entity.Property(e => e.Variantnaam)
                     .HasMaxLength(100)
                     .HasColumnName("variantnaam");
+
+                entity.HasOne(d => d.SoortSoort)
+                    .WithMany(p => p.TfgsvVariants)
+                    .HasForeignKey(d => d.SoortSoortid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tfgsv_Variant_Tfgsv_Soort");
             });
 
             modelBuilder.Entity<UpdatePlant>(entity =>

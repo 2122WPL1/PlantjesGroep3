@@ -7,17 +7,16 @@ using Plantjes.Dao;
 using Plantjes.Models;
 using Plantjes.ViewModels.Interfaces;
 using Plantjes.ViewModels;
+using Plantjes.Models.Db;
 
 namespace Plantjes.ViewModels
 {
     public class ViewModelGrooming : ViewModelBase
     {
-        private DAOLogic _dao;
+        private DAObase _dao;
 
         public ViewModelGrooming(IDetailService detailservice)
         {
-            this._dao = DAOLogic.Instance();
-
             cmbBeheerdaad = new ObservableCollection<string>();
 
             fillComboBoxBeheerdaad();
@@ -27,7 +26,7 @@ namespace Plantjes.ViewModels
 
         public void fillComboBoxBeheerdaad()
         {
-            var list = _dao.FillBeheerdaad().ToList();
+            var list = DAObase.GetList<BeheerMaand>();
 
             
                 foreach (var item in list)

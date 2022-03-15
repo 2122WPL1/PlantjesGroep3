@@ -7,13 +7,11 @@ namespace Plantjes.ViewModels
 {
     public class ViewModelGrow : ViewModelBase
     {
-        private DAOLogic _dao;
         private static SimpleIoc iocc = SimpleIoc.Default;
         private IDetailService _detailService = iocc.GetInstance<IDetailService>();
         public ViewModelGrow(IDetailService detailservice)
         {
             _detailService = detailservice;
-            this._dao = DAOLogic.Instance();
         }
         //geschreven door christophe, op basis van een voorbeeld van owen
         #region CheckboxGrondsoort
