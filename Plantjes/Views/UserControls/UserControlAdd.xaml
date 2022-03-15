@@ -74,10 +74,10 @@
                 </StackPanel>
             </StackPanel>
         </GroupBox>
+        <!--#endregion-->
 
-
-        <!--#region fenotype -->
-        <GroupBox x:Name="gbFenotype" Margin="0,50,0,0" Visibility="Visible">
+        <!--#region Fenotype -->
+        <GroupBox x:Name="gbFenotype" Margin="0,50,0,0" Visibility="Collapsed">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Vertical">
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -149,8 +149,8 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                            <Label x:Name="lblBloeit" Content="Bloeit:"/>
-                            <CheckBox x:Name="txtBloeit" Margin="0,5"/>
+                            <Label x:Name="lblBloeitIn" Content="Bloeit in:"/>
+                            <CheckBox x:Name="cbBloeitIn" Margin="0,5"/>
                         </StackPanel>
                     </WrapPanel>
                     
@@ -171,7 +171,7 @@
                 </StackPanel>
             </StackPanel>
         </GroupBox>
-
+    <!--#endregion-->
 
         <!--#region Abiofactors -->    
         <GroupBox x:Name="gbAbioFactors" Margin="0,50,0,0" Visibility="Collapsed">
@@ -205,7 +205,29 @@
                 </StackPanel>
             </StackPanel>
         </GroupBox>
+        <!--#endregion-->
+        
+        <!--#region Beheersdaden -->
+        <GroupBox x:Name="gbBeheersdaden" Margin="0,50,0,0" Visibility="Visible">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ItemsControl x:Name="icBeheesdaadMonth">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
 
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <Button x:Name="btnAddMonthBeheersdaad" Content="+" Width="20"/>
+            </StackPanel>
+        </GroupBox>
+        <!--#endregion-->
+        
         <!-- Button met algemene afhandeling van toevoegingscode. -->
         <!-- Note: Algemene Info moet verplicht ingevuld zijn,
                     anders wordt plant niet toegevoegd -->
