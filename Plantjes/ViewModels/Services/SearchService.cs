@@ -18,22 +18,16 @@ namespace Plantjes.ViewModels.Services
     {
         private DAObase _dao;
 
-        public SearchService()
-        {
-            this._dao = DAObase.Instance();
-
-        }
-
         //written by Warre
         #region Get methods
         public IEnumerable<TEntity> GetList<TEntity>(bool distinct = false) where TEntity : class
         {
-            return _dao.GetList<TEntity>(distinct);
+            return DAObase.GetList<TEntity>(distinct);
         }
 
         public IEnumerable<TEntity> GetListWhere<TEntity>(Func<TEntity, bool> predicate, bool distinct = false) where TEntity : class
         {
-            return _dao.GetListWhere<TEntity>(predicate, distinct);
+            return DAObase.GetListWhere<TEntity>(predicate, distinct);
         }
 
         /// <summary>
@@ -49,7 +43,7 @@ namespace Plantjes.ViewModels.Services
         /// <returns>Returns an <see cref="IEnumerable{T}"/> of filtered plants.</returns>
         public IEnumerable<Plant> GetFilteredPlants(TfgsvType SelectedtType, TfgsvFamilie SelectedFamilie, TfgsvGeslacht SelectedGeslacht, TfgsvSoort SelectedSoort, TfgsvVariant SelectedVariant, string SelectedNederlandseNaam, string SelectedRatioBloeiBlad)
         {
-            IEnumerable<Plant> plants = _dao.GetList<Plant>().ToList();
+            IEnumerable<Plant> plants = DAObase.GetList<Plant>().ToList();
 
             if (SelectedtType != null)
                 plants = plants.Where(p => p.TypeId == SelectedtType.Planttypeid);
@@ -132,7 +126,7 @@ namespace Plantjes.ViewModels.Services
             ////First we need an Abiotiek list, then we'll need to filter that list
             ////by checking if the Abiotiek.PlantId is the same als the SelectedPlantResult.PlantId.
             ////Once filtered: put the remaining Abiotiek types in the detailSelectedPlant Observable Collection
-            var abioList = _dao.GetList<Abiotiek>();
+            var abioList = DAObase.GetList<Abiotiek>();
 
             foreach (var itemAbio in abioList)
             {
@@ -155,7 +149,7 @@ namespace Plantjes.ViewModels.Services
             ////First we need an Abiotiek_Multi list, then we'll need to filter that list
             ////by checking if the Abiotiek_Multi.PlantId is the same als the SelectedPlantResult.PlantId.
             ////Once filtered: put the remaining Abiotiek_Multi types in the detailSelectedPlant Observable Collection
-            var abioMultiList = _dao.GetList<AbiotiekMulti>();
+            var abioMultiList = DAObase.GetList<AbiotiekMulti>();
             bool hasCheckedPlant;
 
             //bool gebruiken
@@ -186,7 +180,7 @@ namespace Plantjes.ViewModels.Services
             ////Once filtered: put the remaining Beheermaand types in the detailSelectedPlant Observable Collection
 
             ////There is currently no data in this table, but the app is prepared for when it's added.
-            var beheerMaandList = _dao.GetList<BeheerMaand>();
+            var beheerMaandList = DAObase.GetList<BeheerMaand>();
 
             foreach (var itemBeheerMaand in beheerMaandList)
             {
@@ -223,7 +217,7 @@ namespace Plantjes.ViewModels.Services
             ////Once filtered: put the remaining Commensalisme types in the detailSelectedPlant Observable Collection
 
             ////There is currently no data in this table, but the app is prepared for when it's added.
-            var commensalismeList = _dao.GetList<Commensalisme>();
+            var commensalismeList = DAObase.GetList<Commensalisme>();
 
             foreach (var itemCommensalisme in commensalismeList)
             {
@@ -246,7 +240,7 @@ namespace Plantjes.ViewModels.Services
             ////Once filtered: put the remaining CommensalismeMulti types in the detailSelectedPlant Observable Collection
 
             ////There is currently no data in this table, but the app is prepared for when it's added.
-            var commensalismeMultiList = _dao.GetList<CommensalismeMulti>();
+            var commensalismeMultiList = DAObase.GetList<CommensalismeMulti>();
 
             foreach (var itemCommensalismeMulti in commensalismeMultiList)
             {    //A multi table contains the same PlantId multiple times because it can contain multiple properties
@@ -268,7 +262,7 @@ namespace Plantjes.ViewModels.Services
             ////First we need an ExtraEigenschap list, then we'll need to filter that list
             ////by checking if the ExtraEigenschap.PlantId is the same als the SelectedPlantResult.PlantId.
             ////Once filtered: put the remaining ExtraEigenschap types in the detailSelectedPlant Observable Collection
-            var extraEigenschapList = _dao.GetList<ExtraEigenschap>();
+            var extraEigenschapList = DAObase.GetList<ExtraEigenschap>();
 
             foreach (var itemExtraEigenschap in extraEigenschapList)
             {
@@ -340,7 +334,7 @@ namespace Plantjes.ViewModels.Services
             ////First we need an Fenotype list, then we'll need to filter that list
             ////by checking if the Fenotype.PlantId is the same als the SelectedPlantResult.PlantId.
             ////Once filtered: put the remaining Fenotype types in the detailSelectedPlant Observable Collection
-            var fenoTypeList = _dao.GetList<Fenotype>();
+            var fenoTypeList = DAObase.GetList<Fenotype>();
 
             foreach (var itemFenotype in fenoTypeList)
             {

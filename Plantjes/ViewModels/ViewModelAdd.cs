@@ -20,7 +20,6 @@ namespace Plantjes.ViewModels
     //written by Warre
     internal class ViewModelAdd : ViewModelBase
     {
-        private readonly DAObase dao;
         private readonly ISearchService searchService;
 
         private TfgsvType selectedType;
@@ -35,7 +34,6 @@ namespace Plantjes.ViewModels
 
         public ViewModelAdd(ISearchService searchService)
         {
-            dao = DAObase.Instance();
             this.searchService = searchService;
             beheersdaden = new List<StackPanel>();
             addBeheersdaadItem();

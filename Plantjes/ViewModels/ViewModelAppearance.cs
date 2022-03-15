@@ -10,7 +10,7 @@ namespace Plantjes.ViewModels
 
         public ViewModelAppearance(IDetailService detailservice)
         {
-            this._dao = DAObase.Instance();
+
         }
 
         private string _selectedBladHoogte;

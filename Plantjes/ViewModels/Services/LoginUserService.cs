@@ -16,12 +16,10 @@ namespace Plantjes.ViewModels.Services
     public class LoginUserService : ILoginUserService
     {
         //dao verklaren om data op te vragen en te setten in de databank
-        private DAObase _dao;
         private Gebruiker gebruiker;
 
         public LoginUserService()
         {
-            this._dao = DAObase.Instance();
         }
 
         //written by Warre
@@ -56,7 +54,7 @@ namespace Plantjes.ViewModels.Services
             Gebruiker currentGebruiker;
             if (IsEmail(emailInput))
             {   //gebruiker zoeken in de databank
-                currentGebruiker = _dao.GetGebruiker(emailInput);
+                currentGebruiker = DAOuser.GetGebruiker(emailInput);
             }
             else
             {//indien geen geldig emailadress, errorMessage opvullen
@@ -129,7 +127,7 @@ namespace Plantjes.ViewModels.Services
                 {
                     throw new Exception($"{emailInput} is geen geldig emailadres!");
                 }
-                if (_dao.GetGebruiker(emailInput) != null)
+                if (DAOuser.GetGebruiker(emailInput) != null)
                 {
                     throw new Exception($"{emailInput} is al geregistreert!");
                 }
@@ -139,8 +137,7 @@ namespace Plantjes.ViewModels.Services
                     throw new Exception("Zorg dat de wachtwoorden overeen komen!");
                 }
 
-
-                _dao.AddUser(vivesNrInput, firstNameInput, lastNameInput, emailInput, passwordInput);
+                DAOuser.AddUser(vivesNrInput, firstNameInput, lastNameInput, emailInput, passwordInput);
 
                 LoginWindow loginWindow = new LoginWindow();
                 loginWindow.Show();

@@ -17,8 +17,6 @@ namespace Plantjes.ViewModels
 
         public ViewModelGrooming(IDetailService detailservice)
         {
-            this._dao = DAObase.Instance();
-
             cmbBeheerdaad = new ObservableCollection<string>();
 
             fillComboBoxBeheerdaad();
@@ -28,7 +26,7 @@ namespace Plantjes.ViewModels
 
         public void fillComboBoxBeheerdaad()
         {
-            var list = _dao.GetList<BeheerMaand>();
+            var list = DAObase.GetList<BeheerMaand>();
 
             
                 foreach (var item in list)
