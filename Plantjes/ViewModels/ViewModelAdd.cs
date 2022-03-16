@@ -14,6 +14,7 @@ using System.Windows.Media;
 using Plantjes.Models.Extensions;
 using Plantjes.Models.Classes;
 using MvvmHelpers.Commands;
+using System.Collections.ObjectModel;
 
 namespace Plantjes.ViewModels
 {
@@ -30,12 +31,12 @@ namespace Plantjes.ViewModels
 
         private string selectedFenotypeMaand;
 
-        private List<StackPanel> beheersdaden;
+        private ObservableCollection<StackPanel> beheersdaden;
 
         public ViewModelAdd(ISearchService searchService)
         {
             this.searchService = searchService;
-            beheersdaden = new List<StackPanel>();
+            beheersdaden = new ObservableCollection<StackPanel>();
             addBeheersdaadItem();
             AddBeheersdaadCommand = new Command(new Action(addBeheersdaadItem));
             ToevoegenCommand = new Command<object>(new Action<object>(AddPlant));
@@ -65,6 +66,8 @@ namespace Plantjes.ViewModels
         {
             foreach (TEntity item in searchService.GetList<TEntity>())
             {
+                if (selector(item).Contains('-'))
+                    continue;
                 yield return new MenuItem()
                 {
                     Width = double.NaN,
@@ -169,17 +172,9 @@ namespace Plantjes.ViewModels
         #endregion
 
         #region Fenotype
-        public IEnumerable<string> CmbBladgrootte
-        {
-            get => searchService.GetList<FenoBladgrootte>().Select(f => f.Bladgrootte);
-        }
         public IEnumerable<string> CmbBladvorm
         {
             get => searchService.GetList<FenoBladvorm>().Select(f => f.Vorm);
-        }
-        public IEnumerable<string> CmbRatio
-        {
-            get => searchService.GetList<FenoSpruitfenologie>().Select(f => f.Fenologie);
         }
         public IEnumerable<string> CmbBloeiwijze
         {
@@ -191,7 +186,7 @@ namespace Plantjes.ViewModels
         }
         public IEnumerable<string> CmbMaand
         {
-            get => CultureInfo.GetCultureInfo("nl-BE").DateTimeFormat.MonthNames;
+            get => CultureInfo.GetCultureInfo("nl-BE").DateTimeFormat.MonthNames[..^1].Select(m => m.FirstToUpper());
         }
         public IEnumerable<MenuItem> CmbBladkleur
         {
@@ -230,30 +225,30 @@ namespace Plantjes.ViewModels
         #endregion
 
         #region Abiotische Factoren
-        public IEnumerable<MenuItem> CmbBezonning
+        public IEnumerable<MenuItem> MBezonning
         {
             get => makeMenuItemList<AbioBezonning>(a => a.Naam);
         }
-        public IEnumerable<MenuItem> CmbGrondsoort
+        public IEnumerable<MenuItem> MGrondsoort
         {
             get => makeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
         }
-        public IEnumerable<MenuItem> CmbVochtbehoefte
+        public IEnumerable<MenuItem> MVochtbehoefte
         {
             get => makeMenuItemList<AbioVochtbehoefte>(a => a.Vochtbehoefte);
         }
-        public IEnumerable<MenuItem> CmbVoedingsbehoefte
+        public IEnumerable<MenuItem> MVoedingsbehoefte
         {
             get => makeMenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
         }
-        public IEnumerable<MenuItem> CmbHabitat
+        public IEnumerable<MenuItem> MHabitat
         {
             get => makeMenuItemList<AbioHabitat>(a => a.Waarde);
         }
         #endregion
 
         #region Beheersdaden
-        public List<StackPanel> IctrlBeheersdaad
+        public ObservableCollection<StackPanel> IctrlBeheersdaad
         {
             get => beheersdaden;
         }
@@ -267,10 +262,6 @@ namespace Plantjes.ViewModels
         public IEnumerable<MenuItem> CmbConcurrentiekracht
         {
             get => makeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
-        }
-        public IEnumerable<MenuItem> CmbSociabiliteit
-        {
-            get => makeMenuItemList<AbioVochtbehoefte>(a => a.Vochtbehoefte);
         }
         #endregion
     }
