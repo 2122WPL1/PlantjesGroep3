@@ -13,7 +13,7 @@ namespace Plantjes.ViewModels
 {
     public class ViewModelGrooming : ViewModelBase
     {
-        private DAObase _dao;
+        private DaoBase _dao;
 
         public ViewModelGrooming(IDetailService detailservice)
         {
@@ -26,7 +26,7 @@ namespace Plantjes.ViewModels
 
         public void fillComboBoxBeheerdaad()
         {
-            var list = DAObase.GetList<BeheerMaand>();
+            var list = DaoBase.GetList<BeheerMaand>();
 
             
                 foreach (var item in list)

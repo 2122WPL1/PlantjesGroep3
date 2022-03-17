@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Plantjes.Dao
 {
-    public class DAObeheersdaden:DAObase
+    public class DaoBeheersdaden : DaoBase
     {
         public static void AddBeheersdaden(long id, long plantid, string beheerdaad, string omschrijving, 
             bool jan, bool feb, bool mrt, bool apr, bool mei, bool jun, bool jul, bool aug, bool sept, bool okt, bool nov, bool dec)

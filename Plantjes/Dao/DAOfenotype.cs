@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 
 namespace Plantjes.Dao
 {
-    internal class DAOfenotype : DAObase
+    internal class DaoFenotype : DaoBase
     {
-        public static void AddFenotype(long id, long plantid, int bladgrootte, string bladvorm, string ratiobloeiblad,
+        public static Fenotype AddFenotype(Plant plant, int bladgrootte, string bladvorm, string ratiobloeiblad,
             string spruitfenologie, string bloeiwijze, string habitus, string levensvorm)
         {
             Fenotype fenotype = new Fenotype()
             {
-                Id = id,
-                PlantId = plantid,
                 Bladgrootte = bladgrootte,
                 Bladvorm = bladvorm,
                 Spruitfenologie = spruitfenologie,
@@ -23,6 +21,9 @@ namespace Plantjes.Dao
                 Habitus = habitus,
                 Levensvorm = levensvorm
             };
+            context.Plants.First(p => p == plant).Fenotypes.Add(fenotype);
+            context.SaveChanges();
+            return fenotype;
         }
     }
 }

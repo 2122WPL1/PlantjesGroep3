@@ -7,32 +7,29 @@ using System.Threading.Tasks;
 
 namespace Plantjes.Dao
 {
-    internal class DAOcommensalisme:DAObase
+    internal class DaoCommensalisme : DaoBase
     {
-        public static Commensalisme AddCommensalisme(long id, long plantid, string ontwikkelinssnelheid,
-            string strategie)
+        public static Commensalisme AddCommensalisme(Plant plant, string ontwikkelinssnelheid, string strategie)
         {
             Commensalisme commensalisme = new Commensalisme()
             {
-                Id = id,
-                PlantId = plantid,
                 Ontwikkelsnelheid = ontwikkelinssnelheid,
                 Strategie = strategie
             };
-            context.Commensalismes.Add(commensalisme);
+            context.Plants.First(p => p == plant).Commensalismes.Add(commensalisme);
+            context.SaveChanges();
             return commensalisme;
         }
 
-        public static CommensalismeMulti AddCommensalismeMulti(long id, long plantid, string eigenschap, string waarde)
+        public static CommensalismeMulti AddCommensalismeMulti(Plant plant, string eigenschap, string waarde)
         {
             CommensalismeMulti commensalismemulti = new CommensalismeMulti()
             {
-                Id = id,
-                PlantId = plantid,
                 Eigenschap = eigenschap,
                 Waarde = waarde
             };
-            context.CommensalismeMultis.Add(commensalismemulti);
+            context.Plants.First(p => p == plant).CommensalismeMultis.Add(commensalismemulti);
+            context.SaveChanges();
             return commensalismemulti;
         }
     }

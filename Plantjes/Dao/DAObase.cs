@@ -11,7 +11,7 @@ using Plantjes.Models.Enums;
 
 namespace Plantjes.Dao
 {
-    public abstract class DAObase
+    public abstract class DaoBase
     {
         //Robin: opzetten DAOLogic, singleton pattern
 

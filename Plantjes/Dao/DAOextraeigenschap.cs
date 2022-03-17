@@ -7,19 +7,21 @@ using Plantjes.Models.Db;
 
 namespace Plantjes.Dao
 {
-    internal class DAOextraeigenschap:DAObase
+    internal class DaoExtraeigenschap : DaoBase
     {
-        public static ExtraEigenschap AddExtraEigenschap(long id, long plantid, string nectarwaarde, string pollenwaarde,
-            bool? bijvriendelijke=null, bool? vlindervriendelijk=null, bool? eetbaar=null, bool? kruidgebruik=null, bool? geurend=null, bool? voorstgevoelig=null)
+        public static ExtraEigenschap AddExtraEigenschap(string nectarwaarde = null, string pollenwaarde = null, bool? bijvriendelijke = null,
+            bool? vlindervriendelijk = null, bool? eetbaar = null, bool? kruidgebruik = null, bool? geurend = null, bool? voorstgevoelig = null)
         {
-            ExtraEigenschap extraEigenschap = new ExtraEigenschap()
+            ExtraEigenschap extraEigenschap = new ExtraEigenschap();
+            if (nectarwaarde != null)
             {
-                Id = id,
-                PlantId = plantid,
-                Nectarwaarde = nectarwaarde,
-                Pollenwaarde = pollenwaarde
-            };
-            if (bijvriendelijke!=null)
+                extraEigenschap.Nectarwaarde = nectarwaarde;
+            }
+            if (pollenwaarde != null)
+            {
+                extraEigenschap.Pollenwaarde = pollenwaarde;
+            }
+            if (bijvriendelijke != null)
             {
                 extraEigenschap.Bijvriendelijke = bijvriendelijke;
             }
@@ -27,19 +29,19 @@ namespace Plantjes.Dao
             {
                 extraEigenschap.Vlindervriendelijk = vlindervriendelijk;
             }
-            if (eetbaar!=null)
+            if (eetbaar != null)
             {
                 extraEigenschap.Eetbaar = eetbaar;
             }
-            if (kruidgebruik!=null)
+            if (kruidgebruik != null)
             {
                 extraEigenschap.Kruidgebruik = kruidgebruik;
             }
-            if (geurend!=null)
+            if (geurend != null)
             {
                 extraEigenschap.Geurend = geurend;
             }
-            if (voorstgevoelig!=null)
+            if (voorstgevoelig != null)
             {
                 extraEigenschap.Vorstgevoelig = voorstgevoelig;
             };

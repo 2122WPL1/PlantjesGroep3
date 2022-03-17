@@ -6,7 +6,7 @@ namespace Plantjes.ViewModels
 {
     public class ViewModelAppearance : ViewModelBase
     {
-        private DAObase _dao;
+        private DaoBase _dao;
 
         public ViewModelAppearance(IDetailService detailservice)
         {

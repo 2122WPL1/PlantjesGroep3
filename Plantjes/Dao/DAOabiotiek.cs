@@ -7,31 +7,34 @@ using System.Threading.Tasks;
 
 namespace Plantjes.Dao
 {
-    internal class DAOabiotiek:DAObase
+    internal class DaoAbiotiek : DaoBase
     {
-        public static Abiotiek AddAbiotiek(long plantid, string bezonning, string grondsoort,
+        public static Abiotiek AddAbiotiek(Plant plant, string bezonning, string grondsoort,
              string vochtbehoefte, string voedingsbehoeftes, string antagonischeomgeving)
         {
             Abiotiek abiotiek = new Abiotiek()
             {
-                PlantId = plantid, Bezonning = bezonning, Grondsoort = grondsoort, Vochtbehoefte = vochtbehoefte,
-                Voedingsbehoefte = voedingsbehoeftes, AntagonischeOmgeving = antagonischeomgeving
+                Bezonning = bezonning,
+                Grondsoort = grondsoort,
+                Vochtbehoefte = vochtbehoefte,
+                Voedingsbehoefte = voedingsbehoeftes,
+                AntagonischeOmgeving = antagonischeomgeving
             };
-            context.Abiotieks.Add(abiotiek);
+            context.Plants.First(p => p == plant).Abiotieks.Add(abiotiek);
+            context.SaveChanges();
             return abiotiek;
 
         }
 
-        public static AbiotiekMulti AbiotiekMulti(long id, long plantid, string eigenschap, string waarde)
+        public static AbiotiekMulti AbiotiekMulti(Plant plant, string eigenschap, string waarde)
         {
             AbiotiekMulti abiotiekMulti = new AbiotiekMulti()
             {
-                Id = id,
-                PlantId = plantid,
                 Eigenschap = eigenschap,
                 Waarde = waarde
             };
-            context.AbiotiekMultis.Add(abiotiekMulti);
+            context.Plants.First(p => p == plant).AbiotiekMultis.Add(abiotiekMulti);
+            context.SaveChanges();
             return abiotiekMulti;
         }
 

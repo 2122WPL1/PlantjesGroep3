@@ -54,7 +54,7 @@ namespace Plantjes.ViewModels.Services
             Gebruiker currentGebruiker;
             if (IsEmail(emailInput))
             {   //gebruiker zoeken in de databank
-                currentGebruiker = DAOuser.GetGebruiker(emailInput);
+                currentGebruiker = DaoUser.GetGebruiker(emailInput);
             }
             else
             {//indien geen geldig emailadress, errorMessage opvullen
@@ -127,7 +127,7 @@ namespace Plantjes.ViewModels.Services
                 {
                     throw new Exception($"{emailInput} is geen geldig emailadres!");
                 }
-                if (DAOuser.GetGebruiker(emailInput) != null)
+                if (DaoUser.GetGebruiker(emailInput) != null)
                 {
                     throw new Exception($"{emailInput} is al geregistreert!");
                 }
@@ -137,7 +137,7 @@ namespace Plantjes.ViewModels.Services
                     throw new Exception("Zorg dat de wachtwoorden overeen komen!");
                 }
 
-                DAOuser.AddUser(vivesNrInput, firstNameInput, lastNameInput, emailInput, passwordInput);
+                DaoUser.AddUser(vivesNrInput, firstNameInput, lastNameInput, emailInput, passwordInput);
 
                 LoginWindow loginWindow = new LoginWindow();
                 loginWindow.Show();

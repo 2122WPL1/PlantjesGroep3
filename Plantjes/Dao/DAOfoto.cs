@@ -7,19 +7,18 @@ using Plantjes.Models.Db;
 
 namespace Plantjes.Dao
 {
-    internal class DAOfoto:DAObase
+    internal class DaoFoto : DaoBase
     {
-        public static Foto AddFoto(long fotoid, long plant, string eigenschap, string urllocatie, byte[] thumbnail)
+        public static Foto AddFoto(Plant plant, string eigenschap, string urllocatie, byte[] thumbnail)
         {
             Foto foto = new Foto()
             {
-                Fotoid = fotoid,
-                Plant = plant,
                 Eigenschap = eigenschap,
                 UrlLocatie = urllocatie,
                 Tumbnail = thumbnail
             };
-            context.Fotos.Add(foto);
+            context.Plants.First(p => p == plant).Fotos.Add(foto);
+            context.SaveChanges();
             return foto;
         }
     }

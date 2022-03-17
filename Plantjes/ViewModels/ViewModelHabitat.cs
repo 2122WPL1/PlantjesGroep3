@@ -9,7 +9,7 @@ namespace Plantjes.ViewModels
 {
     public class ViewModelHabitat : ViewModelBase
     {
-        private DAObase _dao;
+        private DaoBase _dao;
 
         public ViewModelHabitat(IDetailService detailservice)
         {
@@ -28,7 +28,7 @@ namespace Plantjes.ViewModels
         //geschreven door christophe, op basis van een voorbeeld van owen
         public void fillComboBoxPollenwaarde()
         {
-            var list = DAObase.GetList<ExtraPollenwaarde>();
+            var list = DaoBase.GetList<ExtraPollenwaarde>();
 
             foreach (var item in list)
             {
@@ -53,7 +53,7 @@ namespace Plantjes.ViewModels
 
         public void fillComboBoxNectarwaarde()
         {
-            var list = DAObase.GetList<ExtraNectarwaarde>();
+            var list = DaoBase.GetList<ExtraNectarwaarde>();
 
             foreach (var item in list)
             {

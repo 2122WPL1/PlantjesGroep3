@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 
 namespace Plantjes.Dao
 {
-    internal class DAOuser:DAObase
+    internal class DaoUser : DaoBase
     {
         //written by Warre
         /// <summary>
@@ -30,7 +30,7 @@ namespace Plantjes.Dao
         /// <param name="lastName">The lastname of the user.</param>
         /// <param name="emailadres">The email of the user.</param>
         /// <param name="password">The password of the user.</param>
-        public static void AddUser(string vivesNr, string firstName, string lastName, string emailadres, string password)
+        public static Gebruiker AddUser(string vivesNr, string firstName, string lastName, string emailadres, string password)
         {
             var passwordBytes = Encoding.ASCII.GetBytes(password);
             var md5Hasher = new MD5CryptoServiceProvider();
@@ -53,7 +53,8 @@ namespace Plantjes.Dao
                 HashPaswoord = passwordHashed
             };
             context.Gebruikers.Add(gebruiker);
-            _ = context.SaveChanges();
+            context.SaveChanges();
+            return gebruiker;
         }
 
     }
