@@ -45,20 +45,6 @@ namespace Plantjes.Dao
         {
             return GetList<TEntity>(distinct).Where(predicate);
         }
-
-        ///Owen
-        public string GetImageLocation(long plantId , string imageCategorie)
-        {
-            var foto = context.Fotos.Where(s=>s.Eigenschap == imageCategorie).SingleOrDefault(s=> s.Plant == plantId);
-
-            if (foto != null)
-            {
-                var location = foto;
-                return location.UrlLocatie;
-            }
-
-            return null;
-        }
         #endregion
     }
 }

@@ -21,5 +21,19 @@ namespace Plantjes.Dao
             context.SaveChanges();
             return foto;
         }
+
+        ///Owen
+        public static string GetImageLocation(long plantId, string imageCategorie)
+        {
+            var foto = context.Fotos.Where(s => s.Eigenschap == imageCategorie).SingleOrDefault(s => s.Plant == plantId);
+
+            if (foto != null)
+            {
+                var location = foto;
+                return location.UrlLocatie;
+            }
+
+            return null;
+        }
     }
 }

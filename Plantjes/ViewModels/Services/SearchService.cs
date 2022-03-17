@@ -16,8 +16,6 @@ namespace Plantjes.ViewModels.Services
     /*written by kenny and robin from an example of Roy and some help of Killian*/
     public class SearchService : ISearchService
     {
-        private DaoBase _dao;
-
         //written by Warre
         #region Get methods
         public IEnumerable<TEntity> GetList<TEntity>(bool distinct = false) where TEntity : class
@@ -365,7 +363,7 @@ namespace Plantjes.ViewModels.Services
             string location = "";
             if (SelectedPlantInResult != null)
             {
-                location = _dao.GetImageLocation(SelectedPlantInResult.PlantId, ImageCatogrie);
+                location = DaoFoto.GetImageLocation(SelectedPlantInResult.PlantId, ImageCatogrie);
             }
 
             if (location != null)
