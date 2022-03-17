@@ -46,6 +46,7 @@ namespace Plantjes.Dao
                 extraEigenschap.Vorstgevoelig = voorstgevoelig;
             };
             context.ExtraEigenschaps.Add(extraEigenschap);
+            context.SaveChanges();
             return extraEigenschap;
         }
     }

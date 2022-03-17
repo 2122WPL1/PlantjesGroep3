@@ -9,13 +9,11 @@ namespace Plantjes.Dao
 {
     public class DaoBeheersdaden : DaoBase
     {
-        public static void AddBeheersdaden(long id, long plantid, string beheerdaad, string omschrijving, 
+        public static BeheerMaand AddBeheersdaden(Plant plant, string beheerdaad, string omschrijving, 
             bool jan, bool feb, bool mrt, bool apr, bool mei, bool jun, bool jul, bool aug, bool sept, bool okt, bool nov, bool dec)
         {
             BeheerMaand beheerMaand = new BeheerMaand()
             {
-                Id = id,
-                PlantId = plantid,
                 Beheerdaad = beheerdaad,
                 Omschrijving = omschrijving,
                 Jan = jan,
@@ -31,6 +29,9 @@ namespace Plantjes.Dao
                 Nov = nov,
                 Dec = dec
             };
+            context.Plants.First(p => p == plant).BeheerMaands.Add(beheerMaand);
+            context.SaveChanges();
+            return beheerMaand;
         }
     }
 }
