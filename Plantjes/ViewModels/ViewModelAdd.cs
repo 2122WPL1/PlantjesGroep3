@@ -31,15 +31,15 @@ namespace Plantjes.ViewModels
 
         private string selectedFenotypeMaand;
 
-        private ObservableCollection<StackPanel> beheersdaden;
+        private ObservableCollection<GroupBox> beheersdaden;
 
         public ViewModelAdd(ISearchService searchService)
         {
             this.searchService = searchService;
-            beheersdaden = new ObservableCollection<StackPanel>();
+            beheersdaden = new ObservableCollection<GroupBox>();
             addBeheersdaadItem();
             AddBeheersdaadCommand = new Command(new Action(addBeheersdaadItem));
-            ToevoegenCommand = new Command<object>(new Action<object>(AddPlant));
+            AddPlantCommand = new Command<object>(new Action<object>(addPlant));
         }
 
         private IEnumerable<MenuItem> makeColorMenuItemList()
@@ -83,13 +83,16 @@ namespace Plantjes.ViewModels
             beheersdaden.Add(new Beheersdaad());
         }
 
-        private void AddPlant(object parameters)
+        private void addPlant(object parameters)
         {
-            
+            foreach (Beheersdaad beheersdaad in beheersdaden)
+            {
+                var test = beheersdaad.Area;
+            }
         }
 
         public Command AddBeheersdaadCommand { get; set; }
-        public Command<object> ToevoegenCommand { get; set; }
+        public Command<object> AddPlantCommand { get; set; }
 
         #region Algemene Info
         public IEnumerable<TfgsvType> CmbTypes
@@ -248,7 +251,7 @@ namespace Plantjes.ViewModels
         #endregion
 
         #region Beheersdaden
-        public ObservableCollection<StackPanel> IctrlBeheersdaad
+        public ObservableCollection<GroupBox> IctrlBeheersdaad
         {
             get => beheersdaden;
         }
