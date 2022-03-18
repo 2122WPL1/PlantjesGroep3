@@ -94,6 +94,11 @@ namespace Plantjes.ViewModels
         public Command AddBeheersdaadCommand { get; set; }
         public Command<object> AddPlantCommand { get; set; }
 
+        #region Tabcontrol
+        //Written by Ian Dumalin on 18/03
+        //Code for Q4
+        #endregion
+
         #region Algemene Info
         public IEnumerable<TfgsvType> CmbTypes
         {
