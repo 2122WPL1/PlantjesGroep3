@@ -19,6 +19,7 @@ namespace Plantjes.Dao
             };
             context.Plants.First(p => p == plant).Fotos.Add(foto);
             context.SaveChanges();
+            _ = context.SaveChanges();
             return foto;
         }
 
@@ -29,8 +30,7 @@ namespace Plantjes.Dao
 
             if (foto != null)
             {
-                var location = foto;
-                return location.UrlLocatie;
+                return foto.UrlLocatie;
             }
 
             return null;
