@@ -132,7 +132,7 @@ namespace Plantjes.ViewModels
 
             foreach (Beheersdaad beheersdaad in IctrlBeheersdaad)
             {
-                if (!string.IsNullOrEmpty(beheersdaad.BeheersdaadText))
+                if (!string.IsNullOrEmpty(beheersdaad.BeheersdaadText)) ;
                     //DaoBeheersdaden.AddBeheersdaden(plant, beheersdaad.BeheersdaadText, );
             }
         }
