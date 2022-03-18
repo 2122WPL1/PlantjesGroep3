@@ -16,7 +16,7 @@ namespace Plantjes.Dao
         //Robin: opzetten DAOLogic, singleton pattern
 
         /*Niet noodzakelijk voor de singletonpattern waar wel voor de DAOLogic*/
-        public static readonly plantenContext context = new plantenContext();
+        protected static readonly plantenContext context = new plantenContext();
 
         #region Get methods
         //written by Warre

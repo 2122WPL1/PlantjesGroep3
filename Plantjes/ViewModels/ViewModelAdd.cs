@@ -93,7 +93,9 @@ namespace Plantjes.ViewModels
                 throw new ArgumentException("Zorg dat je alle algemene info ingevuld hebt!");
             Plant plant = DaoPlant.AddPlant(SelectedType.Planttypenaam, TextFamilie, TextGeslacht, 
                 string.IsNullOrEmpty(TextFamilie) ? null : TextFamilie,
-                string.IsNullOrEmpty(TextVariant) ? null : TextVariant);
+                string.IsNullOrEmpty(TextVariant) ? null : TextVariant,
+                string.IsNullOrEmpty(items[0] as string) ? null : short.Parse(items[0] as string),
+                string.IsNullOrEmpty(items[1] as string) ? null : short.Parse(items[1] as string));
 
             string bezonning = null, grondsoort = null, voedingsBehoefte = null;
             if (MBezonning.Any(mi => mi.IsChecked))
@@ -122,7 +124,7 @@ namespace Plantjes.ViewModels
                 }
                 voedingsBehoefte = voedingsBehoefte[..^1];
             }
-            DaoAbiotiek.AddAbiotiek(plant, bezonning, grondsoort, string.IsNullOrEmpty(items[0] as string) ? null : items[0] as string, voedingsBehoefte);
+            DaoAbiotiek.AddAbiotiek(plant, bezonning, grondsoort, string.IsNullOrEmpty(items[2] as string) ? null : items[2] as string, voedingsBehoefte);
 
 
             foreach (MenuItem item in MHabitat)
@@ -146,15 +148,22 @@ namespace Plantjes.ViewModels
                     strategie += item.Header;
                 }
             }
-            DaoCommensalisme.AddCommensalisme(plant, string.IsNullOrEmpty(items[1] as string) ? null : items[1] as string, strategie);
+            DaoCommensalisme.AddCommensalisme(plant, string.IsNullOrEmpty(items[3] as string) ? null : items[3] as string, strategie);
 
             int socIndex = 49;
-            foreach (bool check in items.GetRange(2, 5))
+            foreach (bool check in items.GetRange(4, 5))
             {
                 if (check)
                     DaoCommensalisme.AddCommensalismeMulti(plant, "sociabiliteit", ((char)socIndex).ToString());
                 socIndex++;
             }
+
+            DaoExtraEigenschap.AddExtraEigenschap(items[9] as string, items[10] as string,
+                ((items[11] as bool?).Value && (items[12] as bool?).Value) ? null : (items[11] as bool?).Value,
+                ((items[13] as bool?).Value && (items[14] as bool?).Value) ? null : (items[13] as bool?).Value,
+                ((items[15] as bool?).Value && (items[16] as bool?).Value) ? null : (items[15] as bool?).Value,
+                ((items[17] as bool?).Value && (items[18] as bool?).Value) ? null : (items[17] as bool?).Value,
+                ((items[19] as bool?).Value && (items[20] as bool?).Value) ? null : (items[19] as bool?).Value);
         }
 
         public Command AddBeheersdaadCommand { get; set; }
@@ -331,7 +340,7 @@ namespace Plantjes.ViewModels
         #region Commensalisme
         public IEnumerable<string> CmbOntwikkelingssnelheid
         {
-            get => searchService.GetList<CommOntwikkelsnelheid>().Select(o => o.Snelheid);
+            get => searchService.GetList<CommOntwikkelsnelheid>().Select(o => o.Snelheid.FirstToUpper());
         }
         public IEnumerable<MenuItem> MStrategie
         {

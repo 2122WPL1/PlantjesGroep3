@@ -7,7 +7,7 @@ using Plantjes.Models.Db;
 
 namespace Plantjes.Dao
 {
-    internal class DaoExtraeigenschap : DaoBase
+    internal class DaoExtraEigenschap : DaoBase
     {
         public static ExtraEigenschap AddExtraEigenschap(string nectarwaarde = null, string pollenwaarde = null, bool? bijvriendelijke = null,
             bool? vlindervriendelijk = null, bool? eetbaar = null, bool? kruidgebruik = null, bool? geurend = null, bool? vorstgevoelig = null)
