@@ -306,8 +306,7 @@ namespace Plantjes.ViewModels
         #region Commensalisme
         public IEnumerable<MenuItem> CmbOntwikkelingssnelheid
         {
-            get => makeMenuItemList<CommOntwikkelsnelheid>(a => a.Snelheid);
-            get => MakeMenuItemList<AbioBezonning>(a => a.Naam);
+            get => MakeMenuItemList<CommOntwikkelsnelheid>(a => a.Snelheid);
         }
         public IEnumerable<MenuItem> CmbConcurrentiekracht
         {
