@@ -10,7 +10,7 @@ namespace Plantjes.Dao
     public class DaoBeheersdaden : DaoBase
     {
         public static BeheerMaand AddBeheersdaden(Plant plant, string beheerdaad, List<bool> months)
-        {
+        {            
             BeheerMaand beheerMaand = new BeheerMaand()
             {
                 Beheerdaad = beheerdaad,

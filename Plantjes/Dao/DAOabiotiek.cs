@@ -12,6 +12,11 @@ namespace Plantjes.Dao
         public static Abiotiek AddAbiotiek(Plant plant, string bezonning = null, string grondsoort=null,
              string vochtbehoefte = null, string voedingsbehoeftes = null, string antagonischeomgeving = null)
         {
+            if (new List<string>() { bezonning, grondsoort, vochtbehoefte, voedingsbehoeftes, antagonischeomgeving }.All(s => string.IsNullOrEmpty(s)))
+            {
+                return null;
+            }
+
             Abiotiek abiotiek = new Abiotiek();
             if (bezonning != null)
             {

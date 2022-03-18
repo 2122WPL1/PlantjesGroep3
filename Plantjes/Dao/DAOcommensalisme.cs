@@ -11,6 +11,10 @@ namespace Plantjes.Dao
     {
         public static Commensalisme AddCommensalisme(Plant plant, string ontwikkelinssnelheid = null, string strategie = null)
         {
+            if (new List<string>() { ontwikkelinssnelheid, strategie }.All(s => string.IsNullOrEmpty(s))) 
+            {
+                return null;
+            }
             Commensalisme commensalisme = new Commensalisme();
             if (ontwikkelinssnelheid != null)
             {
