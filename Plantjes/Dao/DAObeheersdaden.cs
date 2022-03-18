@@ -9,17 +9,13 @@ namespace Plantjes.Dao
 {
     public class DaoBeheersdaden : DaoBase
     {
-        public static BeheerMaand AddBeheersdaden(Plant plant, string beheerdaad, string omschrijving = null,
+        public static BeheerMaand AddBeheersdaden(Plant plant, string beheerdaad,
             bool? jan = null, bool? feb = null, bool? mrt = null, bool? apr = null, bool? mei = null, bool? jun = null, bool? jul = null, bool? aug = null, bool? sept = null, bool? okt = null, bool? nov = null, bool? dec = null)
         {
             BeheerMaand beheerMaand = new BeheerMaand()
             {
                 Beheerdaad = beheerdaad
             };
-            if (omschrijving != null)
-            {;
-                beheerMaand.Omschrijving = omschrijving;
-            }
             if (jan != null)
             {
                 beheerMaand.Jan = jan;
