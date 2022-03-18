@@ -9,24 +9,32 @@ namespace Plantjes.Dao
 {
     internal class DaoAbiotiek : DaoBase
     {
-        public static Abiotiek AddAbiotiek(Plant plant, string bezonning, string grondsoort,
-             string vochtbehoefte, string voedingsbehoeftes, string antagonischeomgeving)
+        public static Abiotiek AddAbiotiek(Plant plant, string bezonning = null, string grondsoort=null,
+             string vochtbehoefte = null, string voedingsbehoeftes = null, string antagonischeomgeving = null)
         {
-            Abiotiek abiotiek = new Abiotiek()
+            Abiotiek abiotiek = new Abiotiek();
+            if (bezonning != null)
             {
-                Bezonning = bezonning,
-                Grondsoort = grondsoort,
-                Vochtbehoefte = vochtbehoefte,
-                Voedingsbehoefte = voedingsbehoeftes,
-                AntagonischeOmgeving = antagonischeomgeving
-            };
+                abiotiek.Bezonning = bezonning;
+            }
+            if (grondsoort != null)
+            {
+                abiotiek.Grondsoort = grondsoort;
+            }
+            if (vochtbehoefte != null)
+            {
+                abiotiek.Voedingsbehoefte = voedingsbehoeftes;
+            }
+            if (antagonischeomgeving != null)
+            {
+                abiotiek.AntagonischeOmgeving = antagonischeomgeving;
+            }
             context.Plants.First(p => p == plant).Abiotieks.Add(abiotiek);
             context.SaveChanges();
             return abiotiek;
-
         }
 
-        public static AbiotiekMulti AbiotiekMulti(Plant plant, string eigenschap, string waarde)
+        public static AbiotiekMulti AddAbiotiekMulti(Plant plant, string eigenschap, string waarde)
         {
             AbiotiekMulti abiotiekMulti = new AbiotiekMulti()
             {
@@ -37,6 +45,5 @@ namespace Plantjes.Dao
             context.SaveChanges();
             return abiotiekMulti;
         }
-
     }
 }

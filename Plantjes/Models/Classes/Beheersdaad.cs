@@ -23,17 +23,11 @@ namespace Plantjes.Models.Classes
             };
 
             panel.Children.Add(new Label() { Content = "Beheersdaad:", VerticalAlignment = VerticalAlignment.Center });
-            Border border = new Border() 
-            { 
-                BorderBrush = Brushes.Black, BorderThickness = new Thickness(0.5), 
-                Child = new TextBlock() { Width = 400, Height = 50, Foreground = Brushes.Black, IsHitTestVisible = true }
-            };
-            panel.Children.Add(border);
+            panel.Children.Add(new TextBox() { Width = 400, Height = 50, Foreground = Brushes.Black });
 
             panel.Children.Add(new Label() { Content = "Maand:", VerticalAlignment = VerticalAlignment.Center });
             Menu months = new Menu() { Width = 150, Height = 25 };
-            MenuItem header = new MenuItem();
-            header.Items.Add(new MenuItem() { ItemsSource = makeMonths() });
+            MenuItem header = new MenuItem() { VerticalAlignment = VerticalAlignment.Center, Header = "Maanden selecteren...", ItemsSource = makeMonths() };
             months.Items.Add(header);
             panel.Children.Add(months);
 
@@ -62,8 +56,8 @@ namespace Plantjes.Models.Classes
 
         public string BeheersdaadText 
         { 
-            get { return (((Content as StackPanel).Children[1] as Border).Child as TextBlock).Text;  }
-            set { (((Content as StackPanel).Children[1] as Border).Child as TextBlock).Text = value; }
+            get { return ((Content as StackPanel).Children[1] as TextBox).Text;  }
+            set { ((Content as StackPanel).Children[1] as TextBox).Text = value; }
         }
 
         public List<MenuItem> Months

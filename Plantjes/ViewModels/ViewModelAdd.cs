@@ -66,7 +66,8 @@ namespace Plantjes.ViewModels
         {
             foreach (TEntity item in searchService.GetList<TEntity>())
             {
-                if (selector(item).Contains('-'))
+                if (selector(item).Contains('-') ||
+                    (item is AbioGrondsoort && selector(item).Length > 1))
                     continue;
                 yield return new MenuItem()
                 {
@@ -85,9 +86,54 @@ namespace Plantjes.ViewModels
 
         private void AddPlant(object parameters)
         {
-            foreach (Beheersdaad beheersdaad in beheersdaden)
+            List<object> items = parameters as List<object>;
+
+            if (new List<string>() { SelectedType.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
+                throw new ArgumentException("Zorg dat je alle algemene info ingevuld hebt!");
+            Plant plant = DaoPlant.AddPlant(SelectedType.Planttypenaam, TextFamilie, TextGeslacht, 
+                string.IsNullOrEmpty(TextFamilie) ? null : TextFamilie,
+                string.IsNullOrEmpty(TextVariant) ? null : TextVariant);
+
+            string bezonning = null, grondsoort = null, voedingsBehoefte = null;
+            if (MBezonning.Any(mi => mi.IsChecked))
             {
-                var test = beheersdaad.Area;
+                bezonning = string.Empty;
+                foreach (MenuItem item in MBezonning)
+                {
+                    bezonning += item.Header + " - ";
+                }
+                bezonning = bezonning[..^3];
+            }
+            if (MGrondsoort.Any(mi => mi.IsChecked))
+            {
+                grondsoort = string.Empty;
+                foreach (MenuItem item in MGrondsoort)
+                {
+                    grondsoort += item.Header;
+                }
+            }
+            if (MVoedingsbehoefte.Any(mi => mi.IsChecked))
+            {
+                voedingsBehoefte = string.Empty;
+                foreach (MenuItem item in MVoedingsbehoefte)
+                {
+                    voedingsBehoefte += item.Header + " ";
+                }
+                voedingsBehoefte = voedingsBehoefte[..^1];
+            }
+            DaoAbiotiek.AddAbiotiek(plant, bezonning, grondsoort, items[0] as string, voedingsBehoefte);
+
+
+            foreach (MenuItem item in MHabitat)
+            {
+                if (item.IsChecked)
+                    DaoAbiotiek.AddAbiotiekMulti(plant, "habitat", item.Header as string);
+            }
+
+            foreach (Beheersdaad beheersdaad in IctrlBeheersdaad)
+            {
+                if (!string.IsNullOrEmpty(beheersdaad.BeheersdaadText)) ;
+                    //DaoBeheersdaden.AddBeheersdaden(plant, beheersdaad.BeheersdaadText, );
             }
         }
 
@@ -191,11 +237,11 @@ namespace Plantjes.ViewModels
         {
             get => CultureInfo.GetCultureInfo("nl-BE").DateTimeFormat.MonthNames[..^1].Select(m => m.FirstToUpper());
         }
-        public IEnumerable<MenuItem> CmbBladkleur
+        public IEnumerable<MenuItem> MBladkleur
         {
             get => MakeColorMenuItemList();
         }
-        public IEnumerable<MenuItem> CmbBloeikleur
+        public IEnumerable<MenuItem> MBloeikleur
         {
             get => MakeColorMenuItemList();
         }
@@ -236,9 +282,9 @@ namespace Plantjes.ViewModels
         {
             get => MakeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
         }
-        public IEnumerable<MenuItem> MVochtbehoefte
+        public IEnumerable<string> CmbVochtbehoefte
         {
-            get => MakeMenuItemList<AbioVochtbehoefte>(a => a.Vochtbehoefte);
+            get => searchService.GetList<AbioVochtbehoefte>().Select(v => v.Vochtbehoefte);
         }
         public IEnumerable<MenuItem> MVoedingsbehoefte
         {
@@ -260,6 +306,7 @@ namespace Plantjes.ViewModels
         #region Commensalisme
         public IEnumerable<MenuItem> CmbOntwikkelingssnelheid
         {
+            get => makeMenuItemList<CommOntwikkelsnelheid>(a => a.Snelheid);
             get => MakeMenuItemList<AbioBezonning>(a => a.Naam);
         }
         public IEnumerable<MenuItem> CmbConcurrentiekracht

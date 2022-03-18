@@ -9,18 +9,39 @@ namespace Plantjes.Dao
 {
     internal class DaoFenotype : DaoBase
     {
-        public static Fenotype AddFenotype(Plant plant, int bladgrootte, string bladvorm, string ratiobloeiblad,
-            string spruitfenologie, string bloeiwijze, string habitus, string levensvorm)
+        public static Fenotype AddFenotype(Plant plant, int? bladgrootte = null, string bladvorm = null, string ratiobloeiblad = null,
+            string spruitfenologie = null, string bloeiwijze = null, string habitus = null, string levensvorm = null)
         {
-            Fenotype fenotype = new Fenotype()
+            Fenotype fenotype = new Fenotype();
+            if (bladgrootte != null)
             {
-                Bladgrootte = bladgrootte,
-                Bladvorm = bladvorm,
-                Spruitfenologie = spruitfenologie,
-                Bloeiwijze = bloeiwijze,
-                Habitus = habitus,
-                Levensvorm = levensvorm
-            };
+                fenotype.Bladgrootte = bladgrootte;
+            }
+            if (bladvorm != null)
+            {
+                fenotype.Bladvorm = bladvorm;
+            }
+            if (ratiobloeiblad != null)
+            {
+                fenotype.RatioBloeiBlad = ratiobloeiblad;
+            }
+            if (spruitfenologie != null)
+            {
+                fenotype.Spruitfenologie = spruitfenologie;
+            }
+            if (bloeiwijze != null)
+            {
+                fenotype.Bloeiwijze = bloeiwijze;
+            }
+            if (habitus != null)
+            {
+                fenotype.Habitus = habitus;
+            }
+            if (levensvorm != null)
+            {
+                fenotype.Levensvorm = levensvorm;
+            }
+
             context.Plants.First(p => p == plant).Fenotypes.Add(fenotype);
             context.SaveChanges();
             return fenotype;
