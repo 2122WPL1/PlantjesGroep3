@@ -37,12 +37,12 @@ namespace Plantjes.ViewModels
         {
             this.searchService = searchService;
             beheersdaden = new ObservableCollection<GroupBox>();
-            addBeheersdaadItem();
-            AddBeheersdaadCommand = new Command(new Action(addBeheersdaadItem));
-            AddPlantCommand = new Command<object>(new Action<object>(addPlant));
+            AddBeheersdaadItem();
+            AddBeheersdaadCommand = new Command(new Action(AddBeheersdaadItem));
+            AddPlantCommand = new Command<object>(new Action<object>(AddPlant));
         }
 
-        private IEnumerable<MenuItem> makeColorMenuItemList()
+        private IEnumerable<MenuItem> MakeColorMenuItemList()
         {
             foreach (FenoKleur item in searchService.GetList<FenoKleur>())
             {
@@ -62,7 +62,7 @@ namespace Plantjes.ViewModels
             }
         }
 
-        private IEnumerable<MenuItem> makeMenuItemList<TEntity>(Func<TEntity, string> selector) where TEntity : class
+        private IEnumerable<MenuItem> MakeMenuItemList<TEntity>(Func<TEntity, string> selector) where TEntity : class
         {
             foreach (TEntity item in searchService.GetList<TEntity>())
             {
@@ -78,12 +78,12 @@ namespace Plantjes.ViewModels
             }
         }
 
-        private void addBeheersdaadItem()
+        private void AddBeheersdaadItem()
         {
             beheersdaden.Add(new Beheersdaad());
         }
 
-        private void addPlant(object parameters)
+        private void AddPlant(object parameters)
         {
             foreach (Beheersdaad beheersdaad in beheersdaden)
             {
@@ -193,11 +193,11 @@ namespace Plantjes.ViewModels
         }
         public IEnumerable<MenuItem> CmbBladkleur
         {
-            get => makeColorMenuItemList();
+            get => MakeColorMenuItemList();
         }
         public IEnumerable<MenuItem> CmbBloeikleur
         {
-            get => makeColorMenuItemList();
+            get => MakeColorMenuItemList();
         }
         public IEnumerable<string> CmbBladhoogteMax
         {
@@ -230,23 +230,23 @@ namespace Plantjes.ViewModels
         #region Abiotische Factoren
         public IEnumerable<MenuItem> MBezonning
         {
-            get => makeMenuItemList<AbioBezonning>(a => a.Naam);
+            get => MakeMenuItemList<AbioBezonning>(a => a.Naam);
         }
         public IEnumerable<MenuItem> MGrondsoort
         {
-            get => makeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
+            get => MakeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
         }
         public IEnumerable<MenuItem> MVochtbehoefte
         {
-            get => makeMenuItemList<AbioVochtbehoefte>(a => a.Vochtbehoefte);
+            get => MakeMenuItemList<AbioVochtbehoefte>(a => a.Vochtbehoefte);
         }
         public IEnumerable<MenuItem> MVoedingsbehoefte
         {
-            get => makeMenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
+            get => MakeMenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
         }
         public IEnumerable<MenuItem> MHabitat
         {
-            get => makeMenuItemList<AbioHabitat>(a => a.Waarde);
+            get => MakeMenuItemList<AbioHabitat>(a => a.Waarde);
         }
         #endregion
 
@@ -260,11 +260,11 @@ namespace Plantjes.ViewModels
         #region Commensalisme
         public IEnumerable<MenuItem> CmbOntwikkelingssnelheid
         {
-            get => makeMenuItemList<AbioBezonning>(a => a.Naam);
+            get => MakeMenuItemList<AbioBezonning>(a => a.Naam);
         }
         public IEnumerable<MenuItem> CmbConcurrentiekracht
         {
-            get => makeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
+            get => MakeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
         }
         #endregion
     }
