@@ -9,8 +9,8 @@ namespace Plantjes.Dao
 {
     internal class DaoAbiotiek : DaoBase
     {
-        public static Abiotiek AddAbiotiek(Plant plant, string? bezonning = null, string? grondsoort=null,
-             string? vochtbehoefte = null, string? voedingsbehoeftes = null, string? antagonischeomgeving = null)
+        public static Abiotiek AddAbiotiek(Plant plant, string bezonning = null, string grondsoort=null,
+             string vochtbehoefte = null, string voedingsbehoeftes = null, string antagonischeomgeving = null)
         {
             Abiotiek abiotiek = new Abiotiek();
             if (bezonning != null)
