@@ -34,7 +34,7 @@ namespace Plantjes.Dao
             return abiotiek;
         }
 
-        public static AbiotiekMulti AbiotiekMulti(Plant plant, string eigenschap, string waarde)
+        public static AbiotiekMulti AddAbiotiekMulti(Plant plant, string eigenschap, string waarde)
         {
             AbiotiekMulti abiotiekMulti = new AbiotiekMulti()
             {
