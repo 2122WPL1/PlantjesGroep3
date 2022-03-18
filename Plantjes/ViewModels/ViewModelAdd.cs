@@ -317,7 +317,7 @@ namespace Plantjes.ViewModels
         }
         public IEnumerable<MenuItem> MHabitat
         {
-            get => makeMenuItemList<AbioHabitat>(a => a.Afkorting);
+            get => MakeMenuItemList<AbioHabitat>(a => a.Afkorting);
         }
         #endregion
 
@@ -335,11 +335,11 @@ namespace Plantjes.ViewModels
         }
         public IEnumerable<MenuItem> MStrategie
         {
-            get => makeMenuItemList<CommStrategie>(s => s.Strategie);
+            get => MakeMenuItemList<CommStrategie>(s => s.Strategie);
         }
         public IEnumerable<MenuItem> MConcurrentiekracht
         {
-            get => makeMenuItemList<CommLevensvorm>(a => a.Levensvorm);
+            get => MakeMenuItemList<CommLevensvorm>(a => a.Levensvorm);
         }
         #endregion
     }
