@@ -88,9 +88,9 @@ namespace Plantjes.ViewModels
         private void AddPlant(object parameters)
         {
             List<object> items = parameters as List<object>;
-
             if (new List<string>() { SelectedType.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
-                throw new ArgumentException("Zorg dat je alle algemene info ingevuld hebt!");
+            throw new ArgumentException("Zorg dat je alle algemene info ingevuld hebt!");
+
             Plant plant = DaoPlant.AddPlant(SelectedType.Planttypenaam, TextFamilie, TextGeslacht, 
                 string.IsNullOrEmpty(TextFamilie) ? null : TextFamilie,
                 string.IsNullOrEmpty(TextVariant) ? null : TextVariant);
@@ -340,6 +340,19 @@ namespace Plantjes.ViewModels
         public IEnumerable<MenuItem> MConcurrentiekracht
         {
             get => MakeMenuItemList<CommLevensvorm>(a => a.Levensvorm);
+        }
+        #endregion
+
+        #region Extra
+        // Written by Ian Dumalin on 18/03
+        public IEnumerable<string> CbPollen
+        {
+            get => searchService.GetList<ExtraPollenwaarde>().Select(o => o.Waarde);
+        }
+
+        public IEnumerable<string> CbNectar
+        {
+            get => searchService.GetList<ExtraNectarwaarde>().Select(o => o.Waarde);
         }
         #endregion
     }
