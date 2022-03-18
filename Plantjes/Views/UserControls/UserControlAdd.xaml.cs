@@ -24,5 +24,10 @@ namespace Plantjes.Views.UserControls
         {
             InitializeComponent();
         }
+
+        private void tcAdd_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
