@@ -9,42 +9,41 @@ namespace Plantjes.Dao
 {
     internal class DaoFenotype : DaoBase
     {
-        public static Fenotype AddFenotype(Plant plant, int? bladgrootte=null, string? bladvorm=null, string? ratiobloeiblad=null,
-            string? spruitfenologie=null, string? bloeiwijze=null, string? habitus=null, string? levensvorm=null)
+        public static Fenotype AddFenotype(Plant plant, int? bladgrootte = null, string bladvorm = null, string ratiobloeiblad = null,
+            string spruitfenologie = null, string bloeiwijze = null, string habitus = null, string levensvorm = null)
         {
-            Fenotype fenotype = new Fenotype()
-            {
-            };
-            if (bladgrootte!=null)
+            Fenotype fenotype = new Fenotype();
+            if (bladgrootte != null)
             {
                 fenotype.Bladgrootte = bladgrootte;
             }
-            if (bladvorm!=null)
+            if (bladvorm != null)
             {
                 fenotype.Bladvorm = bladvorm;
             }
-            if (ratiobloeiblad!=null)
+            if (ratiobloeiblad != null)
             {
                 fenotype.RatioBloeiBlad = ratiobloeiblad;
             }
-            if (spruitfenologie!=null)
+            if (spruitfenologie != null)
             {
                 fenotype.Spruitfenologie = spruitfenologie;
             }
-            if (bloeiwijze!=null)
+            if (bloeiwijze != null)
             {
                 fenotype.Bloeiwijze = bloeiwijze;
             }
-            if (habitus!=null)
+            if (habitus != null)
             {
                 fenotype.Habitus = habitus;
             }
-            if (levensvorm!=null)
+            if (levensvorm != null)
             {
                 fenotype.Levensvorm = levensvorm;
             }
-            context.Fenotypes.Add(fenotype);
-            _ = context.SaveChanges();
+
+            context.Plants.First(p => p == plant).Fenotypes.Add(fenotype);
+            context.SaveChanges();
             return fenotype;
         }
     }

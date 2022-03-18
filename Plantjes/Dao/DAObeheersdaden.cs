@@ -9,25 +9,22 @@ namespace Plantjes.Dao
 {
     public class DaoBeheersdaden : DaoBase
     {
-        public static BeheerMaand AddBeheersdaden(Plant plant ,string? beheerdaad = null, string? omschrijving=null, 
-            bool? jan=null, bool? feb=null, bool? mrt=null, bool? apr=null, bool? mei=null, bool? jun=null, bool? jul=null, bool? aug=null, bool? sept=null, bool? okt=null, bool? nov=null, bool? dec=null)
+        public static BeheerMaand AddBeheersdaden(Plant plant, string beheerdaad, string omschrijving = null,
+            bool? jan = null, bool? feb = null, bool? mrt = null, bool? apr = null, bool? mei = null, bool? jun = null, bool? jul = null, bool? aug = null, bool? sept = null, bool? okt = null, bool? nov = null, bool? dec = null)
         {
-            BeheerMaand beheerMaand = new BeheerMaand()  
+            BeheerMaand beheerMaand = new BeheerMaand()
             {
+                Beheerdaad = beheerdaad
             };
-            if (beheerdaad!=null)
-            {
-                beheerMaand.Beheerdaad = beheerdaad;
-            }
-            if (omschrijving!=null)
-            {
+            if (omschrijving != null)
+            {;
                 beheerMaand.Omschrijving = omschrijving;
             }
             if (jan != null)
             {
                 beheerMaand.Jan = jan;
             }
-            if (feb!=null)
+            if (feb != null)
             {
                 beheerMaand.Feb = feb;
             }
@@ -35,44 +32,44 @@ namespace Plantjes.Dao
             {
                 beheerMaand.Mrt = mrt;
             }
-            if (apr!=null)
+            if (apr != null)
             {
                 beheerMaand.Apr = apr;
             }
-            if (mei!=null)
+            if (mei != null)
             {
                 beheerMaand.Mei = mei;
             }
-            if (jun!=null)
+            if (jun != null)
             {
                 beheerMaand.Jun = jun;
             }
-            if (jul!= null)
+            if (jul != null)
             {
                 beheerMaand.Jul = jul;
             }
-            if (aug!=null)
+            if (aug != null)
             {
                 beheerMaand.Aug = aug;
             }
-            if (sept!=null)
+            if (sept != null)
             {
                 beheerMaand.Sept = sept;
             }
-            if (okt!=null)
+            if (okt != null)
             {
                 beheerMaand.Okt = okt;
             }
-            if (nov!=null)
+            if (nov != null)
             {
                 beheerMaand.Nov = nov;
             }
-            if (dec!=null)
+            if (dec != null)
             {
                 beheerMaand.Dec = dec;
             }
-            context.BeheerMaands.Add(beheerMaand);
-            _ = context.SaveChanges();
+            context.Plants.First(p => p == plant).BeheerMaands.Add(beheerMaand);
+            context.SaveChanges();
             return beheerMaand;
 
         }

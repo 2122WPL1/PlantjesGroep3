@@ -9,23 +9,19 @@ namespace Plantjes.Dao
 {
     internal class DaoCommensalisme : DaoBase
     {
-        public static Commensalisme AddCommensalisme(Plant plant, string? ontwikkelinssnelheid=null,
-            string? strategie=null)
+        public static Commensalisme AddCommensalisme(Plant plant, string ontwikkelinssnelheid = null, string strategie = null)
         {
-            Commensalisme commensalisme = new Commensalisme()
-            {
-            };
-            context.Plants.First(p => p == plant).Commensalismes.Add(commensalisme);
-            context.SaveChanges();
-            if (ontwikkelinssnelheid!=null)
+            Commensalisme commensalisme = new Commensalisme();
+            if (ontwikkelinssnelheid != null)
             {
                 commensalisme.Ontwikkelsnelheid = ontwikkelinssnelheid;
             }
-            if (strategie!= null)
+            if (strategie != null)
             {
                 commensalisme.Strategie = strategie;
             }
-            context.Commensalismes.Add(commensalisme);
+            context.Plants.First(p => p == plant).Commensalismes.Add(commensalisme);
+            context.SaveChanges();
             return commensalisme;
         }
 
