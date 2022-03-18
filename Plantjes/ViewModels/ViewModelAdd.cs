@@ -159,11 +159,11 @@ namespace Plantjes.ViewModels
             }
 
             DaoExtraEigenschap.AddExtraEigenschap(items[9] as string, items[10] as string,
-                ((items[11] as bool?).Value && (items[12] as bool?).Value) ? null : (items[11] as bool?).Value,
-                ((items[13] as bool?).Value && (items[14] as bool?).Value) ? null : (items[13] as bool?).Value,
+                ((items[11] as bool?).Value && (items[12] as bool?).Value) ? null : (items[11] as bool?).Value);
+                /*((items[13] as bool?).Value && (items[14] as bool?).Value) ? null : (items[13] as bool?).Value,
                 ((items[15] as bool?).Value && (items[16] as bool?).Value) ? null : (items[15] as bool?).Value,
                 ((items[17] as bool?).Value && (items[18] as bool?).Value) ? null : (items[17] as bool?).Value,
-                ((items[19] as bool?).Value && (items[20] as bool?).Value) ? null : (items[19] as bool?).Value);
+                ((items[19] as bool?).Value && (items[20] as bool?).Value) ? null : (items[19] as bool?).Value*/
         }
 
         public Command AddBeheersdaadCommand { get; set; }
