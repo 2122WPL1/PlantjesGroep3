@@ -19,6 +19,7 @@ namespace Plantjes.Dao
             };
             context.Plants.First(p => p == plant).Fotos.Add(foto);
             context.SaveChanges();
+            _ = context.SaveChanges();
             return foto;
         }
 

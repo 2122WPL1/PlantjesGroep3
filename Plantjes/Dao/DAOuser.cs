@@ -30,7 +30,7 @@ namespace Plantjes.Dao
         /// <param name="lastName">The lastname of the user.</param>
         /// <param name="emailadres">The email of the user.</param>
         /// <param name="password">The password of the user.</param>
-        public static Gebruiker AddUser(string vivesNr, string firstName, string lastName, string emailadres, string password)
+        public static void AddUser(string vivesNr, string firstName, string lastName, string emailadres, string password)
         {
             var passwordBytes = Encoding.ASCII.GetBytes(password);
             var md5Hasher = new MD5CryptoServiceProvider();
