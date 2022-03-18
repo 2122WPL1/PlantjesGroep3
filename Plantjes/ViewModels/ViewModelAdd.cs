@@ -67,7 +67,8 @@ namespace Plantjes.ViewModels
             foreach (TEntity item in searchService.GetList<TEntity>())
             {
                 if (selector(item).Contains('-') ||
-                    (item is AbioGrondsoort && selector(item).Length > 1))
+                    (item is AbioGrondsoort && selector(item).Length > 1) ||
+                    (item is CommStrategie && selector(item).Length > 1))
                     continue;
                 yield return new MenuItem()
                 {
@@ -121,7 +122,7 @@ namespace Plantjes.ViewModels
                 }
                 voedingsBehoefte = voedingsBehoefte[..^1];
             }
-            DaoAbiotiek.AddAbiotiek(plant, bezonning, grondsoort, items[0] as string, voedingsBehoefte);
+            DaoAbiotiek.AddAbiotiek(plant, bezonning, grondsoort, string.IsNullOrEmpty(items[0] as string) ? null : items[0] as string, voedingsBehoefte);
 
 
             foreach (MenuItem item in MHabitat)
@@ -132,8 +133,27 @@ namespace Plantjes.ViewModels
 
             foreach (Beheersdaad beheersdaad in IctrlBeheersdaad)
             {
-                if (!string.IsNullOrEmpty(beheersdaad.BeheersdaadText)) ;
-                    //DaoBeheersdaden.AddBeheersdaden(plant, beheersdaad.BeheersdaadText, );
+                if (!string.IsNullOrEmpty(beheersdaad.BeheersdaadText))
+                    DaoBeheersdaden.AddBeheersdaden(plant, beheersdaad.BeheersdaadText, beheersdaad.Months.Select(mi => mi.IsChecked).ToList());
+            }
+
+            string strategie = null;
+            if (MStrategie.Any(mi => mi.IsChecked))
+            {
+                strategie = string.Empty;
+                foreach (MenuItem item in MStrategie)
+                {
+                    strategie += item.Header;
+                }
+            }
+            DaoCommensalisme.AddCommensalisme(plant, string.IsNullOrEmpty(items[1] as string) ? null : items[1] as string, strategie);
+
+            int socIndex = 49;
+            foreach (bool check in items.GetRange(2, 5))
+            {
+                if (check)
+                    DaoCommensalisme.AddCommensalismeMulti(plant, "sociabiliteit", ((char)socIndex).ToString());
+                socIndex++;
             }
         }
 
@@ -292,7 +312,7 @@ namespace Plantjes.ViewModels
         }
         public IEnumerable<MenuItem> MHabitat
         {
-            get => makeMenuItemList<AbioHabitat>(a => a.Waarde);
+            get => makeMenuItemList<AbioHabitat>(a => a.Afkorting);
         }
         #endregion
 
@@ -304,13 +324,17 @@ namespace Plantjes.ViewModels
         #endregion
 
         #region Commensalisme
-        public IEnumerable<MenuItem> CmbOntwikkelingssnelheid
+        public IEnumerable<string> CmbOntwikkelingssnelheid
         {
-            get => makeMenuItemList<CommOntwikkelsnelheid>(a => a.Snelheid);
+            get => searchService.GetList<CommOntwikkelsnelheid>().Select(o => o.Snelheid);
         }
-        public IEnumerable<MenuItem> CmbConcurrentiekracht
+        public IEnumerable<MenuItem> MStrategie
         {
-            get => makeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
+            get => makeMenuItemList<CommStrategie>(s => s.Strategie);
+        }
+        public IEnumerable<MenuItem> MConcurrentiekracht
+        {
+            get => makeMenuItemList<CommLevensvorm>(a => a.Levensvorm);
         }
         #endregion
     }
