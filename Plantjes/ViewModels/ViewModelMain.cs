@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
-using Plantjes.ViewModels.HelpClasses;
+using MvvmHelpers.Commands;
 using Plantjes.ViewModels.Interfaces;
 
 namespace Plantjes.ViewModels

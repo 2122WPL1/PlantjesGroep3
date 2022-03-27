@@ -15,6 +15,7 @@ using Plantjes.Models.Extensions;
 using Plantjes.Models.Classes;
 using MvvmHelpers.Commands;
 using System.Collections.ObjectModel;
+using Plantjes.ViewModels.HelpClasses;
 
 namespace Plantjes.ViewModels
 {
@@ -36,12 +37,15 @@ namespace Plantjes.ViewModels
         public ViewModelAdd(ISearchService searchService)
         {
             this.searchService = searchService;
-            beheersdaden = new ObservableCollection<GroupBox>();
-            AddBeheersdaadItem();
+            beheersdaden = new ObservableCollection<GroupBox>() { new Beheersdaad() };
             AddBeheersdaadCommand = new Command(new Action(AddBeheersdaadItem));
             AddPlantCommand = new Command<object>(new Action<object>(AddPlant));
         }
 
+        /// <summary>
+        /// Makes an MenuItem list with all colors in the database.
+        /// </summary>
+        /// <returns>Returns a menuitem list with all color previews and names.</returns>
         private IEnumerable<MenuItem> MakeColorMenuItemList()
         {
             foreach (FenoKleur item in searchService.GetList<FenoKleur>())
@@ -62,6 +66,12 @@ namespace Plantjes.ViewModels
             }
         }
 
+        /// <summary>
+        /// Makes a MenuItem list with preset settings.
+        /// </summary>
+        /// <typeparam name="TEntity">The entity to be used for selector.</typeparam>
+        /// <param name="selector">The name of the TEntity.</param>
+        /// <returns>Returns a list of menu items with the name of TEntity.</returns>
         private IEnumerable<MenuItem> MakeMenuItemList<TEntity>(Func<TEntity, string> selector) where TEntity : class
         {
             foreach (TEntity item in searchService.GetList<TEntity>())
@@ -80,16 +90,25 @@ namespace Plantjes.ViewModels
             }
         }
 
+        /// <summary>
+        /// Adds a <see cref="Beheersdaad"/> to <see cref="beheersdaden"/>.
+        /// </summary>
         private void AddBeheersdaadItem()
         {
             beheersdaden.Add(new Beheersdaad());
         }
 
+        /// <summary>
+        /// Adds a new <see cref="Plant"/> to the database and all its eigenschappen.
+        /// </summary>
+        /// <param name="parameters">The values from the <see cref="PlantParameterConverter"/>.</param>
+        /// <exception cref="ArgumentException">Throws exception if the required parameters are not entered.</exception>
         private void AddPlant(object parameters)
         {
             List<object> items = parameters as List<object>;
+            
             if (new List<string>() { SelectedType.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
-            throw new ArgumentException("Zorg dat je alle algemene info ingevuld hebt!");
+                throw new ArgumentException("Zorg dat je alle algemene info ingevuld hebt!");
 
             Plant plant = DaoPlant.AddPlant(SelectedType.Planttypenaam, TextFamilie, TextGeslacht, 
                 string.IsNullOrEmpty(TextFamilie) ? null : TextFamilie,

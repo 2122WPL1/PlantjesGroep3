@@ -15,8 +15,8 @@ namespace Plantjes.Dao
         /// <see cref="GetList{Gebruiker}(bool)"/>.
         /// </summary>
         /// <param name="email">The email to be parsed.</param>
-        /// <returns>Retursn the user with said email.</returns>
-        public static Gebruiker GetGebruiker(string email)
+        /// <returns>Returns the user with said email.</returns>
+        public static Gebruiker GetUser(string email)
         {
             return GetList<Gebruiker>().FirstOrDefault(g => g.Emailadres == email);
         }
@@ -56,6 +56,5 @@ namespace Plantjes.Dao
             context.SaveChanges();
             return gebruiker;
         }
-
     }
 }

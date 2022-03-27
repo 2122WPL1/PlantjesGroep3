@@ -13,10 +13,7 @@ namespace Plantjes.Dao
 {
     public abstract class DaoBase
     {
-        //Robin: opzetten DAOLogic, singleton pattern
-
-        /*Niet noodzakelijk voor de singletonpattern waar wel voor de DAOLogic*/
-        public static readonly plantenContext context = new plantenContext();
+        protected static readonly plantenContext context = new plantenContext();
 
         #region Get methods
         //written by Warre
@@ -25,7 +22,7 @@ namespace Plantjes.Dao
         /// </summary>
         /// <typeparam name="TEntity">The type of the list.</typeparam>
         /// <param name="distinct">Boolean which decides if list must be distinct.</param>
-        /// <returns>Returns of a list of type <see cref="DbSet{TEntity}"/>.</returns>
+        /// <returns>Returns a <see cref="IEnumerable{T}"/> of type <see cref="DbSet{TEntity}"/>.</returns>
         public static IEnumerable<TEntity> GetList<TEntity>(bool distinct = false) where TEntity : class
         {
             var dbset = context.Set<TEntity>();
@@ -35,12 +32,12 @@ namespace Plantjes.Dao
 
         //written by Warre
         /// <summary>
-        /// <see cref="GetList{TEntity}(bool)"/> with a where predicate.
+        /// <seealso cref="GetList{TEntity}(bool)"/> with a where predicate.
         /// </summary>
         /// <typeparam name="TEntity">The type of the list.</typeparam>
         /// <param name="predicate">The requirement of the where.</param>
         /// <param name="distinct"><see cref="GetList{TEntity}(bool)"/>.</param>
-        /// <returns>Returns of a list of type <see cref="DbSet{TEntity}"/>.</returns>
+        /// <returns>Returns of a <see cref="IEnumerable{T}"/> of type <see cref="DbSet{TEntity}"/>.</returns>
         public static IEnumerable<TEntity> GetListWhere<TEntity>(Func<TEntity, bool> predicate, bool distinct = false) where TEntity : class
         {
             return GetList<TEntity>(distinct).Where(predicate);

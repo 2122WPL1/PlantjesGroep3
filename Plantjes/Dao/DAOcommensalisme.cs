@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Plantjes.Dao
 {
+    //written by Renzo
     internal class DaoCommensalisme : DaoBase
     {
         public static Commensalisme AddCommensalisme(Plant plant, string ontwikkelinssnelheid = null, string strategie = null)

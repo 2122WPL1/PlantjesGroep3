@@ -44,22 +44,19 @@ namespace Plantjes.ViewModels.Services
         /// </summary>
         /// <param name="emailInput"></param>
         /// <param name="passwordInput"></param>
-        /// <returns></returns>
+        /// <returns>Returns a bool if given parameters are valid credentials.</returns>
         /// <exception cref="Exception"></exception>
         public bool IsLogin(string emailInput, string passwordInput)
         {   //Nieuw loginResult om te gebruiken, status op NotLoggedIn zetten
             //var loginResult = new LoginResult() {loginStatus = LoginStatus.NotLoggedIn};
 
             //check if email is valid email
-            Gebruiker currentGebruiker;
-            if (IsEmail(emailInput))
-            {   //gebruiker zoeken in de databank
-                currentGebruiker = DaoUser.GetGebruiker(emailInput);
-            }
-            else
-            {//indien geen geldig emailadress, errorMessage opvullen
+            if (!IsEmail(emailInput))
+            {
                 throw new Exception("Dit is geen geldig emailadres.");
             }
+            //gebruiker zoeken in de databank
+            Gebruiker currentGebruiker = DaoUser.GetUser(emailInput);
 
             //omzetten van het ingegeven passwoord naar een gehashed passwoord
             var passwordBytes = Encoding.ASCII.GetBytes(passwordInput);
@@ -83,7 +80,7 @@ namespace Plantjes.ViewModels.Services
 
         //written by Warre
         /// <summary>
-        /// The message of the login user.
+        /// The message of the logged in user.
         /// </summary>
         /// <returns>A message as string.</returns>
         public string LoggedInMessage()
@@ -127,7 +124,7 @@ namespace Plantjes.ViewModels.Services
                 {
                     throw new Exception($"{emailInput} is geen geldig emailadres!");
                 }
-                if (DaoUser.GetGebruiker(emailInput) != null)
+                if (DaoUser.GetUser(emailInput) != null)
                 {
                     throw new Exception($"{emailInput} is al geregistreert!");
                 }

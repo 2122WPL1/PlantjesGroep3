@@ -366,10 +366,8 @@ namespace Plantjes.ViewModels.Services
                 location = DaoFoto.GetImageLocation(SelectedPlantInResult.PlantId, ImageCatogrie);
             }
 
-            if (location != null)
+            if (!string.IsNullOrEmpty(location))
             {
-                if (location != "")
-                {
                     //Converting it to a bitmap image. This makes it possible to also have online image.
                     BitmapImage bitmap = new BitmapImage();
                     bitmap.BeginInit();
@@ -377,7 +375,6 @@ namespace Plantjes.ViewModels.Services
                     bitmap.EndInit();
 
                     return bitmap;
-                }
             }
 
             return null;
