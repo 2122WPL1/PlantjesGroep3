@@ -108,44 +108,49 @@ namespace Plantjes.ViewModels
             List<object> items = parameters as List<object>;
             
             if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
+            {
                 MessageBox.Show("Zorg dat je alle algemene info ingevuld hebt!");
+                return;
+            }
 
             Plant plant = DaoPlant.AddPlant(SelectedType.Planttypenaam, TextFamilie, TextGeslacht, 
                 string.IsNullOrEmpty(TextFamilie) ? null : TextFamilie,
                 string.IsNullOrEmpty(TextVariant) ? null : TextVariant);
 
-            string bezonning = null, grondsoort = null, voedingsBehoefte = null;
-            if (MBezonning.Any(mi => mi.IsChecked))
+            if (MBezonning.Any(mi => mi.IsChecked) || MGrondsoort.Any(mi => mi.IsChecked) || MVoedingsbehoefte.Any(mi => mi.IsChecked))
             {
-                bezonning = string.Empty;
-                foreach (MenuItem item in MBezonning)
+                string bezonning = null, grondsoort = null, voedingsBehoefte = null;
+                if (MBezonning.Any(mi => mi.IsChecked))
                 {
-                    if (item.IsChecked)
-                        bezonning += item.Header + " - ";
+                    bezonning = string.Empty;
+                    foreach (MenuItem item in MBezonning)
+                    {
+                        if (item.IsChecked)
+                            bezonning += item.Header + " - ";
+                    }
+                    bezonning = bezonning[..^3];
                 }
-                bezonning = bezonning[..^3];
-            }
-            if (MGrondsoort.Any(mi => mi.IsChecked))
-            {
-                grondsoort = string.Empty;
-                foreach (MenuItem item in MGrondsoort)
+                if (MGrondsoort.Any(mi => mi.IsChecked))
                 {
-                    if (item.IsChecked)
-                        grondsoort += item.Header;
+                    grondsoort = string.Empty;
+                    foreach (MenuItem item in MGrondsoort)
+                    {
+                        if (item.IsChecked)
+                            grondsoort += item.Header;
+                    }
                 }
-            }
-            if (MVoedingsbehoefte.Any(mi => mi.IsChecked))
-            {
-                voedingsBehoefte = string.Empty;
-                foreach (MenuItem item in MVoedingsbehoefte)
+                if (MVoedingsbehoefte.Any(mi => mi.IsChecked))
                 {
-                    if (item.IsChecked)
-                        voedingsBehoefte += item.Header + " ";
+                    voedingsBehoefte = string.Empty;
+                    foreach (MenuItem item in MVoedingsbehoefte)
+                    {
+                        if (item.IsChecked)
+                            voedingsBehoefte += item.Header + " ";
+                    }
+                    voedingsBehoefte = voedingsBehoefte[..^1];
                 }
-                voedingsBehoefte = voedingsBehoefte[..^1];
+                DaoAbiotiek.AddAbiotiek(plant, bezonning, grondsoort, string.IsNullOrEmpty(items[0] as string) ? null : items[0] as string, voedingsBehoefte);
             }
-            DaoAbiotiek.AddAbiotiek(plant, bezonning, grondsoort, string.IsNullOrEmpty(items[0] as string) ? null : items[0] as string, voedingsBehoefte);
-
 
             foreach (MenuItem item in MHabitat)
             {
@@ -159,25 +164,26 @@ namespace Plantjes.ViewModels
                     DaoBeheersdaden.AddBeheersdaden(plant, beheersdaad.BeheersdaadText, beheersdaad.Months.Select(mi => mi.IsChecked).ToList());
             }
 
-            string strategie = null;
             if (MStrategie.Any(mi => mi.IsChecked))
             {
-                strategie = string.Empty;
+                string strategie = string.Empty;
                 foreach (MenuItem item in MStrategie)
                 {
                     if (item.IsChecked)
                         strategie += item.Header;
                 }
+                DaoCommensalisme.AddCommensalisme(plant, string.IsNullOrEmpty(items[1] as string) ? null : items[1] as string, strategie);
             }
-            DaoCommensalisme.AddCommensalisme(plant, string.IsNullOrEmpty(items[1] as string) ? null : items[1] as string, strategie);
 
             int socIndex = 49;
-            foreach (bool check in items.GetRange(2, 5))
+            foreach (bool? check in items.GetRange(2, 5))
             {
-                if (check)
+                if (check ?? false)
                     DaoCommensalisme.AddCommensalismeMulti(plant, "sociabiliteit", ((char)socIndex).ToString());
                 socIndex++;
             }
+
+
         }
 
         public Command AddBeheersdaadCommand { get; set; }
