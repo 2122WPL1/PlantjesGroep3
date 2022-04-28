@@ -9,7 +9,7 @@
 
     <!-- Design and base WPF by Ian on 25/02 ; Last edited on 15/03 -->
     <!-- Databinding and basic reformatting by Warre 15/03 -->
-    <DockPanel>
+    <DockPanel Width="1250">
         <Button DockPanel.Dock="Bottom" Content="Toevoegen" Width="150" Height="50" Margin="20" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 Command="{Binding AddPlantCommand}" CommandParameter="test"/>
         <TabControl x:Name="tcAdd"  DockPanel.Dock="Top" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -221,7 +221,7 @@
             </TabItem>
             <!--#endregion-->
 
-            <!--#region Beheersdaden-->
+            <!--#region Beheersdaden-->f
             <TabItem Header="Beheersdaden" IsSelected="False" x:Name="tiBeheersdaden">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <ItemsControl x:Name="icBeheesdaadMonth" ItemsSource="{Binding IctrlBeheersdaad}"/>

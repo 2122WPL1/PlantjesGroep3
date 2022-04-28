@@ -107,8 +107,8 @@ namespace Plantjes.ViewModels
         {
             List<object> items = parameters as List<object>;
             
-            if (new List<string>() { SelectedType.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
-                throw new ArgumentException("Zorg dat je alle algemene info ingevuld hebt!");
+            if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
+                MessageBox.Show("Zorg dat je alle algemene info ingevuld hebt!");
 
             Plant plant = DaoPlant.AddPlant(SelectedType.Planttypenaam, TextFamilie, TextGeslacht, 
                 string.IsNullOrEmpty(TextFamilie) ? null : TextFamilie,
@@ -120,7 +120,8 @@ namespace Plantjes.ViewModels
                 bezonning = string.Empty;
                 foreach (MenuItem item in MBezonning)
                 {
-                    bezonning += item.Header + " - ";
+                    if (item.IsChecked)
+                        bezonning += item.Header + " - ";
                 }
                 bezonning = bezonning[..^3];
             }
@@ -129,7 +130,8 @@ namespace Plantjes.ViewModels
                 grondsoort = string.Empty;
                 foreach (MenuItem item in MGrondsoort)
                 {
-                    grondsoort += item.Header;
+                    if (item.IsChecked)
+                        grondsoort += item.Header;
                 }
             }
             if (MVoedingsbehoefte.Any(mi => mi.IsChecked))
@@ -137,7 +139,8 @@ namespace Plantjes.ViewModels
                 voedingsBehoefte = string.Empty;
                 foreach (MenuItem item in MVoedingsbehoefte)
                 {
-                    voedingsBehoefte += item.Header + " ";
+                    if (item.IsChecked)
+                        voedingsBehoefte += item.Header + " ";
                 }
                 voedingsBehoefte = voedingsBehoefte[..^1];
             }
@@ -162,7 +165,8 @@ namespace Plantjes.ViewModels
                 strategie = string.Empty;
                 foreach (MenuItem item in MStrategie)
                 {
-                    strategie += item.Header;
+                    if (item.IsChecked)
+                        strategie += item.Header;
                 }
             }
             DaoCommensalisme.AddCommensalisme(plant, string.IsNullOrEmpty(items[1] as string) ? null : items[1] as string, strategie);
