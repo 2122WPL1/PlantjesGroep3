@@ -107,18 +107,22 @@ namespace Plantjes.ViewModels
         {
             List<object> items = parameters as List<object>;
             
+            // Checks if the required fields are filled in
             if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
             {
                 MessageBox.Show("Zorg dat je alle algemene info ingevuld hebt!");
                 return;
             }
 
+            // Adds the base plant to the DB
             Plant plant = DaoPlant.AddPlant(SelectedType.Planttypenaam, TextFamilie, TextGeslacht, 
                 string.IsNullOrEmpty(TextFamilie) ? null : TextFamilie,
                 string.IsNullOrEmpty(TextVariant) ? null : TextVariant);
 
+            // checks if any fields for abiotiek are filled in
             if (MBezonning.Any(mi => mi.IsChecked) || MGrondsoort.Any(mi => mi.IsChecked) || MVoedingsbehoefte.Any(mi => mi.IsChecked))
             {
+                // formats the bezonning, grondsoort and voedingsbehoefte to the uniform info in DB
                 string bezonning = null, grondsoort = null, voedingsBehoefte = null;
                 if (MBezonning.Any(mi => mi.IsChecked))
                 {
@@ -149,23 +153,28 @@ namespace Plantjes.ViewModels
                     }
                     voedingsBehoefte = voedingsBehoefte[..^1];
                 }
+                // adds the data to above plant
                 DaoAbiotiek.AddAbiotiek(plant, bezonning, grondsoort, string.IsNullOrEmpty(items[0] as string) ? null : items[0] as string, voedingsBehoefte);
             }
 
+            // checks each habitat if filled in and adds to db
             foreach (MenuItem item in MHabitat)
             {
                 if (item.IsChecked)
                     DaoAbiotiek.AddAbiotiekMulti(plant, "habitat", item.Header as string);
             }
 
+            // checks each beheersdaad and adds to db if not empty
             foreach (Beheersdaad beheersdaad in IctrlBeheersdaad)
             {
                 if (!string.IsNullOrEmpty(beheersdaad.BeheersdaadText))
                     DaoBeheersdaden.AddBeheersdaden(plant, beheersdaad.BeheersdaadText, beheersdaad.Months.Select(mi => mi.IsChecked).ToList());
             }
 
+            // checks if any strategie is checked
             if (MStrategie.Any(mi => mi.IsChecked))
             {
+                // formats and adds the strategie to the uniform form in DB
                 string strategie = string.Empty;
                 foreach (MenuItem item in MStrategie)
                 {
@@ -175,6 +184,7 @@ namespace Plantjes.ViewModels
                 DaoCommensalisme.AddCommensalisme(plant, string.IsNullOrEmpty(items[1] as string) ? null : items[1] as string, strategie);
             }
 
+            // converts number to its asci and adds it to DB if checked
             int socIndex = 49;
             foreach (bool? check in items.GetRange(2, 5))
             {
