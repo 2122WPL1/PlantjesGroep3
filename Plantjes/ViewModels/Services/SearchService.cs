@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using GalaSoft.MvvmLight.Helpers;
 using Plantjes.Dao;
 using Plantjes.Models;
 using Plantjes.ViewModels.Interfaces;
@@ -27,7 +28,39 @@ namespace Plantjes.ViewModels.Services
         {
             return DaoBase.GetListWhere<TEntity>(predicate, distinct);
         }
+        #endregion
 
+        #region Plant Search Help
+
+        //Written by Ian Dumalin on 28/04
+        public IEnumerable<Plant> GetListPlants(string? type, string? familie, string? geslacht, string grondsoort,
+            string habitat, string? habitus, char socialbiliteit, string bezonning)
+        {
+            var plantList = DaoPlant.GetList<Plant>();
+            // if search values are null => return every plant in DB.
+            if (type == null && familie == null && geslacht == null && grondsoort == null && habitat == null && habitus == null &&
+                socialbiliteit == 0 && bezonning == null)
+            {
+                return plantList;
+            }
+
+            List<Plant> searchValues = new List<Plant>();
+            // Search on singular, non-multi values
+            List<Plant> searchedPlants = 
+                (List<Plant>)plantList.Where(p =>
+                p.Type.Contains(type) || 
+                p.Familie.Contains(familie) || 
+                p.Geslacht.Contains(geslacht) || 
+                p.Abiotieks.First().Grondsoort == grondsoort ||
+                p.Fenotypes.First().Habitus == habitus ||
+                p.Abiotieks.First().Bezonning == bezonning);
+
+            return searchedPlants;
+        }
+
+        #endregion
+
+        #region OLD CODE
         /// <summary>
         /// Uses <see cref="GetListWhere{TEntity}(Func{TEntity, bool}, bool)"/> to filter to the filled in params.
         /// </summary>

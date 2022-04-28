@@ -109,7 +109,7 @@ namespace Plantjes.ViewModels.Services
         /// <param name="passwordInput">The password of the user.</param>
         /// <param name="passwordRepeatInput">The password to check the password.</param>
         /// <param name="rolInput">The role of the user.</param>
-        /// <exception cref="Exception">Throws an execption with a message to be used.</exception>
+        /// <exception cref="Exception">Throws an exception with a message to be used.</exception>
         public void Register(string vivesNrInput, string lastNameInput,
                                    string firstNameInput, string emailInput,
                                    string passwordInput, string passwordRepeatInput)

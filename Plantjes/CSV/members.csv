@@ -1,0 +1,6 @@
+r-nummer;firstname;lastname;e-mail;password
+r0000000;admin;admin;admin;admin
+r1234560;john;doe;john.doe@student.vives.be;r1234567
+r1234561;jane;doe;jane.doe@student.vives.be;r1234567
+r1234562;starscourge;radahn;starscourge.radahn@student.vives.be;r1234567
+r1234563;test;test;test@student.vives.be;r1234567

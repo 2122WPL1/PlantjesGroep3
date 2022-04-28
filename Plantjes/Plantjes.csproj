@@ -54,4 +54,10 @@
     <Folder Include="Models\Db\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="CSV\members.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

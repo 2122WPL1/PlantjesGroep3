@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Plantjes.Models.Db;
 using System.Security.Cryptography;
+using Plantjes.ViewModels.HelpClasses;
 
 namespace Plantjes.Dao
 {
@@ -21,6 +22,11 @@ namespace Plantjes.Dao
             return GetList<Gebruiker>().FirstOrDefault(g => g.Emailadres == email);
         }
 
+        public static List<Gebruiker> GetGebruikerList()
+        {
+            return GetList<Gebruiker>().ToList();
+        }
+
         //written by Renzo
         /// <summary>
         /// Adds a user to the db.
@@ -32,9 +38,7 @@ namespace Plantjes.Dao
         /// <param name="password">The password of the user.</param>
         public static Gebruiker AddUser(string vivesNr, string firstName, string lastName, string emailadres, string password)
         {
-            var passwordBytes = Encoding.ASCII.GetBytes(password);
-            var md5Hasher = new MD5CryptoServiceProvider();
-            var passwordHashed = md5Hasher.ComputeHash(passwordBytes);
+            var passwordHashed = Helper.HashString(password);
 
             //written by Warre
             int role = 2;
@@ -51,6 +55,30 @@ namespace Plantjes.Dao
                 Emailadres = emailadres,
                 RolId = role,
                 HashPaswoord = passwordHashed
+            };
+            context.Gebruikers.Add(gebruiker);
+            context.SaveChanges();
+            return gebruiker;
+        }
+
+        public static Gebruiker AddUser(string vivesNr, string firstName, string lastName, string emailadres, byte[] password)
+        {
+
+            //written by Warre
+            int role = 2;
+            if (emailadres.ToLower().Contains("@vives.be"))
+                role = 0;
+            if (emailadres.ToLower().Contains("@student.vives.be"))
+                role = 1;
+
+            var gebruiker = new Gebruiker()
+            {
+                Vivesnr = vivesNr,
+                Voornaam = firstName,
+                Achternaam = lastName,
+                Emailadres = emailadres,
+                RolId = role,
+                HashPaswoord = password
             };
             context.Gebruikers.Add(gebruiker);
             context.SaveChanges();
