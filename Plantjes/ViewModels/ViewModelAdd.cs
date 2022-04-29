@@ -19,8 +19,9 @@ namespace Plantjes.ViewModels
 {
     //written by Warre
     internal class ViewModelAdd : ViewModelBase
+
     {
-        private readonly ISearchService searchService;
+    private readonly ISearchService searchService;
 
         private TfgsvType selectedType;
         private TfgsvFamilie selectedFamilie;
@@ -92,13 +93,25 @@ namespace Plantjes.ViewModels
             }
         }
 
-        /// <summary>
-        /// Adds a <see cref="Beheersdaad"/> to <see cref="beheersdaden"/>.
-        /// </summary>
-        private void AddBeheersdaadItem()
+    private bool IsRequiredFilled()
+    {
+        if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
         {
-            beheersdaden.Add(new Beheersdaad());
+            MessageBox.Show("Zorg dat je de verplichte velden ingevuld hebt!");
+            selectedTab = 0;
+            OnPropertyChanged();
+            return false;
         }
+        return true;
+    }
+
+    /// <summary>
+    /// Adds a <see cref="Beheersdaad"/> to <see cref="beheersdaden"/>.
+    /// </summary>
+    private void AddBeheersdaadItem()
+    {
+        beheersdaden.Add(new Beheersdaad());
+    }
 
         /// <summary>
         /// Adds a <see cref="FenotypeMonth"/> to <see cref="fenotypeMonths"/>.
@@ -242,7 +255,21 @@ namespace Plantjes.ViewModels
             }
         }
 
-        public Command<object> AddPlantCommand { get; set; }
+    public int SelectedTab
+    {
+        get { return selectedTab; }
+        set
+        {
+
+            if (IsRequiredFilled())
+            {
+                selectedTab = value;
+                
+            }
+        }
+    }
+    public Command AddBeheersdaadCommand { get; set; }
+    public Command<object> AddPlantCommand { get; set; }
 
         #region Tabcontrol
         //Written by Ian Dumalin on 18/03

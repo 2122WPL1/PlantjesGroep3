@@ -35,9 +35,9 @@
                 </MultiBinding>
             </Button.CommandParameter>
         </Button>
-        <TabControl x:Name="tcAdd"  DockPanel.Dock="Top" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TabControl SelectedIndex="{Binding SelectedTab}" x:Name="tcAdd"  DockPanel.Dock="Top" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <!--#region MainInfo-->
-            <TabItem Header="Algemene Info" IsSelected="True" x:Name="tiMainInfo">
+            <TabItem Header="Algemene Info" IsSelected="True" x:Name="tiMainInfo" Height="22" Margin="-2,-2,-2,0" VerticalAlignment="Top">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Vertical">
 
@@ -116,7 +116,7 @@
             <!--#endregion-->
 
             <!--#region Fenotype-->
-            <TabItem Header="Fenotype" IsSelected="False" x:Name="tiFenotype">
+            <TabItem Header="Fenotype" IsSelected="{Binding SelectedTab}" x:Name="tiFenotype" Height="24" Margin="-2,-2,-2,0" VerticalAlignment="Top">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel HorizontalAlignment="Center">
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
@@ -193,7 +193,7 @@
             <!--#endregion-->
 
             <!--#region Abiofactors-->
-            <TabItem Header="Abiotische Factoren" IsSelected="False" x:Name="tiAbiofactors">
+            <TabItem Header="Abiotische Factoren" IsSelected="{Binding SelectedTab}" x:Name="tiAbiofactors">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                         <Label x:Name="lblBezonning" Content="Bezonning:"/>
@@ -232,7 +232,7 @@
             <!--#endregion-->
 
             <!--#region Beheersdaden-->
-            <TabItem Header="Beheersdaden" IsSelected="False" x:Name="tiBeheersdaden">
+            <TabItem Header="Beheersdaden" IsSelected="{Binding SelectedTab}" x:Name="tiBeheersdaden">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <ItemsControl x:Name="icBeheesdaadMonth" ItemsSource="{Binding IctrlBeheersdaad}"/>
                     <Button x:Name="btnAddMonthBeheersdaad" Content="+" Width="20" Command="{Binding AddBeheersdaadCommand}"/>
@@ -241,7 +241,7 @@
             <!--#endregion-->
 
             <!--#region Commensalism-->
-            <TabItem Header="Commensalisme" IsSelected="False" x:Name="tiCommensalism">
+            <TabItem Header="Commensalisme" IsSelected="{Binding SelectedTab}" x:Name="tiCommensalism">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                         <Label x:Name="lblOntwikkelingSnelheid" Content="Ontwikkelingssnelheid:"/>
@@ -300,7 +300,7 @@
             <!--#endregion-->
             
             <!--#region Extra-->
-            <TabItem Header="Extra Informatie" IsSelected="False" x:Name="tiExtra">
+            <TabItem Header="Extra Informatie" IsSelected="{Binding SelectedTab}" x:Name="tiExtra">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                         <Label x:Name="lblNectar" Content="Nectarwaarde:"/>
