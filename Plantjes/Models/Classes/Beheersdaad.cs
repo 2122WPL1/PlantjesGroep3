@@ -32,12 +32,10 @@ namespace Plantjes.Models.Classes
             panel.Children.Add(months);
 
             panel.Children.Add(new Label() { Content = "Frequentie per jaar:", VerticalAlignment = VerticalAlignment.Center });
-            TextBox frequency = new TextBox() { Width = 30, Height = 25 };
-            panel.Children.Add(frequency);
+            panel.Children.Add(new TextBox() { Width = 30, Height = 25 });
 
             panel.Children.Add(new Label() { Content = "m²/u:", VerticalAlignment = VerticalAlignment.Center });
-            TextBox area = new TextBox() { Width = 30, Height = 25 };
-            panel.Children.Add(area);
+            panel.Children.Add(new TextBox() { Width = 30, Height = 25 });
 
             Content = panel;
         }
@@ -49,6 +47,7 @@ namespace Plantjes.Models.Classes
                 yield return new MenuItem()
                 {
                     IsCheckable = true,
+                    StaysOpenOnClick = true,
                     Header = item.FirstToUpper()
                 };
             }
