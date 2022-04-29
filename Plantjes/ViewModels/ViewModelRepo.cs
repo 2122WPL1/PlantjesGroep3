@@ -18,13 +18,15 @@ namespace Plantjes.ViewModels
         private Dictionary<string, ViewModelBase> _viewModels = new Dictionary<string, ViewModelBase>();
        
         private ViewModelAdd viewModelAdd = iocc.GetInstance<ViewModelAdd>();
+        private ViewModelSearch viewModelSearch = iocc.GetInstance<ViewModelSearch>();
 
         public ViewModelRepo()
         {
             //hier een extra lijn code per user control
             _viewModels.Add("VIEWADD", viewModelAdd);
+            _viewModels.Add("VIEWSEARCH", viewModelSearch);
         }
-        //
+        
         public ViewModelBase GetViewModel(string modelName)
         {
             ViewModelBase result;
