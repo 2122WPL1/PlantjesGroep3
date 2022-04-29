@@ -153,6 +153,23 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblMinBloeihoogte" Content="Bloeihoogte Min:"/>
+                            <TextBox x:Name="txtMinBloeihoogte" Width="200"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblMaxBloeihoogte" Content="Bloeihoogte Max:"/>
+                            <TextBox x:Name="txtMaxBloeihoogte" Width="200"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+                            <Label x:Name="lblSpruitfenologie" Content="Spruitfenologie:"/>
+                            <ComboBox x:Name="txtSpruitfenologie" Width="200"/>
+                        </StackPanel>
+                    </WrapPanel>
+                    
+                    <WrapPanel HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                             <Label x:Name="lblBladkleur" Content="Bladkleur:"/>
                             <Menu x:Name="mBladkleur" Width="200">
                                 <MenuItem Header="Bladkleur Selecteren..." ItemsSource="{Binding MBladkleur}"/>

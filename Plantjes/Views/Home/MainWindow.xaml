@@ -14,7 +14,7 @@
         <DataTemplate DataType="{x:Type viewModels:ViewModelAdd}">
             <pages:UserControlAdd/>
         </DataTemplate>
-        
+
         <DataTemplate DataType = "{x:Type viewModels:ViewModelNameResult}">
             <pages:UserControlName/>
         </DataTemplate>
@@ -42,12 +42,12 @@
     </Window.Resources>
 
     <DockPanel>
-        <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="10">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10" Width="1221">
 
             <Button x:Name="btnAdd" Content="Toevoegen" Width="100" Margin="5" 
                     Command="{Binding mainNavigationCommand}" 
                     CommandParameter="VIEWADD"/>
-            
+
             <Button x:Name="btnBloei" Content="Bloei" Width="100" Margin="5" 
                     Command="{Binding mainNavigationCommand}" 
                     CommandParameter="VIEWBLOOM"/>
@@ -71,13 +71,16 @@
             <Button x:Name="btnNaam" Content="Naam" Width="100" Margin="5" 
                     Command="{Binding mainNavigationCommand}"
                     CommandParameter="VIEWNAME"/>
+            <Button x:Name="btnDocent" Content="Docent" Width="100" 
+                    Command="{Binding mainNavigationCommand}"
+                    CommandParameter="VIEWDOCENT" HorizontalAlignment="Stretch" Margin="350,0,0,0"/>
         </StackPanel>
 
         <Grid x:Name="MainContent">
             <ContentControl Content="{Binding currentViewModel}"/>
         </Grid>
     </DockPanel>
-    
+
     <!--<Button x:Name="btnLopendVerzoek" Content="Lopend verzoek" HorizontalAlignment="Left" Margin="948,14,0,0" VerticalAlignment="Top" Height="32" Width="125" BorderBrush="#FF2AE633" Background="#FF474029" FontWeight="Bold" FontSize="15" Foreground="#FFA2BC5B">
             <Button.Effect>
                 <DropShadowEffect/>
