@@ -23,12 +23,12 @@ namespace Plantjes.ViewModels
     {
     private readonly ISearchService searchService;
 
+        private int selectedTab;
         private TfgsvType selectedType;
         private TfgsvFamilie selectedFamilie;
         private TfgsvGeslacht selectedGeslacht;
         private TfgsvSoort selectedSoort;
         private TfgsvVariant selectedVariant;
-
         private string selectedFenotypeMaand;
 
         private ObservableCollection<Beheersdaad> beheersdaden;
@@ -37,6 +37,7 @@ namespace Plantjes.ViewModels
         public ViewModelAdd(ISearchService searchService)
         {
             this.searchService = searchService;
+            selectedTab = 0;
 
             beheersdaden = new ObservableCollection<Beheersdaad>() { new Beheersdaad() };
             fenotypeMonths = new ObservableCollection<FenotypeMonth>() { new FenotypeMonth() };
@@ -268,7 +269,6 @@ namespace Plantjes.ViewModels
             }
         }
     }
-    public Command AddBeheersdaadCommand { get; set; }
     public Command<object> AddPlantCommand { get; set; }
 
         #region Tabcontrol

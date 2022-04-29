@@ -17,25 +17,11 @@ namespace Plantjes.ViewModels
 
         private Dictionary<string, ViewModelBase> _viewModels = new Dictionary<string, ViewModelBase>();
        
-        private ViewModelNameResult viewModelNameResult = iocc.GetInstance<ViewModelNameResult>();
-        private ViewModelRegister viewModelRegister = iocc.GetInstance<ViewModelRegister>();
-        private ViewModelHabitat viewModelHabitat = iocc.GetInstance<ViewModelHabitat>();
-        private ViewModelBloom viewModelBloom = iocc.GetInstance<ViewModelBloom>();
-        private ViewModelGrow viewModelGrow = iocc.GetInstance<ViewModelGrow>();
-        private ViewModelAppearance viewModelAppearance = iocc.GetInstance<ViewModelAppearance>();
-        private ViewModelGrooming viewModelGrooming = iocc.GetInstance<ViewModelGrooming>();
         private ViewModelAdd viewModelAdd = iocc.GetInstance<ViewModelAdd>();
 
         public ViewModelRepo()
         {
             //hier een extra lijn code per user control
-            _viewModels.Add("VIEWNAME", viewModelNameResult);
-            _viewModels.Add("VIEWHABITAT", viewModelHabitat);
-            _viewModels.Add("VIEWBLOOM", viewModelBloom);
-            _viewModels.Add("VIEWGROW", viewModelGrow);
-            _viewModels.Add("VIEWAPPEARANCE", viewModelAppearance);
-            _viewModels.Add("VIEWGROOMING",viewModelGrooming);
-            _viewModels.Add("VIEWREGISTER", viewModelRegister);
             _viewModels.Add("VIEWADD", viewModelAdd);
         }
         //
