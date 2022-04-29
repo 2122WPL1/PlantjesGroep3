@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Plantjes.Models.Db;
+﻿using MvvmHelpers.Commands;
 using Plantjes.Dao;
-using Plantjes.ViewModels.Interfaces;
-using System.Globalization;
-using System.Windows.Controls;
-using System.Windows;
-using System.Windows.Shapes;
-using System.Windows.Media;
-using Plantjes.Models.Extensions;
 using Plantjes.Models.Classes;
-using MvvmHelpers.Commands;
-using System.Collections.ObjectModel;
+using Plantjes.Models.Db;
+using Plantjes.Models.Extensions;
 using Plantjes.ViewModels.HelpClasses;
+using Plantjes.ViewModels.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Plantjes.ViewModels
 {
@@ -32,13 +30,17 @@ namespace Plantjes.ViewModels
 
         private string selectedFenotypeMaand;
 
-        private ObservableCollection<GroupBox> beheersdaden;
+        private ObservableCollection<Beheersdaad> beheersdaden;
+        private ObservableCollection<FenotypeMonth> fenotypeMonths;
 
         public ViewModelAdd(ISearchService searchService)
         {
             this.searchService = searchService;
-            beheersdaden = new ObservableCollection<GroupBox>() { new Beheersdaad() };
+
+            beheersdaden = new ObservableCollection<Beheersdaad>() { new Beheersdaad() };
+            fenotypeMonths = new ObservableCollection<FenotypeMonth>() { new FenotypeMonth() };
             AddBeheersdaadCommand = new Command(new Action(AddBeheersdaadItem));
+            AddFenotypeMonthCommand = new Command(new Action(AddFenotypeMonth));
             AddPlantCommand = new Command<object>(new Action<object>(AddPlant));
         }
 
@@ -99,7 +101,15 @@ namespace Plantjes.ViewModels
         }
 
         /// <summary>
-        /// Adds a new <see cref="Plant"/> to the database and all its eigenschappen.
+        /// Adds a <see cref="FenotypeMonth"/> to <see cref="fenotypeMonths"/>.
+        /// </summary>
+        private void AddFenotypeMonth()
+        {
+            fenotypeMonths.Add(new FenotypeMonth());
+        }
+
+        /// <summary>
+        /// Adds a new <see cref="Plant"/> and all its eigenschappen to the database.
         /// </summary>
         /// <param name="parameters">The values from the <see cref="PlantParameterConverter"/>.</param>
         /// <exception cref="ArgumentException">Throws exception if the required parameters are not entered.</exception>
@@ -184,7 +194,7 @@ namespace Plantjes.ViewModels
                 DaoCommensalisme.AddCommensalisme(plant, string.IsNullOrEmpty(items[1] as string) ? null : items[1] as string, strategie);
             }
 
-            // converts number to its asci and adds it to DB if checked
+            // converts number to its asci and adds sociabiliteit to DB if checked
             int socIndex = 49;
             foreach (bool? check in items.GetRange(2, 5))
             {
@@ -193,10 +203,45 @@ namespace Plantjes.ViewModels
                 socIndex++;
             }
 
+            // checks if any param are filled, adds to DB 
+            if (new List<object>() { items[7], items[8], items[9], items[10], items[11], items[12], items[13] }.Any(s => !string.IsNullOrEmpty(s as string)))
+            {
+                int bladGrootte;
+                if (!int.TryParse(items[7] as string, out bladGrootte))
+                {
+                    bladGrootte = 0;
+                }
+                DaoFenotype.AddFenotype(plant,
+                    bladGrootte <= 0 ? null : bladGrootte,
+                    string.IsNullOrEmpty(items[8] as string) ? null : items[8] as string,
+                    string.IsNullOrEmpty(items[9] as string) ? null : items[9] as string,
+                    string.IsNullOrEmpty(items[10] as string) ? null : items[10] as string,
+                    string.IsNullOrEmpty(items[11] as string) ? null : items[11] as string,
+                    string.IsNullOrEmpty(items[12] as string) ? null : items[12] as string);
+            }
 
+            if (IctrlFenotypeMonth.Any(fm => !string.IsNullOrEmpty(fm.SelectedMonth)))
+            {
+                foreach (FenotypeMonth fenotype in IctrlFenotypeMonth)
+                {
+                    if (!string.IsNullOrEmpty(fenotype.Bladgrootte))
+                        DaoFenotype.AddFenotypeMulti(plant, "bladgrootte", fenotype.Bladgrootte, fenotype.SelectedMonth);
+                    if (!string.IsNullOrEmpty(fenotype.Bladhoogte))
+                        DaoFenotype.AddFenotypeMulti(plant, "bladhoogte", fenotype.Bladhoogte, fenotype.SelectedMonth);
+                }
+            }
+            foreach (MenuItem item in MBladkleur)
+            {
+                if (item.IsChecked)
+                    DaoFenotype.AddFenotypeMulti(plant, "bladkleur", item.Header as string);
+            }
+            foreach (MenuItem item in MBloeikleur)
+            {
+                if (item.IsChecked)
+                    DaoFenotype.AddFenotypeMulti(plant, "bloeikleur", item.Header as string);
+            }
         }
 
-        public Command AddBeheersdaadCommand { get; set; }
         public Command<object> AddPlantCommand { get; set; }
 
         #region Tabcontrol
@@ -301,6 +346,10 @@ namespace Plantjes.ViewModels
         {
             get => CultureInfo.GetCultureInfo("nl-BE").DateTimeFormat.MonthNames[..^1].Select(m => m.FirstToUpper());
         }
+        public IEnumerable<string> CmbSpruitfenologie
+        {
+            get => searchService.GetList<FenoSpruitfenologie>().Select(f => f.Fenologie);
+        }
         public IEnumerable<MenuItem> MBladkleur
         {
             get => MakeColorMenuItemList();
@@ -308,18 +357,6 @@ namespace Plantjes.ViewModels
         public IEnumerable<MenuItem> MBloeikleur
         {
             get => MakeColorMenuItemList();
-        }
-        public IEnumerable<string> CmbBladhoogteMax
-        {
-            get => searchService.GetListWhere<FenotypeMulti>(f => f.Eigenschap.ToLower() == "bladhoogtemax" && f.Maand.ToLower() == SelectedFenotypeMaand.ToLower()).Select(f => f.Waarde);
-        }
-        public IEnumerable<string> CmbBloeihoogteMin
-        {
-            get => searchService.GetListWhere<FenotypeMulti>(f => f.Eigenschap.ToLower() == "bloeihoogtemin" && f.Maand.ToLower() == SelectedFenotypeMaand.ToLower()).Select(f => f.Waarde);
-        }
-        public IEnumerable<string> CmbBloeihoogteMax
-        {
-            get => searchService.GetListWhere<FenotypeMulti>(f => f.Eigenschap.ToLower() == "bloeihoogtemax" && f.Maand.ToLower() == SelectedFenotypeMaand.ToLower()).Select(f => f.Waarde);
         }
 
         public string SelectedFenotypeMaand
@@ -335,6 +372,13 @@ namespace Plantjes.ViewModels
                 OnPropertyChanged("CmbBloeihoogteMax");
             }
         }
+
+        public ObservableCollection<FenotypeMonth> IctrlFenotypeMonth
+        {
+            get => fenotypeMonths;
+        }
+
+        public Command AddFenotypeMonthCommand { get; set; }
         #endregion
 
         #region Abiotische Factoren
@@ -361,10 +405,11 @@ namespace Plantjes.ViewModels
         #endregion
 
         #region Beheersdaden
-        public ObservableCollection<GroupBox> IctrlBeheersdaad
+        public ObservableCollection<Beheersdaad> IctrlBeheersdaad
         {
             get => beheersdaden;
         }
+        public Command AddBeheersdaadCommand { get; set; }
         #endregion
 
         #region Commensalisme
