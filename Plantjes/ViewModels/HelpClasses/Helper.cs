@@ -31,9 +31,12 @@ namespace Plantjes.ViewModels.HelpClasses
                 {
                     string line = reader.ReadLine();
                     string[] readValues = line.Split(';');
-                    if (readValues[0] != "Studentennummer")
+                    if (readValues[3] == "e-mail")
                     {
-                        valueList.Add(new Gebruiker(readValues[0], readValues[1], readValues[2], readValues[5], Helper.HashString(readValues[0])));
+                    }
+                    else
+                    {
+                        valueList.Add(new Gebruiker(readValues[0], readValues[1], readValues[2], readValues[3], Helper.HashString(readValues[4])));
                     }
                 }
             }
@@ -51,7 +54,7 @@ namespace Plantjes.ViewModels.HelpClasses
             }
         }
 
-        // Written by Warre, converted to help method by Ian
+        // Written by Warre
         /// <summary>
         /// Converts a string to a collection of bytes
         /// </summary>

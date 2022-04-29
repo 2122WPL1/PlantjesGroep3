@@ -85,21 +85,5 @@ namespace Plantjes.Dao
             return gebruiker;
         }
 
-        public static void UpdateUser(Gebruiker gebruiker)
-        {
-            context.Gebruikers.Update(gebruiker);
-            context.SaveChanges();
-        }
-
-        public static void UpdateUser(Gebruiker gebruiker, byte[] password)
-        {
-            gebruiker.LastLogin = DateTime.Now;
-            if (password != gebruiker.HashPaswoord)
-            {
-                gebruiker.HashPaswoord = password;
-            }
-            context.Gebruikers.Update(gebruiker);
-            context.SaveChanges();
-        }
     }
 }
