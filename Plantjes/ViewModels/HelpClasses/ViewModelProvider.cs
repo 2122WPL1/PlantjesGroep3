@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using Plantjes.ViewModels.Interfaces;
 using Plantjes.ViewModels;
+using Plantjes.Views.Dialog;
 
 namespace Plantjes.ViewModels.HelpClasses
 {  /*written by kenny*/
@@ -47,6 +48,7 @@ namespace Plantjes.ViewModels.HelpClasses
             iocc.Register<ViewModelBase>(() => new ViewModelBase());
             iocc.Register<ViewModelMain>(() => new ViewModelMain(loginService, searchService));
             iocc.Register<ViewModelRepo>(() => new ViewModelRepo());
+            iocc.Register<PasswordChangeDialog>(() => new PasswordChangeDialog());
         }
     }
 }

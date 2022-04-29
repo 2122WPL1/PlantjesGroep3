@@ -11,6 +11,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Plantjes.ViewModels.HelpClasses;
+using Plantjes.Views.Dialog;
 
 namespace Plantjes.ViewModels.Services
 {
@@ -76,9 +77,10 @@ namespace Plantjes.ViewModels.Services
                 throw new Exception("Het ingegeven wachtwoord is niet juist, probeer opnieuw");
             }
 
-            if (currentGebruiker.HashPaswoord == Helper.HashString(currentGebruiker.Vivesnr) || gebruiker.LastLogin == null)
+            if (currentGebruiker.HashPaswoord == Helper.HashString(currentGebruiker.Vivesnr) || currentGebruiker.LastLogin == null)
             {
-                
+                PasswordChangeDialog passwordDialog = new PasswordChangeDialog();
+                passwordDialog.ShowDialog();
             }
 
             gebruiker = currentGebruiker;
