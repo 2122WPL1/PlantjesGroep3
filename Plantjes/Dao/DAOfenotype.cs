@@ -46,5 +46,20 @@ namespace Plantjes.Dao
             context.SaveChanges();
             return fenotype;
         }
+
+        public static FenotypeMulti AddFenotypeMulti(Plant plant, string eigenschap, string waarde, string? month = null)
+        {
+            FenotypeMulti fenotype = new FenotypeMulti()
+            {
+                Eigenschap = eigenschap,
+                Waarde = waarde,
+            };
+            if (month != null)
+                fenotype.Maand = month;
+
+            context.Plants.First(p => p == plant).FenotypeMultis.Add(fenotype);
+            context.SaveChanges();
+            return fenotype;
+        }
     }
 }
