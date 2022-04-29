@@ -116,7 +116,7 @@
             <!--#endregion-->
 
             <!--#region Fenotype-->
-            <TabItem Header="Fenotype" IsSelected="False" x:Name="tiFenotype">
+            <TabItem Header="Fenotype" IsSelected="{Binding SelectedTab}" x:Name="tiFenotype">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel HorizontalAlignment="Center">
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">

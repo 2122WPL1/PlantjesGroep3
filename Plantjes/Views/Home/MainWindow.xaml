@@ -34,7 +34,7 @@
         </Grid>
 
         <Grid x:Name="MainContent">
-            <ContentControl Content="{Binding currentViewModel}" Width="{Binding ElementName=Main, Path=ActualWidth, UpdateSourceTrigger=PropertyChanged}"/>
+            <ContentControl Content="{Binding currentViewModel}"/>
         </Grid>
     </DockPanel>
 </Window>
