@@ -14,159 +14,27 @@
         <DataTemplate DataType="{x:Type viewModels:ViewModelAdd}">
             <pages:UserControlAdd/>
         </DataTemplate>
-
-        <DataTemplate DataType = "{x:Type viewModels:ViewModelNameResult}">
-            <pages:UserControlName/>
-        </DataTemplate>
-
-        <DataTemplate DataType = "{x:Type viewModels:ViewModelHabitat}">
-            <pages:UserControlHabitat/>
-        </DataTemplate>
-
-        <DataTemplate DataType = "{x:Type viewModels:ViewModelBloom}">
-            <pages:UserControlBloom/>
-        </DataTemplate>
-
-        <DataTemplate DataType = "{x:Type viewModels:ViewModelGrow}">
-            <pages:UserControlGrow/>
-        </DataTemplate>
-
-        <DataTemplate DataType = "{x:Type viewModels:ViewModelGrooming}">
-            <pages:UserControlGrooming/>
-        </DataTemplate>
-
-        <DataTemplate DataType = "{x:Type viewModels:ViewModelAppearance}">
-            <pages:UserControlAppearance/>
-        </DataTemplate>
-
     </Window.Resources>
 
     <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10" Width="1221">
-
-            <Button x:Name="btnAdd" Content="Toevoegen" Width="100" Margin="5" 
-                    Command="{Binding mainNavigationCommand}" 
+        <Grid DockPanel.Dock="Top" Margin="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="Toevoegen" Width="100" Height="30" Margin="5"
+                    Command="{Binding mainNavigationCommand}"
                     CommandParameter="VIEWADD"/>
-
-            <Button x:Name="btnBloei" Content="Bloei" Width="100" Margin="5" 
-                    Command="{Binding mainNavigationCommand}" 
-                    CommandParameter="VIEWBLOOM"/>
-
-            <Button x:Name="btnVerzorging" Content="Verzorging" Width="100" Margin="5"
+                <Button Content="Zoeken" Width="100" Height="30" Margin="5"
                     Command="{Binding mainNavigationCommand}"
-                    CommandParameter="VIEWGROOMING"/>
-
-            <Button x:Name="btnGroei" Content="Groei" Width="100" Margin="5"
+                    CommandParameter="VIEWSEARCH"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Docent" Width="100" Height="30" Margin="5"
                     Command="{Binding mainNavigationCommand}"
-                    CommandParameter="VIEWGROW"/>
-
-            <Button x:Name="btnUiterlijk" Content="Uiterlijk" Width="100" Margin="5"     
-                    Command="{Binding mainNavigationCommand}"
-                    CommandParameter="VIEWAPPEARANCE"/>
-
-            <Button x:Name="btnHabitat" Content="Habitat" Width="100" Margin="5"    
-                    Command="{Binding mainNavigationCommand}"
-                    CommandParameter="VIEWHABITAT"/>
-
-            <Button x:Name="btnNaam" Content="Naam" Width="100" Margin="5" 
-                    Command="{Binding mainNavigationCommand}"
-                    CommandParameter="VIEWNAME"/>
-            <Button x:Name="btnDocent" Content="Docent" Width="100" 
-                    Command="{Binding mainNavigationCommand}"
-                    CommandParameter="VIEWDOCENT" HorizontalAlignment="Stretch" Margin="350,0,0,0"/>
-        </StackPanel>
+                    CommandParameter="VIEWDOCENT"/>
+            </StackPanel>
+        </Grid>
 
         <Grid x:Name="MainContent">
-            <ContentControl Content="{Binding currentViewModel}"/>
+            <ContentControl Content="{Binding currentViewModel}" Width="{Binding ElementName=Main, Path=ActualWidth, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </DockPanel>
-
-    <!--<Button x:Name="btnLopendVerzoek" Content="Lopend verzoek" HorizontalAlignment="Left" Margin="948,14,0,0" VerticalAlignment="Top" Height="32" Width="125" BorderBrush="#FF2AE633" Background="#FF474029" FontWeight="Bold" FontSize="15" Foreground="#FFA2BC5B">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-
-        <Button x:Name="btnSorteer" Content="Sorteer bij:" HorizontalAlignment="Left" Margin="1078,14,0,0" VerticalAlignment="Top" Height="32" Width="125" BorderBrush="#FF2AE633" Background="#FF474029" FontWeight="Bold" FontSize="15" Foreground="#FFA2BC5B">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-
-        <Button x:Name="btnExporteeralle" Content="Exporteer alle" HorizontalAlignment="Left" Margin="1078,51,0,0" VerticalAlignment="Top" Height="32" Width="125" BorderBrush="#FF2AE633" Background="#FF474029" FontWeight="Bold" FontSize="15" Foreground="#FFA2BC5B">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-
-        <Button x:Name="btnLijst" Content="Lijst" HorizontalAlignment="Left" Margin="818,14,0,0" VerticalAlignment="Top" Height="32" Width="125" BorderBrush="#FF2AE633" Background="#FF474029" FontWeight="Bold" FontSize="15" Foreground="#FFA2BC5B">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-
-        <Button x:Name="btnExporteergeselecteerd" 
-                Content="Exporteer geselecteerd" HorizontalAlignment="Left" Margin="818,51,0,0" VerticalAlignment="Top" Height="32" Width="255" BorderBrush="#FF2AE633" Background="#FF474029" FontWeight="Bold" FontSize="15" Foreground="#FFA2BC5B">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-
-        <Button x:Name="btnNaam" Content="Naam" HorizontalAlignment="Left" Margin="42,14,0,0" VerticalAlignment="Top" Height="32" Width="125" BorderBrush="#FF2AE633"  Background="#FF474029"   FontWeight="Bold" FontSize="15" Foreground="#FFA2BC5B" 
-    x:Name="btnNaam" Content="Naam"            
-    Command="{Binding mainNavigationCommand}"
-                CommandParameter="VIEWNAME" >
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-
-
-        <ListBox x:Name="lstDetails" Visibility="Hidden" Margin="560,176,47,700" Background="#99FFFFFF"/>
-
-
-
-
-        -->
-    <!--<Frame x:Name="MainFrame" Margin="0,190,0,0"  Content=""/>-->
-
-    <!-- hier doe je de binding van het currentViewModel !Clue van het systeem -->
-    <!--
-        <Grid x:Name="MainContent" HorizontalAlignment="Center" Width="1230" Margin="0,101,0,0" Height="773" VerticalAlignment="Top">
-            <ContentControl Content="{Binding currentViewModel}" HorizontalAlignment="Left" Width="1210" Height="754" VerticalAlignment="Center" Margin="10,0,0,0"/>
-        </Grid>
-        <Canvas Margin="42,51,437,796" Background="#OOOOOO">
-            <Label x:Name="lblLogin" Content="{Binding loggedInMessage}" Foreground="#FF474029" FontWeight="Bold" FontSize="20" Height="38" Canvas.Top="-1" Width="724"/>
-        </Canvas>
-    </Grid>-->
 </Window>
