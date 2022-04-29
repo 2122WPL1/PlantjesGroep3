@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Plantjes.ViewModels.HelpClasses;
 
 namespace Plantjes.ViewModels.Services
 {
@@ -38,7 +39,7 @@ namespace Plantjes.ViewModels.Services
         }
 
         #region Login Region
-        //written by Warre
+        //written by Warre, appended by Ian
         /// <summary>
         /// Checks if credentials are a user.
         /// </summary>
@@ -52,7 +53,7 @@ namespace Plantjes.ViewModels.Services
 
             //check if email is valid email
             Gebruiker currentGebruiker;
-            if (IsEmail(emailInput))
+            if (IsEmail(emailInput) || emailInput == "admin")
             {   //gebruiker zoeken in de databank
                 currentGebruiker = DaoUser.GetGebruiker(emailInput);
             }
@@ -62,9 +63,7 @@ namespace Plantjes.ViewModels.Services
             }
 
             //omzetten van het ingegeven passwoord naar een gehashed passwoord
-            var passwordBytes = Encoding.ASCII.GetBytes(passwordInput);
-            var md5Hasher = new MD5CryptoServiceProvider();
-            var passwordHashed = md5Hasher.ComputeHash(passwordBytes);
+            var passwordHashed = Helper.HashString(passwordInput);
 
             if (currentGebruiker == null)
             {   // als de gebruiker niet gevonden wordt, errorMessage invullen
@@ -77,7 +76,13 @@ namespace Plantjes.ViewModels.Services
                 throw new Exception("Het ingegeven wachtwoord is niet juist, probeer opnieuw");
             }
 
+            if (currentGebruiker.HashPaswoord == Helper.HashString(currentGebruiker.Vivesnr) || gebruiker.LastLogin == null)
+            {
+                
+            }
+
             gebruiker = currentGebruiker;
+            DaoUser.UpdateUser(gebruiker);
             return true;
         }
 
