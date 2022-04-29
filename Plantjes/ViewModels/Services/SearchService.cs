@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using GalaSoft.MvvmLight.Helpers;
 using Plantjes.Dao;
 using Plantjes.Models;
 using Plantjes.ViewModels.Interfaces;
@@ -27,7 +29,49 @@ namespace Plantjes.ViewModels.Services
         {
             return DaoBase.GetListWhere<TEntity>(predicate, distinct);
         }
+        #endregion
 
+        #region Plant Search Help
+
+        //Written by Ian Dumalin on 28/04
+        public IEnumerable<Plant> GetListPlants(string? type, string? familie, string? geslacht, string? grondsoort,
+            string? habitat, string? habitus, string? sociabiliteit, string? bezonning)
+        {
+            var plantList = DaoPlant.GetList<Plant>();
+            // if search values are null => return every plant in DB.
+            if (type == null && familie == null && geslacht == null && grondsoort == null && habitat == null && habitus == null &&
+                sociabiliteit == null && bezonning == null)
+            {
+                return plantList;
+            }
+            // Search plants on input values.
+
+            //List<Plant> searchedPlants =
+            //    (List<Plant>)plantList.Where(p =>
+            //        p.Type.Contains(type) &&
+            //        p.Familie.Contains(familie) &&
+            //        p.Geslacht.Contains(geslacht) &&
+            //        p.Abiotieks.First().Grondsoort == grondsoort &&
+            //        p.Fenotypes.First().Habitus == habitus &&
+            //        p.Abiotieks.First().Bezonning == bezonning &&
+            //        p.AbiotiekMultis.Any(a => a.Eigenschap == "habitat" && a.Waarde == habitat) &&
+            //        p.FenotypeMultis.Any(f => f.Eigenschap == "sociabiliteit" && f.Waarde == sociabiliteit));
+
+            if (type != null) plantList = plantList.Where(p => p.Type.Contains(type));
+            if (familie != null) plantList = plantList.Where(p => p.Familie.Contains(type));
+            if (geslacht != null) plantList = plantList.Where(p => p.Geslacht.Contains(geslacht));
+            if (grondsoort != null) plantList = plantList.Where(p => p.Abiotieks.First().Grondsoort == grondsoort);
+            if (habitus != null) plantList = plantList.Where(p => p.Fenotypes.First().Habitus == habitus);
+            if (bezonning != null) plantList = plantList.Where(p => p.Abiotieks.First().Bezonning == bezonning);
+            if (habitat != null) plantList = plantList.Where(p => p.AbiotiekMultis.Any(a => a.Eigenschap == "habitat" && a.Waarde == habitat));
+            if (sociabiliteit != null) plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap == "sociabiliteit" && f.Waarde == sociabiliteit));
+
+            return plantList;
+        }
+
+        #endregion
+
+        #region OLD CODE
         /// <summary>
         /// Uses <see cref="GetListWhere{TEntity}(Func{TEntity, bool}, bool)"/> to filter to the filled in params.
         /// </summary>
