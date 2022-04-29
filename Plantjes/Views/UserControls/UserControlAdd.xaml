@@ -25,6 +25,12 @@
                     <Binding ElementName="chbSocIII" Path="IsChecked"/>
                     <Binding ElementName="chbSocIV" Path="IsChecked"/>
                     <Binding ElementName="chbSocV" Path="IsChecked"/>
+                    <Binding ElementName="chbSocVI" Path="IsChecked"></Binding>
+                    <Binding ElementName="chbSocVII" Path="IsChecked"></Binding>
+                    <Binding ElementName="chbSocVIII" Path="IsChecked"></Binding>
+                    <Binding ElementName="chbSocIX" Path="IsChecked"></Binding>
+                    <Binding ElementName="chbSocX" Path="IsChecked"></Binding>
+                    <Binding ElementName="chbSocXI" Path="IsChecked"></Binding>
                 </MultiBinding>
             </Button.CommandParameter>
         </Button>
@@ -138,18 +144,6 @@
 
                     <WrapPanel HorizontalAlignment="Center">
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                            <Label x:Name="lblMinBloeihoogte" Content="Bloeihoogte Min:"/>
-                            <TextBox x:Name="txtMinBloeihoogte" Width="200"/>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                            <Label x:Name="lblMaxBloeihoogte" Content="Bloeihoogte Max:"/>
-                            <TextBox x:Name="txtMaxBloeihoogte" Width="200"/>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                            <Label x:Name="lblSpruitfenologie" Content="Spruitfenologie:"/>
-                            <ComboBox x:Name="txtSpruitfenologie" Width="200"/>
                         </StackPanel>
                     </WrapPanel>
                     
