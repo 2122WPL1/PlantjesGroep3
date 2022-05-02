@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Plantjes.Models.Db;
+using Plantjes.Models.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
@@ -10,23 +12,42 @@ using System.Windows.Media.Imaging;
 
 namespace Plantjes.Models.Classes
 {
-    internal class PlantItem : GroupBox
+    public class PlantItem : GroupBox
     {
-        private string Name { get; set; }
-        private Image foto { get; set; }
+        private Plant plant;
 
-        public PlantItem(string name, BitmapImage foto)
+        public PlantItem(Plant plant)
         {
-            StackPanel panel = new StackPanel();
-            this.Name = name;
-            this.foto.Source = foto;
+            this.plant = plant;
+
+            DockPanel panel = new DockPanel();
             HorizontalAlignment = HorizontalAlignment.Center;
             VerticalAlignment = VerticalAlignment.Center;
+            Height = 300;
+            Width = 500;
 
-            panel.Children.Add(new Image(){Source = foto});
-            panel.Children.Add(new TextBox() { Text = Name });
-
-            
+            BitmapImage image = null;
+            if (plant.Fotos.Count > 0)
+                using (var ms = new System.IO.MemoryStream(plant.Fotos.First().Tumbnail))
+                {
+                    image = new BitmapImage();
+                    image.BeginInit();
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.StreamSource = ms;
+                    image.EndInit();
+                }
+            panel.Children.Add(new Image(){ Source = image ?? new BitmapImage() });
+            Label nameLabel = new Label() 
+            { 
+                Content = plant.Variant.RemoveQuotes() ?? $"{plant.Geslacht.FirstToUpper()} {plant.Soort.FirstToUpper()}",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Bottom
+            };
+            DockPanel.SetDock(nameLabel, Dock.Bottom);
+            panel.Children.Add(nameLabel);
+            Content = panel;
         }
+
+        public Plant Plant { get { return plant; } }
     }
 }
