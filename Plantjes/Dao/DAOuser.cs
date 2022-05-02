@@ -17,7 +17,7 @@ namespace Plantjes.Dao
         /// </summary>
         /// <param name="email">The email to be parsed.</param>
         /// <returns>Returns the user with said email.</returns>
-        public static Gebruiker GetUser(string email)
+        public static Gebruiker GetGebruiker(string email)
         {
             return GetList<Gebruiker>().FirstOrDefault(g => g.Emailadres == email);
         }

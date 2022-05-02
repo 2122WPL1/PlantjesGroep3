@@ -61,8 +61,6 @@ namespace Plantjes.ViewModels.Services
             {//indien geen geldig emailadress, errorMessage opvullen
                 throw new Exception("Dit is geen geldig emailadres.");
             }
-            //gebruiker zoeken in de databank
-            Gebruiker currentGebruiker = DaoUser.GetUser(emailInput);
 
             //omzetten van het ingegeven passwoord naar een gehashed passwoord
             var passwordHashed = Helper.HashString(passwordInput);
@@ -134,7 +132,7 @@ namespace Plantjes.ViewModels.Services
                 {
                     throw new Exception($"{emailInput} is geen geldig emailadres!");
                 }
-                if (DaoUser.GetUser(emailInput) != null)
+                if (DaoUser.GetGebruiker(emailInput) != null)
                 {
                     throw new Exception($"{emailInput} is al geregistreert!");
                 }
