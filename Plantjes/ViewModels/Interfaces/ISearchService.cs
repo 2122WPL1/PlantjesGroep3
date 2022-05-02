@@ -13,9 +13,6 @@ namespace Plantjes.ViewModels.Interfaces
 
         IEnumerable<TEntity> GetListWhere<TEntity>(Func<TEntity, bool> predicate, bool distinct = false) where TEntity : class;
 
-        IEnumerable<Plant> GetListPlants(string? type, string? familie, string? geslacht, string? grondsoort,
-            string? habitat, string? habitus, string? sociabiliteit, string? bezonning);
-
-        ImageSource GetImageLocation(string ImageCatogrie, Plant SelectedPlantInResult)
+        IEnumerable<Plant> GetListPlants(string? type, string? familie, string? geslacht, string? grondsoort, string? habitat, string? habitus, string? sociabiliteit, string? bezonning);
     }
 }

@@ -29,9 +29,7 @@ namespace Plantjes.ViewModels.Services
         {
             return DaoBase.GetListWhere<TEntity>(predicate, distinct);
         }
-        #endregion
 
-        #region Plant Search Help
         //Written by Ian Dumalin on 28/04
         public IEnumerable<Plant> GetListPlants(string? type, string? familie, string? geslacht, string? grondsoort, string? habitat, string? habitus, string? sociabiliteit, string? bezonning)
         {
