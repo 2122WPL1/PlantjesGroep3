@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Plantjes.Models.Extensions;
+using Plantjes.ViewModels.HelpClasses;
 
 namespace Plantjes.Models.Classes
 {
@@ -42,13 +43,13 @@ namespace Plantjes.Models.Classes
 
         private IEnumerable<MenuItem> makeMonths()
         {
-            foreach (string item in CultureInfo.GetCultureInfo("nl-BE").DateTimeFormat.MonthNames[..^1])
+            foreach (string item in Helper.GetMonthsList())
             {
                 yield return new MenuItem()
                 {
                     IsCheckable = true,
                     StaysOpenOnClick = true,
-                    Header = item.FirstToUpper()
+                    Header = item
                 };
             }
         }

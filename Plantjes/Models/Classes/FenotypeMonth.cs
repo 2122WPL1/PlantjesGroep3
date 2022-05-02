@@ -1,4 +1,5 @@
 ﻿using Plantjes.Models.Extensions;
+using Plantjes.ViewModels.HelpClasses;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -25,7 +26,7 @@ namespace Plantjes.Models.Classes
             //Menu months = new Menu() { Width = 150, Height = 25 };
             //MenuItem header = new MenuItem() { VerticalAlignment = VerticalAlignment.Center, Header = "Maanden selecteren...", ItemsSource = makeMonths() };
             //months.Items.Add(header);
-            panel.Children.Add(new ComboBox() { Width = 150, Height = 25, ItemsSource = makeMonths() });
+            panel.Children.Add(new ComboBox() { Width = 150, Height = 25, ItemsSource = Helper.GetMonthsList() });
 
             panel.Children.Add(new Label() { Content = "Bladgrootte tot:", VerticalAlignment = VerticalAlignment.Center });
             panel.Children.Add(new TextBox() { Width = 30, Height = 25 });
@@ -34,14 +35,6 @@ namespace Plantjes.Models.Classes
             panel.Children.Add(new TextBox() { Width = 30, Height = 25 });
 
             Content = panel;
-        }
-
-        private IEnumerable<string> makeMonths()
-        {
-            foreach (string item in CultureInfo.GetCultureInfo("nl-BE").DateTimeFormat.MonthNames[..^1])
-            {
-                yield return item.FirstToUpper();
-            }
         }
 
         public string SelectedMonth

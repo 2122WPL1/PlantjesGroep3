@@ -19,9 +19,8 @@ namespace Plantjes.ViewModels
 {
     //written by Warre
     internal class ViewModelAdd : ViewModelBase
-
     {
-    private readonly ISearchService searchService;
+        private readonly ISearchService searchService;
 
         private int selectedTab;
         private TfgsvType selectedType;
@@ -46,73 +45,25 @@ namespace Plantjes.ViewModels
             AddPlantCommand = new Command<object>(new Action<object>(AddPlant));
         }
 
-        /// <summary>
-        /// Makes an MenuItem list with all colors in the database.
-        /// </summary>
-        /// <returns>Returns a menuitem list with all color previews and names.</returns>
-        private IEnumerable<MenuItem> MakeColorMenuItemList()
+        private bool IsRequiredFilled()
         {
-            foreach (FenoKleur item in searchService.GetList<FenoKleur>())
+            if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
             {
-                yield return new MenuItem()
-                {
-                    Width = double.NaN,
-                    IsCheckable = true,
-                    StaysOpenOnClick = true,
-                    Header = new Rectangle()
-                    {
-                        Width = 20,
-                        Height = 20,
-                        Fill = (SolidColorBrush)new BrushConverter().ConvertFromString("#" + Convert.ToHexString(item.HexWaarde)),
-                    },
-                    InputGestureText = item.NaamKleur.FirstToUpper(),
-                };
+                MessageBox.Show("Zorg dat je de verplichte velden ingevuld hebt!");
+                selectedTab = 0;
+                OnPropertyChanged();
+                return false;
             }
+            return true;
         }
 
         /// <summary>
-        /// Makes a MenuItem list with preset settings.
+        /// Adds a <see cref="Beheersdaad"/> to <see cref="beheersdaden"/>.
         /// </summary>
-        /// <typeparam name="TEntity">The entity to be used for selector.</typeparam>
-        /// <param name="selector">The name of the TEntity.</param>
-        /// <returns>Returns a list of menu items with the name of TEntity.</returns>
-        private IEnumerable<MenuItem> MakeMenuItemList<TEntity>(Func<TEntity, string> selector) where TEntity : class
+        private void AddBeheersdaadItem()
         {
-            foreach (TEntity item in searchService.GetList<TEntity>())
-            {
-                if (selector(item).Contains('-') ||
-                    (item is AbioGrondsoort && selector(item).Length > 1) ||
-                    (item is CommStrategie && selector(item).Length > 1))
-                    continue;
-                yield return new MenuItem()
-                {
-                    Width = double.NaN,
-                    IsCheckable = true,
-                    StaysOpenOnClick = true,
-                    Header = selector(item).FirstToUpper(),
-                };
-            }
+            beheersdaden.Add(new Beheersdaad());
         }
-
-    private bool IsRequiredFilled()
-    {
-        if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
-        {
-            MessageBox.Show("Zorg dat je de verplichte velden ingevuld hebt!");
-            selectedTab = 0;
-            OnPropertyChanged();
-            return false;
-        }
-        return true;
-    }
-
-    /// <summary>
-    /// Adds a <see cref="Beheersdaad"/> to <see cref="beheersdaden"/>.
-    /// </summary>
-    private void AddBeheersdaadItem()
-    {
-        beheersdaden.Add(new Beheersdaad());
-    }
 
         /// <summary>
         /// Adds a <see cref="FenotypeMonth"/> to <see cref="fenotypeMonths"/>.
@@ -217,7 +168,7 @@ namespace Plantjes.ViewModels
                 socIndex++;
             }
 
-            // checks if any param are filled, adds to DB 
+            // checks if any param are filled, adds fenotype to DB
             if (new List<object>() { items[7], items[8], items[9], items[10], items[11], items[12], items[13] }.Any(s => !string.IsNullOrEmpty(s as string)))
             {
                 int bladGrootte;
@@ -256,25 +207,20 @@ namespace Plantjes.ViewModels
             }
         }
 
-    public int SelectedTab
-    {
-        get { return selectedTab; }
-        set
+        public int SelectedTab
         {
-
-            if (IsRequiredFilled())
+            get { return selectedTab; }
+            set
             {
-                selectedTab = value;
+
+                if (IsRequiredFilled())
+                {
+                    selectedTab = value;
                 
+                }
             }
         }
-    }
-    public Command<object> AddPlantCommand { get; set; }
-
-        #region Tabcontrol
-        //Written by Ian Dumalin on 18/03
-        //Code for Q4
-        #endregion
+        public Command<object> AddPlantCommand { get; set; }
 
         #region Algemene Info
         public IEnumerable<TfgsvType> CmbTypes
@@ -371,7 +317,7 @@ namespace Plantjes.ViewModels
         }
         public IEnumerable<string> CmbMaand
         {
-            get => CultureInfo.GetCultureInfo("nl-BE").DateTimeFormat.MonthNames[..^1].Select(m => m.FirstToUpper());
+            get => Helper.GetMonthsList();
         }
         public IEnumerable<string> CmbSpruitfenologie
         {
@@ -379,11 +325,11 @@ namespace Plantjes.ViewModels
         }
         public IEnumerable<MenuItem> MBladkleur
         {
-            get => MakeColorMenuItemList();
+            get => Helper.MakeColorMenuItemList();
         }
         public IEnumerable<MenuItem> MBloeikleur
         {
-            get => MakeColorMenuItemList();
+            get => Helper.MakeColorMenuItemList();
         }
 
         public string SelectedFenotypeMaand
@@ -411,11 +357,11 @@ namespace Plantjes.ViewModels
         #region Abiotische Factoren
         public IEnumerable<MenuItem> MBezonning
         {
-            get => MakeMenuItemList<AbioBezonning>(a => a.Naam);
+            get => Helper.MakeMenuItemList<AbioBezonning>(a => a.Naam);
         }
         public IEnumerable<MenuItem> MGrondsoort
         {
-            get => MakeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
+            get => Helper.MakeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
         }
         public IEnumerable<string> CmbVochtbehoefte
         {
@@ -423,11 +369,11 @@ namespace Plantjes.ViewModels
         }
         public IEnumerable<MenuItem> MVoedingsbehoefte
         {
-            get => MakeMenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
+            get => Helper.MakeMenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
         }
         public IEnumerable<MenuItem> MHabitat
         {
-            get => MakeMenuItemList<AbioHabitat>(a => a.Afkorting);
+            get => Helper.MakeMenuItemList<AbioHabitat>(a => a.Afkorting);
         }
         #endregion
 
@@ -446,11 +392,11 @@ namespace Plantjes.ViewModels
         }
         public IEnumerable<MenuItem> MStrategie
         {
-            get => MakeMenuItemList<CommStrategie>(s => s.Strategie);
+            get => Helper.MakeMenuItemList<CommStrategie>(s => s.Strategie);
         }
         public IEnumerable<MenuItem> MConcurrentiekracht
         {
-            get => MakeMenuItemList<CommLevensvorm>(a => a.Levensvorm);
+            get => Helper.MakeMenuItemList<CommLevensvorm>(a => a.Levensvorm);
         }
         #endregion
 
