@@ -8,13 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Plantjes.Models.Classes
 {
-    public class PlantItem : GroupBox
+    public class PlantItem : Grid
     {
         private Plant plant;
+
+        public PlantItem(bool isEmptyPlant = false)
+        {
+            Margin = new Thickness(0, 50, 0, 0);
+            if (isEmptyPlant)
+                Children.Add(new Label() { Content = "Geen planten gevonden!", HorizontalAlignment = HorizontalAlignment.Center, FontSize = 24, Foreground = Brushes.Gray });
+        }
 
         public PlantItem(Plant plant)
         {
@@ -23,20 +31,24 @@ namespace Plantjes.Models.Classes
             DockPanel panel = new DockPanel();
             HorizontalAlignment = HorizontalAlignment.Center;
             VerticalAlignment = VerticalAlignment.Center;
-            Height = 300;
-            Width = 500;
+            Margin = new Thickness(10);
+            /*Height = 300;
+            Width = 500;*/
 
-            BitmapImage image = null;
+            BitmapImage biImage = null;
             if (plant.Fotos.Count > 0)
                 using (var ms = new System.IO.MemoryStream(plant.Fotos.First().Tumbnail))
                 {
-                    image = new BitmapImage();
-                    image.BeginInit();
-                    image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.StreamSource = ms;
-                    image.EndInit();
+                    biImage = new BitmapImage();
+                    biImage.BeginInit();
+                    biImage.CacheOption = BitmapCacheOption.OnLoad;
+                    biImage.StreamSource = ms;
+                    biImage.EndInit();
                 }
-            panel.Children.Add(new Image(){ Source = image ?? new BitmapImage() });
+            Image image = new Image() { Source = biImage ?? new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + @"Image\default-plant.png", UriKind.Absolute)) };
+            DockPanel.SetDock(image, Dock.Top);
+            panel.Children.Add(image);
+
             Label nameLabel = new Label() 
             { 
                 Content = plant.Variant.RemoveQuotes() ?? $"{plant.Geslacht.FirstToUpper()} {plant.Soort.FirstToUpper()}",
@@ -45,7 +57,7 @@ namespace Plantjes.Models.Classes
             };
             DockPanel.SetDock(nameLabel, Dock.Bottom);
             panel.Children.Add(nameLabel);
-            Content = panel;
+            Children.Add(panel);
         }
 
         public Plant Plant { get { return plant; } }
