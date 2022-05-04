@@ -50,6 +50,7 @@ namespace Plantjes.ViewModels
                     if (_loginService.IsLogin(UserNameInput, PasswordInput))
                     {
                         //  loggedInMessage = _loginService.LoggedInMessage(userNameInput);
+
                         MainWindow mainWindow = new MainWindow();
                         mainWindow.Show();
                         Application.Current.Windows[0]?.Close();
@@ -62,17 +63,18 @@ namespace Plantjes.ViewModels
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                OnPropertyChanged("ErrorMessage");
+                MessageBox.Show(ex.Message);
+                //errorMessage = ex.Message;
+                //OnPropertyChanged("ErrorMessage");
             }
         }
-        public string ErrorMessage
-        {
-            get
-            {
-                return errorMessage;
-            }
-        }
+        //public string ErrorMessage
+        //{
+        //    get
+        //    {
+        //        return errorMessage;
+        //    }
+        //}
      
         public string UserNameInput
         {

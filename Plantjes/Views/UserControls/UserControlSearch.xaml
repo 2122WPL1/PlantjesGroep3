@@ -4,62 +4,112 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Plantjes.Views.UserControls"
+             xmlns:hc="clr-namespace:Plantjes.ViewModels.HelpClasses"
              mc:Ignorable="d" 
              d:DesignHeight="834" d:DesignWidth="1250">
+    <UserControl.Resources>
+        <hc:PlantParameterConverter x:Key="PlantParameterConverter"/>
+    </UserControl.Resources>
 
-    <Grid Background="#eeeeee">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
                     <Label x:Name="lblNaam" Content="Naam:"/>
-                    <TextBox x:Name="txtNaam" Width="200"/>
+                    <TextBox x:Name="txtNaam" Width="200" VerticalContentAlignment="Center">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding SearchCommand}" Key="Return">
+                                <KeyBinding.CommandParameter>
+                                    <MultiBinding Converter="{StaticResource PlantParameterConverter}">
+                                        <Binding ElementName="txtNaam" Path="Text"/>
+                                        <Binding ElementName="cbGrondsoort" Path="SelectedItem"/>
+                                        <Binding ElementName="cbHabitat" Path="SelectedItem"/>
+                                        <Binding ElementName="cbHabitus" Path="SelectedItem"/>
+                                        <Binding ElementName="chbSocI" Path="IsChecked"/>
+                                        <Binding ElementName="chbSocII" Path="IsChecked"/>
+                                        <Binding ElementName="chbSocIII" Path="IsChecked"/>
+                                        <Binding ElementName="chbSocIV" Path="IsChecked"/>
+                                        <Binding ElementName="chbSocV" Path="IsChecked"/>
+                                        <Binding ElementName="cbBezonning" Path="SelectedItem"/>
+                                    </MultiBinding>
+                                </KeyBinding.CommandParameter>
+                            </KeyBinding>
+                        </TextBox.InputBindings>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
                     <Label x:Name="lblGrondsoort" Content="Grondsoort:"/>
-                    <ComboBox x:Name="cbGrondsoort" Width="200"/>
+                    <ComboBox x:Name="cbGrondsoort" Width="200"
+                              ItemsSource="{Binding CmbGrondsoort}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
                     <Label x:Name="lblHabitat" Content="Habitat:"/>
-                    <ComboBox x:Name="cbHabitat" Width="200"/>
+                    <ComboBox x:Name="cbHabitat" Width="200"
+                              ItemsSource="{Binding CmbHabitat}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
                     <Label x:Name="lblHabitus" Content="Habitus:"/>
-                    <ComboBox x:Name="cbHabitus" Width="200"/>
+                    <ComboBox x:Name="cbHabitus" Width="200"
+                              ItemsSource="{Binding CmbHabitus}"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label x:Name="lblSociabiliteit" Content="Sociabiliteit:"  VerticalAlignment="Center"/>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">
-                        <CheckBox x:Name="chbSocI"/>
+                        <RadioButton x:Name="chbSocI" GroupName="soc"/>
                         <Label Content="I"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">
-                        <CheckBox x:Name="chbSocII"/>
+                        <RadioButton x:Name="chbSocII" GroupName="soc"/>
                         <Label Content="II"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">
-                        <CheckBox x:Name="chbSocIII"/>
+                        <RadioButton x:Name="chbSocIII" GroupName="soc"/>
                         <Label Content="III"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">
-                        <CheckBox x:Name="chbSocIV"/>
+                        <RadioButton x:Name="chbSocIV" GroupName="soc"/>
                         <Label Content="IV"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20">
-                        <CheckBox x:Name="chbSocV"/>
+                        <RadioButton x:Name="chbSocV" GroupName="soc"/>
                         <Label Content="V"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10,0,10,0" VerticalAlignment="Center">
-                    <Label x:Name="lbl" Content="Bezonning:"/>
-                    <ComboBox x:Name="cb" Width="200" Height="25"/>
+                    <Label x:Name="lblBezonning" Content="Bezonning:"/>
+                    <ComboBox x:Name="cbBezonning" Width="200" Height="25"
+                              ItemsSource="{Binding CmbBezonning}"/>
                 </StackPanel>
-                <Button Width="200" Content="Zoeken" x:Name="btnZoeken" Margin="10,0,10,0" VerticalAlignment="Center" Height="25"/>
+                <Button Width="200" Content="Zoeken" x:Name="btnZoeken" Margin="10,0,10,0" VerticalAlignment="Center" Height="25"
+                        Command="{Binding SearchCommand}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource PlantParameterConverter}">
+                            <Binding ElementName="txtNaam" Path="Text"/>
+                            <Binding ElementName="cbGrondsoort" Path="SelectedItem"/>
+                            <Binding ElementName="cbHabitat" Path="SelectedItem"/>
+                            <Binding ElementName="cbHabitus" Path="SelectedItem"/>
+                            <Binding ElementName="chbSocI" Path="IsChecked"/>
+                            <Binding ElementName="chbSocII" Path="IsChecked"/>
+                            <Binding ElementName="chbSocIII" Path="IsChecked"/>
+                            <Binding ElementName="chbSocIV" Path="IsChecked"/>
+                            <Binding ElementName="chbSocV" Path="IsChecked"/>
+                            <Binding ElementName="cbBezonning" Path="SelectedItem"/>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
             </StackPanel>
+            <ItemsControl ItemsSource="{Binding Plants}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </UserControl>

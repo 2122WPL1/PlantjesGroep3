@@ -33,7 +33,9 @@ namespace Plantjes.ViewModels.HelpClasses
 
             iocc.Register<ViewModelLogin>(() => new ViewModelLogin(loginService));
             iocc.Register<ViewModelRegister>(() => new ViewModelRegister(loginService));
+
             iocc.Register<ViewModelAdd>(() => new ViewModelAdd(searchService));
+            iocc.Register<ViewModelSearch>(() => new ViewModelSearch(searchService));
 
             //SimpleIoc.Default.Unregister<ViewModelMain>();
             iocc.Register<ViewModelBase>(() => new ViewModelBase());

@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Plantjes.ViewModels.HelpClasses;
 
 namespace Plantjes.ViewModels.Services
 {
@@ -38,7 +39,7 @@ namespace Plantjes.ViewModels.Services
         }
 
         #region Login Region
-        //written by Warre
+        //written by Warre, appended by Ian
         /// <summary>
         /// Checks if credentials are a user.
         /// </summary>
@@ -51,17 +52,18 @@ namespace Plantjes.ViewModels.Services
             //var loginResult = new LoginResult() {loginStatus = LoginStatus.NotLoggedIn};
 
             //check if email is valid email
-            if (!IsEmail(emailInput))
-            {
+            Gebruiker currentGebruiker;
+            if (IsEmail(emailInput) || emailInput == "admin")
+            {   //gebruiker zoeken in de databank
+                currentGebruiker = DaoUser.GetGebruiker(emailInput);
+            }
+            else
+            {//indien geen geldig emailadress, errorMessage opvullen
                 throw new Exception("Dit is geen geldig emailadres.");
             }
-            //gebruiker zoeken in de databank
-            Gebruiker currentGebruiker = DaoUser.GetUser(emailInput);
 
             //omzetten van het ingegeven passwoord naar een gehashed passwoord
-            var passwordBytes = Encoding.ASCII.GetBytes(passwordInput);
-            var md5Hasher = new MD5CryptoServiceProvider();
-            var passwordHashed = md5Hasher.ComputeHash(passwordBytes);
+            var passwordHashed = Helper.HashString(passwordInput);
 
             if (currentGebruiker == null)
             {   // als de gebruiker niet gevonden wordt, errorMessage invullen
@@ -74,7 +76,13 @@ namespace Plantjes.ViewModels.Services
                 throw new Exception("Het ingegeven wachtwoord is niet juist, probeer opnieuw");
             }
 
+            if (currentGebruiker.HashPaswoord == Helper.HashString(currentGebruiker.Vivesnr) || gebruiker.LastLogin == null)
+            {
+                
+            }
+
             gebruiker = currentGebruiker;
+            DaoUser.UpdateUser(gebruiker);
             return true;
         }
 
@@ -106,7 +114,7 @@ namespace Plantjes.ViewModels.Services
         /// <param name="passwordInput">The password of the user.</param>
         /// <param name="passwordRepeatInput">The password to check the password.</param>
         /// <param name="rolInput">The role of the user.</param>
-        /// <exception cref="Exception">Throws an execption with a message to be used.</exception>
+        /// <exception cref="Exception">Throws an exception with a message to be used.</exception>
         public void Register(string vivesNrInput, string lastNameInput,
                                    string firstNameInput, string emailInput,
                                    string passwordInput, string passwordRepeatInput)
@@ -124,7 +132,7 @@ namespace Plantjes.ViewModels.Services
                 {
                     throw new Exception($"{emailInput} is geen geldig emailadres!");
                 }
-                if (DaoUser.GetUser(emailInput) != null)
+                if (DaoUser.GetGebruiker(emailInput) != null)
                 {
                     throw new Exception($"{emailInput} is al geregistreert!");
                 }

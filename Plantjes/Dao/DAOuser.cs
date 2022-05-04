@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Plantjes.Models.Db;
 using System.Security.Cryptography;
+using Plantjes.ViewModels.HelpClasses;
 
 namespace Plantjes.Dao
 {
@@ -16,9 +17,14 @@ namespace Plantjes.Dao
         /// </summary>
         /// <param name="email">The email to be parsed.</param>
         /// <returns>Returns the user with said email.</returns>
-        public static Gebruiker GetUser(string email)
+        public static Gebruiker GetGebruiker(string email)
         {
             return GetList<Gebruiker>().FirstOrDefault(g => g.Emailadres == email);
+        }
+
+        public static List<Gebruiker> GetGebruikerList()
+        {
+            return GetList<Gebruiker>().ToList();
         }
 
         //written by Renzo
@@ -32,9 +38,7 @@ namespace Plantjes.Dao
         /// <param name="password">The password of the user.</param>
         public static Gebruiker AddUser(string vivesNr, string firstName, string lastName, string emailadres, string password)
         {
-            var passwordBytes = Encoding.ASCII.GetBytes(password);
-            var md5Hasher = new MD5CryptoServiceProvider();
-            var passwordHashed = md5Hasher.ComputeHash(passwordBytes);
+            var passwordHashed = Helper.HashString(password);
 
             //written by Warre
             int role = 2;
@@ -55,6 +59,47 @@ namespace Plantjes.Dao
             context.Gebruikers.Add(gebruiker);
             context.SaveChanges();
             return gebruiker;
+        }
+
+        public static Gebruiker AddUser(string vivesNr, string firstName, string lastName, string emailadres, byte[] password)
+        {
+
+            //written by Warre
+            int role = 2;
+            if (emailadres.ToLower().Contains("@vives.be"))
+                role = 0;
+            if (emailadres.ToLower().Contains("@student.vives.be"))
+                role = 1;
+
+            var gebruiker = new Gebruiker()
+            {
+                Vivesnr = vivesNr,
+                Voornaam = firstName,
+                Achternaam = lastName,
+                Emailadres = emailadres,
+                RolId = role,
+                HashPaswoord = password
+            };
+            context.Gebruikers.Add(gebruiker);
+            context.SaveChanges();
+            return gebruiker;
+        }
+
+        public static void UpdateUser(Gebruiker gebruiker)
+        {
+            context.Gebruikers.Update(gebruiker);
+            context.SaveChanges();
+        }
+
+        public static void UpdateUser(Gebruiker gebruiker, byte[] password)
+        {
+            gebruiker.LastLogin = DateTime.Now;
+            if (password != gebruiker.HashPaswoord)
+            {
+                gebruiker.HashPaswoord = password;
+            }
+            context.Gebruikers.Update(gebruiker);
+            context.SaveChanges();
         }
     }
 }
