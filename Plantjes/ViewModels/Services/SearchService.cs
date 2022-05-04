@@ -47,9 +47,9 @@ namespace Plantjes.ViewModels.Services
                 (!string.IsNullOrEmpty(p.Variant) && p.Variant.ToLower().Contains(naam.ToLower())) ||
                 (!string.IsNullOrEmpty(p.Soort) && p.Soort.ToLower().Contains(naam.ToLower())) ||
                 (!string.IsNullOrEmpty(p.Soort) && p.Soort.ToLower().Contains(naam.ToLower())));
-            if (!string.IsNullOrWhiteSpace(grondsoort)) plantList = plantList.Where(p => p.Abiotieks.First().Grondsoort.ToLower() == grondsoort.ToLower());
-            if (!string.IsNullOrWhiteSpace(habitus)) plantList = plantList.Where(p => p.Fenotypes.First().Habitus.ToLower() == habitus.ToLower());
-            if (!string.IsNullOrWhiteSpace(bezonning)) plantList = plantList.Where(p => p.Abiotieks.First().Bezonning.ToLower() == bezonning.ToLower());
+            if (!string.IsNullOrWhiteSpace(grondsoort)) plantList = plantList.Where(p => p.Abiotieks.Count > 0 && p.Abiotieks.First().Grondsoort.ToLower() == grondsoort.ToLower());
+            if (!string.IsNullOrWhiteSpace(habitus)) plantList = plantList.Where(p => p.Fenotypes.Count > 0 && p.Fenotypes.First().Habitus.ToLower() == habitus.ToLower());
+            if (!string.IsNullOrWhiteSpace(bezonning)) plantList = plantList.Where(p => p.Abiotieks.Count > 0 && p.Abiotieks.First().Bezonning.ToLower() == bezonning.ToLower());
             if (!string.IsNullOrWhiteSpace(habitat)) plantList = plantList.Where(p => p.AbiotiekMultis.Any(a => a.Eigenschap.ToLower() == "habitat" && a.Waarde.ToLower() == habitat.ToLower()));
             if (!string.IsNullOrWhiteSpace(sociabiliteit)) plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "sociabiliteit" && f.Waarde.ToLower() == sociabiliteit.ToLower()));
 

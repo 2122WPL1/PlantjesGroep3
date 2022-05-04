@@ -13,6 +13,6 @@ namespace Plantjes.ViewModels.Interfaces
 
         IEnumerable<TEntity> GetListWhere<TEntity>(Func<TEntity, bool> predicate, bool distinct = false) where TEntity : class;
 
-        IEnumerable<Plant> GetListPlants(string? type, string? familie, string? geslacht, string? grondsoort, string? habitat, string? habitus, string? sociabiliteit, string? bezonning);
+        IEnumerable<Plant> GetListPlants(string? naam, string? grondsoort, string? habitat, string? habitus, string? sociabiliteit, string? bezonning);
     }
 }
