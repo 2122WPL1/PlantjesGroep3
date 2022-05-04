@@ -1,4 +1,5 @@
-﻿using MvvmHelpers.Commands;
+﻿using Microsoft.Win32;
+using MvvmHelpers.Commands;
 using Plantjes.Dao;
 using Plantjes.Models.Classes;
 using Plantjes.Models.Db;
@@ -13,6 +14,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace Plantjes.ViewModels
@@ -34,6 +36,37 @@ namespace Plantjes.ViewModels
         private ObservableCollection<Beheersdaad> beheersdaden;
         private ObservableCollection<FenotypeMonth> fenotypeMonths;
 
+        private string typeColor = "Black";
+        private string familieColor = "Black";
+        private string geslachtColor = "Black";
+        public string TypeColor
+        {
+            get { return typeColor; }
+            set
+            {
+                typeColor = value;
+                OnPropertyChanged("TypeColor");
+            }
+        }
+        public string FamilieColor
+        {
+            get { return familieColor; }
+            set
+            {
+                familieColor = value;
+                OnPropertyChanged("FamilieColor");
+            }
+        }
+        public string GeslachtColor
+        {
+            get { return geslachtColor; }
+            set
+            {
+                geslachtColor = value;
+                OnPropertyChanged("GeslachtColor");
+            }
+        }
+
         public ViewModelAdd(ISearchService searchService)
         {
             this.searchService = searchService;
@@ -44,7 +77,11 @@ namespace Plantjes.ViewModels
             AddBeheersdaadCommand = new Command(new Action(AddBeheersdaadItem));
             AddFenotypeMonthCommand = new Command(new Action(AddFenotypeMonth));
             AddPlantCommand = new Command<object>(new Action<object>(AddPlant));
+
+            BloeiFotoCommand = new Command(new Action(AddFoto));
         }
+
+        public Command BloeiFotoCommand { get; set; }
 
         /// <summary>
         /// Makes an MenuItem list with all colors in the database.
@@ -94,14 +131,28 @@ namespace Plantjes.ViewModels
             }
         }
 
+
     private bool IsRequiredFilled()
     {
         if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
         {
-            MessageBox.Show("Zorg dat je de verplichte velden ingevuld hebt!");
-            selectedTab = 0;
-            OnPropertyChanged();
-            return false;
+                if (new List<string>() { SelectedType?.Planttypenaam }.Any(s => string.IsNullOrEmpty(s)))
+                {
+                    TypeColor = "Red";
+                }
+                if (new List<string>() { TextFamilie}.Any(s => string.IsNullOrEmpty(s)))
+                {
+                    FamilieColor = "Red";
+                }
+                if (new List<string>() {TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
+                {
+                    GeslachtColor = "Red";
+                }
+                MessageBox.Show("Zorg dat je de verplichte velden ingevuld hebt!");
+                selectedTab = 0;
+                OnPropertyChanged();
+                return false;
+                
         }
         return true;
     }
@@ -122,6 +173,26 @@ namespace Plantjes.ViewModels
             fenotypeMonths.Add(new FenotypeMonth());
         }
 
+        private void AddFoto()
+        {
+            string path = "";
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "JPEG files|*.jpeg|PNG files|*.png";
+
+            if (ofd.ShowDialog() == true) 
+            {
+                path = ofd.FileName;
+            }
+            else
+            {
+                return;
+            }
+            BitmapImage inputImage = new BitmapImage(new Uri(path, UriKind.Absolute));
+
+
+
+        }
+
         /// <summary>
         /// Adds a new <see cref="Plant"/> and all its eigenschappen to the database.
         /// </summary>
@@ -130,13 +201,9 @@ namespace Plantjes.ViewModels
         private void AddPlant(object parameters)
         {
             List<object> items = parameters as List<object>;
-            
+
             // Checks if the required fields are filled in
-            if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
-            {
-                MessageBox.Show("Zorg dat je alle algemene info ingevuld hebt!");
-                return;
-            }
+            IsRequiredFilled();
 
             // Adds the base plant to the DB
             Plant plant = DaoPlant.AddPlant(SelectedType.Planttypenaam, TextFamilie, TextGeslacht, 
@@ -269,7 +336,7 @@ namespace Plantjes.ViewModels
             }
         }
     }
-    public Command<object> AddPlantCommand { get; set; }
+        public Command<object> AddPlantCommand { get; set; }
 
         #region Tabcontrol
         //Written by Ian Dumalin on 18/03

@@ -43,17 +43,21 @@
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                             <TextBlock VerticalAlignment="Center">
-                                <TextBlock Text="Type"/>
+                                <TextBlock Foreground="{Binding TypeColor}" Text="Type" RenderTransformOrigin="59.174,15.046">
+                                    <TextBlock.Style>
+                                        <Style/>
+                                    </TextBlock.Style>
+                                </TextBlock>
                                 <TextBlock Text="*" Foreground="Red"/>
                                 <TextBlock Text=":" Margin="0,0,5,0"/>
-                            </TextBlock>
+                            </TextBlock> <!--BorderBrush doet tegen-->
                             <ComboBox x:Name="cbType" Width="200"
                                       ItemsSource="{Binding CmbTypes}" DisplayMemberPath="Planttypenaam"
                                       SelectedItem="{Binding SelectedType}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                            <TextBlock VerticalAlignment="Center">
+                            <TextBlock Foreground="{Binding FamilieColor}" VerticalAlignment="Center">
                                 <TextBlock Text="Familie"/>
                                 <TextBlock Text="*" Foreground="Red"/>
                                 <TextBlock Text=":" Margin="0,0,5,0"/>
@@ -65,7 +69,7 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                            <TextBlock VerticalAlignment="Center">
+                            <TextBlock Foreground="{Binding GeslachtColor}" VerticalAlignment="Center">
                                 <TextBlock Text="Geslacht"/>
                                 <TextBlock Text="*" Foreground="Red"/>
                                 <TextBlock Text=":" Margin="0,0,5,0"/>
@@ -97,7 +101,7 @@
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                             <Label x:Name="lblFotoBloei" Content="Bloei Foto:"/>
-                            <Button x:Name="btnFotoBloei" Content="Bladeren..." Width="200"/>
+                            <Button x:Name="btnFotoBloei" Content="Bladeren..." Command="{Binding BloeiFotoCommand}" Width="200"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
