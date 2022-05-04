@@ -10,12 +10,16 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
+using Image = System.Windows.Controls.Image;
+using System.Drawing;
 
 namespace Plantjes.ViewModels
 {
@@ -96,7 +100,7 @@ namespace Plantjes.ViewModels
                     Width = double.NaN,
                     IsCheckable = true,
                     StaysOpenOnClick = true,
-                    Header = new Rectangle()
+                    Header = new System.Windows.Shapes.Rectangle()
                     {
                         Width = 20,
                         Height = 20,
@@ -176,6 +180,7 @@ namespace Plantjes.ViewModels
         private void AddFoto()
         {
             string path = "";
+            string savepath = "";
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "JPEG files|*.jpeg|PNG files|*.png";
 
@@ -187,9 +192,8 @@ namespace Plantjes.ViewModels
             {
                 return;
             }
+
             BitmapImage inputImage = new BitmapImage(new Uri(path, UriKind.Absolute));
-
-
 
         }
 
