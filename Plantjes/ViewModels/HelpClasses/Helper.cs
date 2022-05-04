@@ -67,7 +67,7 @@ namespace Plantjes.ViewModels.HelpClasses
 
         //Written by Ian Dumalin on 27/04 and 28/04
         /// <summary>
-        /// Loops through all de avaialble users in the database, adding missing users from a .csv file.
+        /// Loops through all de available users in the database, adding missing users from a .csv file.
         /// </summary>
         public static void PopulateDB()
         {

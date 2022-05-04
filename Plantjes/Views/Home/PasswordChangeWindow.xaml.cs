@@ -11,19 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using GalaSoft.MvvmLight.Ioc;
+using Plantjes.Models.Db;
+using Plantjes.ViewModels;
 
-namespace Plantjes.Views.Dialog
+namespace Plantjes.Views.Home
 {
     /// <summary>
-    /// Interaction logic for PasswordChangeDialog.xaml
+    /// Interaction logic for PasswordChangeWindow.xaml
     /// </summary>
-    public partial class PasswordChangeDialog : Window
+    public partial class PasswordChangeWindow : Window
     {
-        public PasswordChangeDialog()
+        public PasswordChangeWindow(Gebruiker gebuiker)
         {
-            /*stack overflow error (?)
-            DataContext = SimpleIoc.Default.GetInstance<PasswordChangeDialog>();*/
+            DataContext = new ViewModelPasswordChange(gebuiker);
             InitializeComponent();
         }
     }

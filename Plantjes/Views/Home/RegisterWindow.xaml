@@ -7,11 +7,6 @@
         xmlns:userControls="clr-namespace:Plantjes.Views.UserControls"
         mc:Ignorable="d"
         Title="RegisterWindow" Height="500" Width="500">
-    <Window.Resources>
-        <DataTemplate DataType = "{x:Type viewmodel:ViewModelRegister}">
-            <userControls:UserControlName/>
-        </DataTemplate>
-    </Window.Resources>
 
     <Grid>
         <!-- Written by Ian on 25/02 -->
