@@ -85,7 +85,7 @@ namespace Plantjes.Dao
             return gebruiker;
         }
 
-        public static void UpdateUser(Gebruiker gebruiker)
+        public static void UpdateUserLogin(Gebruiker gebruiker)
         {
             context.Gebruikers.Update(gebruiker);
             context.SaveChanges();
@@ -98,7 +98,7 @@ namespace Plantjes.Dao
             {
                 gebruiker.HashPaswoord = password;
             }
-            context.Gebruikers.Update(gebruiker);
+            DaoUser.UpdateUserLogin(gebruiker);
             context.SaveChanges();
         }
     }

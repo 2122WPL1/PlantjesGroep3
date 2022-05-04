@@ -5,7 +5,10 @@ using Plantjes.Models.Enums;
 using Plantjes.Views.Home;
 using System;
 using System.Windows;
+using Plantjes.Dao;
 using Plantjes.Models.Db;
+using Plantjes.ViewModels.HelpClasses;
+
 //written by kenny
 namespace Plantjes.ViewModels
 {
@@ -13,7 +16,7 @@ namespace Plantjes.ViewModels
     {
         private string userNameInput;
         private string passwordInput;
-        private string errorMessage;
+        //private string errorMessage;
 
         private ILoginUserService _loginService { get; }
         public RelayCommand LoginCommand { get; set; }
@@ -50,10 +53,21 @@ namespace Plantjes.ViewModels
                     if (_loginService.IsLogin(UserNameInput, PasswordInput))
                     {
                         //  loggedInMessage = _loginService.LoggedInMessage(userNameInput);
-
-                        MainWindow mainWindow = new MainWindow();
-                        mainWindow.Show();
-                        Application.Current.Windows[0]?.Close();
+                        var currentGebruiker = DaoUser.GetGebruiker(userNameInput);
+                        if (currentGebruiker.HashPaswoord == Helper.HashString(currentGebruiker.Vivesnr) || currentGebruiker.LastLogin == null)
+                        {
+                            //ViewModelPasswordChange vmpc = new ViewModelPasswordChange(currentGebruiker);
+                            var window = new PasswordChangeWindow(currentGebruiker);
+                            window.Show();
+                            Application.Current.Windows[0]?.Close();
+                        }
+                        else
+                        {
+                            DaoUser.UpdateUserLogin(currentGebruiker);
+                            MainWindow mainWindow = new MainWindow();
+                            mainWindow.Show();
+                            Application.Current.Windows[0]?.Close();
+                        }
                     }
                 }
                 else

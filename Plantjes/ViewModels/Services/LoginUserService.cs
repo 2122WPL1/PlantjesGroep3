@@ -76,13 +76,8 @@ namespace Plantjes.ViewModels.Services
                 throw new Exception("Het ingegeven wachtwoord is niet juist, probeer opnieuw");
             }
 
-            if (currentGebruiker.HashPaswoord == Helper.HashString(currentGebruiker.Vivesnr) || gebruiker.LastLogin == null)
-            {
-                
-            }
-
             gebruiker = currentGebruiker;
-            DaoUser.UpdateUser(gebruiker);
+            DaoUser.UpdateUserLogin(gebruiker);
             return true;
         }
 
