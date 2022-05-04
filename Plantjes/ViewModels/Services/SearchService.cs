@@ -34,24 +34,29 @@ namespace Plantjes.ViewModels.Services
         //edited by Warre on 04/05
         public IEnumerable<Plant> GetListPlants(string? naam, string? grondsoort, string? habitat, string? habitus, string? sociabiliteit, string? bezonning)
         {
-            var plantList = GetList<Plant>();
+            var plantList = DaoPlant.GetPlants();
             // if search values are null => return every plant in DB.
-            if (naam == null && grondsoort == null && habitat == null && habitus == null &&
-                sociabiliteit == null && bezonning == null)
+            if (naam == null && grondsoort == null && habitat == null && habitus == null && sociabiliteit == null && bezonning == null)
             {
                 return plantList;
             }
 
             // Search plants on input values.
-            if (!string.IsNullOrWhiteSpace(naam)) plantList = plantList.Where(p =>
+            if (!string.IsNullOrWhiteSpace(naam))
+                plantList = plantList.Where(p =>
                 (!string.IsNullOrEmpty(p.Variant) && p.Variant.ToLower().Contains(naam.ToLower())) ||
                 (!string.IsNullOrEmpty(p.Soort) && p.Soort.ToLower().Contains(naam.ToLower())) ||
                 (!string.IsNullOrEmpty(p.Soort) && p.Soort.ToLower().Contains(naam.ToLower())));
-            if (!string.IsNullOrWhiteSpace(grondsoort)) plantList = plantList.Where(p => p.Abiotieks.Count > 0 && p.Abiotieks.First().Grondsoort.ToLower() == grondsoort.ToLower());
-            if (!string.IsNullOrWhiteSpace(habitus)) plantList = plantList.Where(p => p.Fenotypes.Count > 0 && p.Fenotypes.First().Habitus.ToLower() == habitus.ToLower());
-            if (!string.IsNullOrWhiteSpace(bezonning)) plantList = plantList.Where(p => p.Abiotieks.Count > 0 && p.Abiotieks.First().Bezonning.ToLower() == bezonning.ToLower());
-            if (!string.IsNullOrWhiteSpace(habitat)) plantList = plantList.Where(p => p.AbiotiekMultis.Any(a => a.Eigenschap.ToLower() == "habitat" && a.Waarde.ToLower() == habitat.ToLower()));
-            if (!string.IsNullOrWhiteSpace(sociabiliteit)) plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "sociabiliteit" && f.Waarde.ToLower() == sociabiliteit.ToLower()));
+            if (!string.IsNullOrWhiteSpace(grondsoort))
+                plantList = plantList.Where(p => p.Abiotieks.Any(a => !string.IsNullOrEmpty(a.Grondsoort) && a.Grondsoort.ToLower() == grondsoort.ToLower()));
+            if (!string.IsNullOrWhiteSpace(habitus))
+                plantList = plantList.Where(p => p.Fenotypes.Any(f => !string.IsNullOrEmpty(f.Habitus) && f.Habitus.ToLower() == habitus.ToLower()));
+            if (!string.IsNullOrWhiteSpace(bezonning))
+                plantList = plantList.Where(p => p.Abiotieks.Any(a => !string.IsNullOrEmpty(a.Bezonning) && a.Bezonning.ToLower() == bezonning.ToLower()));
+            if (!string.IsNullOrWhiteSpace(habitat)) 
+                plantList = plantList.Where(p => p.AbiotiekMultis.Any(a => a.Eigenschap.ToLower() == "habitat" && a.Waarde.ToLower() == habitat.ToLower()));
+            if (!string.IsNullOrWhiteSpace(sociabiliteit)) 
+                plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "sociabiliteit" && f.Waarde.ToLower() == sociabiliteit.ToLower()));
 
             return plantList;
         }
