@@ -54,7 +54,7 @@ namespace Plantjes.ViewModels
                     {
                         //  loggedInMessage = _loginService.LoggedInMessage(userNameInput);
                         var currentGebruiker = DaoUser.GetGebruiker(userNameInput);
-                        if (currentGebruiker.HashPaswoord == Helper.HashString(currentGebruiker.Vivesnr) || currentGebruiker.LastLogin == null)
+                        if ((currentGebruiker.HashPaswoord == Helper.HashString(currentGebruiker.Vivesnr) || currentGebruiker.LastLogin == null) && currentGebruiker.Emailadres != "admin")
                         {
                             //ViewModelPasswordChange vmpc = new ViewModelPasswordChange(currentGebruiker);
                             var window = new PasswordChangeWindow(currentGebruiker);
