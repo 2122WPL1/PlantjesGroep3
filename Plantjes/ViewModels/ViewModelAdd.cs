@@ -105,6 +105,18 @@ namespace Plantjes.ViewModels
     {
         if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
         {
+            if (new List<string>() { SelectedType?.Planttypenaam }.Any(s => string.IsNullOrEmpty(s)))
+            {
+                TypeColor = "Red";
+            }
+            if (new List<string>() { TextFamilie }.Any(s => string.IsNullOrEmpty(s)))
+            {
+                FamilieColor = "Red";
+            }
+            if (new List<string>() { TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
+            {
+                GeslachtColor = "Red";
+            }
             MessageBox.Show("Zorg dat je de verplichte velden ingevuld hebt!");
             selectedTab = 0;
             OnPropertyChanged();
