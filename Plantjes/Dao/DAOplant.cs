@@ -1,4 +1,5 @@
-﻿using Plantjes.Models.Db;
+﻿using Microsoft.EntityFrameworkCore;
+using Plantjes.Models.Db;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,18 @@ namespace Plantjes.Dao
 {
     public class DaoPlant : DaoBase
     {
+        public static IEnumerable<Plant> GetPlants()
+        {
+            return context.Plants
+                .Include(p => p.Abiotieks)
+                .Include(p => p.AbiotiekMultis)
+                .Include(p => p.Commensalismes)
+                .Include(p => p.CommensalismeMultis)
+                .Include(p => p.Fenotypes)
+                .Include(p => p.FenotypeMultis)
+                .Include(p => p.ExtraEigenschaps);
+        }
+
         public static Plant AddPlant(string type, string familie, string geslacht, string soort = null, string variant = null)
         {
             Plant plant = new Plant()
