@@ -28,6 +28,7 @@ namespace Plantjes.ViewModels
             this._viewModelRepo = iocc.GetInstance<ViewModelRepo>();
             this._searchService = searchService;
             this.loginUserService = loginUserService;
+            _currentViewModel = iocc.GetInstance<ViewModelSearch>();
 
             mainNavigationCommand = new Command<string>(this._onNavigationChanged);
             //  dialogService.ShowMessageBox(this, "", "");

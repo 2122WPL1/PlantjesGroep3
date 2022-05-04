@@ -23,12 +23,12 @@
     <DockPanel>
         <Grid DockPanel.Dock="Top" Margin="10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button Content="Toevoegen" Width="100" Height="30" Margin="5"
-                    Command="{Binding mainNavigationCommand}"
-                    CommandParameter="VIEWADD"/>
                 <Button Content="Zoeken" Width="100" Height="30" Margin="5"
                     Command="{Binding mainNavigationCommand}"
                     CommandParameter="VIEWSEARCH"/>
+                <Button Content="Toevoegen" Width="100" Height="30" Margin="5"
+                    Command="{Binding mainNavigationCommand}"
+                    CommandParameter="VIEWADD"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Docent" Width="100" Height="30" Margin="5"
