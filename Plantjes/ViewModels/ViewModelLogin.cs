@@ -8,6 +8,7 @@ using System.Windows;
 using Plantjes.Dao;
 using Plantjes.Models.Db;
 using Plantjes.ViewModels.HelpClasses;
+using GalaSoft.MvvmLight.Ioc;
 
 //written by kenny
 namespace Plantjes.ViewModels
@@ -64,6 +65,7 @@ namespace Plantjes.ViewModels
                         else
                         {
                             DaoUser.UpdateUserLogin(currentGebruiker);
+                            SimpleIoc.Default.GetInstance<ViewModelMain>().Gebruiker = currentGebruiker;
                             MainWindow mainWindow = new MainWindow();
                             mainWindow.Show();
                             Application.Current.Windows[0]?.Close();
