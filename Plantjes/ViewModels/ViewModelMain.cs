@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using MvvmHelpers.Commands;
+using Plantjes.Models.Db;
 using Plantjes.ViewModels.HelpClasses;
 using Plantjes.ViewModels.Interfaces;
 using System;
@@ -15,14 +16,11 @@ namespace Plantjes.ViewModels
 
         private ViewModelBase _currentViewModel;
 
-        public SwitchTabCommand mainNavigationCommand { get; set; }
+        public TabCommand mainNavigationCommand { get; set; }
         public ViewModelBase currentViewModel
         {
             get { return _currentViewModel; }
-            set 
-            { 
-                SetProperty(ref _currentViewModel, value);
-            }
+            set { SetProperty(ref _currentViewModel, value); }
         }
 
         public ILoginUserService loginUserService;
@@ -34,7 +32,7 @@ namespace Plantjes.ViewModels
             this._searchService = searchService;
             this.loginUserService = loginUserService;
 
-            mainNavigationCommand = new SwitchTabCommand(new Action<string>(OnNavigationChanged));
+            mainNavigationCommand = new TabCommand(new Action<string>(OnNavigationChanged));
             //  dialogService.ShowMessageBox(this, "", "");
         }
 
@@ -52,6 +50,8 @@ namespace Plantjes.ViewModels
                 RaisePropertyChanged("loggedInMessage");
             }
         }
+
+        public Gebruiker Gebruiker { get; set; } = null;
 
         public void OnNavigationChanged(string userControlName)
         {
