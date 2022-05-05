@@ -8,9 +8,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using GalaSoft.MvvmLight.Command;
+using Plantjes.ViewModels.HelpClasses;
 
 namespace Plantjes.ViewModels
 {
+    // Written by Warre
+    // Export written bij Ian Dumalin on 4/5
     public class ViewModelSearch : ViewModelBase
     {
         private readonly IEnumerable<PlantItem> emptyPlants = new List<PlantItem>() { new PlantItem(), new PlantItem(true) };
@@ -24,6 +29,7 @@ namespace Plantjes.ViewModels
             this.searchService = searchService;
 
             SearchCommand = new Command<object>(new Action<object>(Search));
+            ExportCommand = new RelayCommand(ExportCSV);
         }
 
         // GetListPlants(string? type, string? familie, string? geslacht, string? grondsoort, string? habitat, string? habitus, string? sociabiliteit, string? bezonning)
@@ -53,7 +59,13 @@ namespace Plantjes.ViewModels
             OnPropertyChanged("Plants");
         }
 
+        private void ExportCSV()
+        {
+            CSVHelper.PlantsCSVExport(plants);
+        }
+
         public Command SearchCommand { get; set; }
+        public RelayCommand ExportCommand { get; set; }
 
         public IEnumerable<PlantItem> Plants
         {

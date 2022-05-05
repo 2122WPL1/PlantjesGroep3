@@ -102,6 +102,8 @@
                         </MultiBinding>
                     </Button.CommandParameter>
                 </Button>
+                <Button Width="200" Content="Export" x:Name="btnExporteren" Margin="10,0,10,0" VerticalAlignment="Center" Height="25"
+                                   Command="{Binding ExportCommand}"/>
             </StackPanel>
             <ItemsControl ItemsSource="{Binding Plants}">
                 <ItemsControl.ItemsPanel>

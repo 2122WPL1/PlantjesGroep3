@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using Plantjes.Dao;
 using Plantjes.Models.Db;
 using Plantjes.Models.Extensions;
@@ -21,42 +22,6 @@ namespace Plantjes.ViewModels.HelpClasses
     /// </summary>
     public static class Helper
     {
-        /// <summary>
-        /// Converts the read .csv into a list of Gebruikers.
-        /// </summary>
-        /// <param name="csvLocation">Location of the .csv file.</param>
-        /// <returns>A list of Gebruikers</returns>
-        public static List<Gebruiker> CSVToMemberList(string csvLocation)
-        {
-            // Written by Ian Dumalin on 27/04
-            List<Gebruiker> valueList = new List<Gebruiker>();
-            using (StreamReader reader = new StreamReader(csvLocation))
-            {
-                while (!reader.EndOfStream)
-                {
-                    string line = reader.ReadLine();
-                    string[] readValues = line.Split(';');
-                    if (readValues[0] != "Studentennummer")
-                    {
-                        if(readValues[5] == "admin") valueList.Add(new Gebruiker(readValues[0], readValues[1], readValues[2], readValues[5], Helper.HashString("admin")));
-                        else valueList.Add(new Gebruiker(readValues[0], readValues[1], readValues[2], readValues[5], Helper.HashString(readValues[0])));
-                    }
-                }
-            }
-            return valueList;
-        }
-
-        public static void RegisterMemberToCSV(string csvLocation, string email, string rNumber, string password)
-        {
-            using (FileStream fileStream = new FileStream(csvLocation, FileMode.Append, FileAccess.ReadWrite))
-            {
-                using (StreamWriter writer = new StreamWriter(fileStream))
-                {
-                    writer.WriteLine($"{email};{rNumber};{password}");
-                }
-            }
-        }
-
         // Written by Warre, converted to help method by Ian
         /// <summary>
         /// Converts a string to a collection of bytes
@@ -79,7 +44,7 @@ namespace Plantjes.ViewModels.HelpClasses
         {
             string path = Directory.GetCurrentDirectory() + "\\CSV\\members.csv";
             var gebruikerList = DaoUser.GetGebruikerList();
-            var gebruikerListCSV = Helper.CSVToMemberList(path);
+            var gebruikerListCSV = CSVHelper.CSVToMemberList(path);
             Dictionary<string, string> gebruikerDictionary = new Dictionary<string, string>();
             foreach (Gebruiker g in gebruikerList)
             {
