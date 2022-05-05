@@ -23,6 +23,10 @@ namespace Plantjes.ViewModels
         private readonly ISearchService searchService;
 
         private IEnumerable<Plant> plants;
+        private IEnumerable<string> _cmbHabitus;
+        private IEnumerable<string> _cmbBezonning;
+        private IEnumerable<string> _cmbHabitat;
+        private IEnumerable<string> _cmbGrondsoort;
 
         public ViewModelSearch(ISearchService searchService)
         {
@@ -30,6 +34,11 @@ namespace Plantjes.ViewModels
 
             SearchCommand = new Command<object>(new Action<object>(Search));
             ExportCommand = new RelayCommand(ExportCSV);
+
+            _cmbHabitus = searchService.GetList<FenoHabitu>().Select(f => f.Naam).Prepend(string.Empty);
+            _cmbBezonning = searchService.GetList<AbioBezonning>().Select(a => a.Naam).Prepend(string.Empty);
+            _cmbHabitat = searchService.GetList<AbioHabitat>().Select(a => a.Afkorting).Prepend(string.Empty);
+            _cmbGrondsoort = searchService.GetList<AbioGrondsoort>().Select(a => a.Grondsoort).Prepend(string.Empty);
         }
 
         // GetListPlants(string? type, string? familie, string? geslacht, string? grondsoort, string? habitat, string? habitus, string? sociabiliteit, string? bezonning)
@@ -74,22 +83,22 @@ namespace Plantjes.ViewModels
 
         public IEnumerable<string> CmbHabitus
         {
-            get { return searchService.GetList<FenoHabitu>().Select(f => f.Naam).Prepend(string.Empty); }
+            get => _cmbHabitus;
         }
 
         public IEnumerable<string> CmbBezonning
         {
-            get { return searchService.GetList<AbioBezonning>().Select(a => a.Naam).Prepend(string.Empty); }
+            get => _cmbBezonning;
         }
 
         public IEnumerable<string> CmbHabitat
         {
-            get { return searchService.GetList<AbioHabitat>().Select(a => a.Afkorting).Prepend(string.Empty); }
+            get => _cmbHabitat;
         }
 
         public IEnumerable<string> CmbGrondsoort
         {
-            get { return searchService.GetList<AbioGrondsoort>().Select(a => a.Grondsoort).Prepend(string.Empty); }
+            get => _cmbGrondsoort;
         }
     }
 }
