@@ -8,31 +8,17 @@ using Plantjes.ViewModels;
 
 namespace Plantjes.ViewModels
 {
-    //geschreven door kenny adhv een voorbeeld van roy
-    //herschreven door kenny voor gebruik met ioc
+    // Written by Warre
     public class ViewModelRepo
-    {   //singleton pattern
-        private static SimpleIoc iocc = SimpleIoc.Default;
-        //private static ViewModelRepo instance;
-
-        private Dictionary<string, ViewModelBase> _viewModels = new Dictionary<string, ViewModelBase>();
-       
-        private ViewModelAdd viewModelAdd = iocc.GetInstance<ViewModelAdd>();
-        private ViewModelSearch viewModelSearch = iocc.GetInstance<ViewModelSearch>();
-
-        public ViewModelRepo()
-        {
-            //hier een extra lijn code per user control
-            _viewModels.Add("VIEWADD", viewModelAdd);
-            _viewModels.Add("VIEWSEARCH", viewModelSearch);
-        }
-        
+    {
         public ViewModelBase GetViewModel(string modelName)
-        {
-            ViewModelBase result;
-            var ok = this._viewModels.TryGetValue(modelName, out result);
-            return ok ? result : null;
-        }
+            => modelName switch
+            {
+                "VIEWADD" => SimpleIoc.Default.GetInstance<ViewModelAdd>(),
+                "VIEWSEARCH" => SimpleIoc.Default.GetInstance<ViewModelSearch>(),
+                "VIEWDETAIL" => SimpleIoc.Default.GetInstance<ViewModelPlantDetail>(),
+                _ => null,
+            };
     }
 
 }

@@ -168,7 +168,7 @@ namespace Plantjes.ViewModels
         /// <summary>
         /// Adds a new <see cref="Plant"/> and all its eigenschappen to the database.
         /// </summary>
-        /// <param name="parameters">The values from the <see cref="PlantParameterConverter"/>.</param>
+        /// <param name="parameters">The values from the <see cref="CommonMultiValueConverter"/>.</param>
         /// <exception cref="ArgumentException">Throws exception if the required parameters are not entered.</exception>
         private void AddPlant(object parameters)
         {

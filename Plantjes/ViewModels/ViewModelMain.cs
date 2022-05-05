@@ -1,6 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using MvvmHelpers.Commands;
+using Plantjes.Models.Db;
+using Plantjes.ViewModels.HelpClasses;
 using Plantjes.ViewModels.Interfaces;
+using System;
 
 namespace Plantjes.ViewModels
 {
@@ -13,7 +16,7 @@ namespace Plantjes.ViewModels
 
         private ViewModelBase _currentViewModel;
 
-        public Command<string> mainNavigationCommand { get; set; }
+        public TabCommand mainNavigationCommand { get; set; }
         public ViewModelBase currentViewModel
         {
             get { return _currentViewModel; }
@@ -30,7 +33,7 @@ namespace Plantjes.ViewModels
             this.loginUserService = loginUserService;
             _currentViewModel = iocc.GetInstance<ViewModelSearch>();
 
-            mainNavigationCommand = new Command<string>(this._onNavigationChanged);
+            mainNavigationCommand = new TabCommand(new Action<string>(OnNavigationChanged));
             //  dialogService.ShowMessageBox(this, "", "");
         }
 
@@ -49,7 +52,9 @@ namespace Plantjes.ViewModels
             }
         }
 
-        private void _onNavigationChanged(string userControlName)
+        public Gebruiker Gebruiker { get; set; } = null;
+
+        public void OnNavigationChanged(string userControlName)
         {
             this.currentViewModel = this._viewModelRepo.GetViewModel(userControlName);
         }

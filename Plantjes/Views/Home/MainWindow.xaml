@@ -6,17 +6,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:pages="clr-namespace:Plantjes.Views.UserControls"
         xmlns:viewModels="clr-namespace:Plantjes.ViewModels"
-
+        xmlns:hc="clr-namespace:Plantjes.ViewModels.HelpClasses"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1250">
 
     <Window.Resources>
+        <hc:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <hc:CommonMultiValueConverter x:Key="CommonMultiValueConverter"/>
+
         <DataTemplate DataType="{x:Type viewModels:ViewModelAdd}">
             <pages:UserControlAdd/>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type viewModels:ViewModelSearch}">
             <pages:UserControlSearch/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewModels:ViewModelPlantDetail}">
+            <pages:UserControlPlantDetail/>
         </DataTemplate>
     </Window.Resources>
 
@@ -29,11 +36,15 @@
                 <Button Content="Toevoegen" Width="100" Height="30" Margin="5"
                     Command="{Binding mainNavigationCommand}"
                     CommandParameter="VIEWADD"/>
+                <Button Content="Detail" Width="100" Height="30" Margin="5"
+                    Command="{Binding mainNavigationCommand}"
+                    CommandParameter="VIEWDETAIL"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Docent" Width="100" Height="30" Margin="5"
+                <Button x:Name="btnDocent" Content="Docent" Width="100" Height="30" Margin="5"
                     Command="{Binding mainNavigationCommand}"
-                    CommandParameter="VIEWDOCENT"/>
+                    CommandParameter="VIEWDOCENT"
+                    Visibility="{Binding ElementName=btnDocent, Path=IsEnabled, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
         </Grid>
 

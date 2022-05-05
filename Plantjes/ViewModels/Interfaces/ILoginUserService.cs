@@ -6,6 +6,7 @@ namespace Plantjes.ViewModels.Interfaces
     /*written by kenny*/
     public interface ILoginUserService
     {
+        Gebruiker Gebruiker { get; }
         bool IsLogin(string userNameInput, string passwordInput);
         void Register(string vivesNrInput, string lastNameInput,
             string firstNameInput, string emailAdresInput,

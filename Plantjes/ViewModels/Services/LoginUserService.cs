@@ -16,14 +16,13 @@ namespace Plantjes.ViewModels.Services
 {
     public class LoginUserService : ILoginUserService
     {
-        //dao verklaren om data op te vragen en te setten in de databank
-        private Gebruiker gebruiker;
-
         public LoginUserService()
         {
         }
 
         //written by Warre
+        public Gebruiker Gebruiker { get; private set; }
+
         /// <summary>
         /// Checks if a string is a valid email adress.
         /// </summary>
@@ -53,7 +52,7 @@ namespace Plantjes.ViewModels.Services
 
             //check if email is valid email
             Gebruiker currentGebruiker;
-            if (IsEmail(emailInput) || emailInput == "admin")
+            if (IsEmail(emailInput) || emailInput == "admin@vives.be")
             {   //gebruiker zoeken in de databank
                 currentGebruiker = DaoUser.GetGebruiker(emailInput);
             }
@@ -76,8 +75,8 @@ namespace Plantjes.ViewModels.Services
                 throw new Exception("Het ingegeven wachtwoord is niet juist, probeer opnieuw");
             }
 
-            gebruiker = currentGebruiker;
-            DaoUser.UpdateUserLogin(gebruiker);
+            Gebruiker = currentGebruiker;
+            DaoUser.UpdateUserLogin(Gebruiker);
             return true;
         }
 
@@ -89,9 +88,9 @@ namespace Plantjes.ViewModels.Services
         public string LoggedInMessage()
         {
             string message = string.Empty;
-            if (gebruiker != null)
+            if (Gebruiker != null)
             {
-                message = $"Ingelogd als: {gebruiker.Voornaam} {gebruiker.Achternaam}";
+                message = $"Ingelogd als: {Gebruiker.Voornaam} {Gebruiker.Achternaam}";
             }
             return message;
         }

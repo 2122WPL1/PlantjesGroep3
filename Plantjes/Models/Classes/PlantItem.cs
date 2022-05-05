@@ -1,7 +1,10 @@
-﻿using Plantjes.Models.Db;
+﻿using GalaSoft.MvvmLight.Ioc;
+using Plantjes.Models.Db;
 using Plantjes.Models.Extensions;
+using Plantjes.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Text;
@@ -15,7 +18,7 @@ namespace Plantjes.Models.Classes
 {
     public class PlantItem : Grid
     {
-        private Plant plant;
+        private readonly Plant _plant;
 
         public PlantItem(bool isEmptyPlant = false)
         {
@@ -26,18 +29,17 @@ namespace Plantjes.Models.Classes
 
         public PlantItem(Plant plant)
         {
-            this.plant = plant;
+            _plant = plant;
 
             DockPanel panel = new DockPanel();
             HorizontalAlignment = HorizontalAlignment.Center;
             VerticalAlignment = VerticalAlignment.Center;
             Margin = new Thickness(10);
-            /*Height = 300;
-            Width = 500;*/
+            MouseDown += OnClick;
 
             BitmapImage biImage = null;
             if (plant.Fotos.Count > 0)
-                using (var ms = new System.IO.MemoryStream(plant.Fotos.First().Tumbnail))
+                using (var ms = new MemoryStream(plant.Fotos.First().Tumbnail))
                 {
                     biImage = new BitmapImage();
                     biImage.BeginInit();
@@ -49,8 +51,8 @@ namespace Plantjes.Models.Classes
             DockPanel.SetDock(image, Dock.Top);
             panel.Children.Add(image);
 
-            Label nameLabel = new Label() 
-            { 
+            Label nameLabel = new Label()
+            {
                 Content = plant.Variant.RemoveQuotes() ?? $"{plant.Geslacht.FirstToUpper()} {plant.Soort.FirstToUpper()}",
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Bottom
@@ -60,6 +62,15 @@ namespace Plantjes.Models.Classes
             Children.Add(panel);
         }
 
-        public Plant Plant { get { return plant; } }
+        private void OnClick(object sender, RoutedEventArgs e)
+        {
+            if (SimpleIoc.Default.IsRegistered<ViewModelPlantDetail>() || SimpleIoc.Default.ContainsCreated<ViewModelPlantDetail>())
+                SimpleIoc.Default.Unregister<ViewModelPlantDetail>();
+            SimpleIoc.Default.Register(() => new ViewModelPlantDetail(Plant));
+            SimpleIoc.Default.GetInstance<ViewModelMain>().OnNavigationChanged("VIEWDETAIL");
+            MessageBox.Show("clicked");
+        }
+
+        public Plant Plant { get { return _plant; } }
     }
 }
