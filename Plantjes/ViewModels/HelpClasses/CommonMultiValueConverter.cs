@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace Plantjes.ViewModels.HelpClasses
 {
-    internal class PlantParameterConverter : IMultiValueConverter
+    internal class CommonMultiValueConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
