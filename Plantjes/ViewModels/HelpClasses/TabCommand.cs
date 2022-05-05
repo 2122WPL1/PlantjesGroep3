@@ -1,14 +1,16 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using Plantjes.Models.Db;
 using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace Plantjes.ViewModels.HelpClasses
 {
-    public class SwitchTabCommand : ICommand
+    public class TabCommand : ICommand
     {
         private readonly Action<string> _action;
 
-        public SwitchTabCommand(Action<string> action)
+        public TabCommand(Action<string> action)
         {
             _action = action;
         }
@@ -23,6 +25,8 @@ namespace Plantjes.ViewModels.HelpClasses
         {
             try
             {
+                if (parameter as string == "VIEWDOCENT" && SimpleIoc.Default.IsRegistered<ViewModelMain>() && SimpleIoc.Default.GetInstance<ViewModelMain>().Gebruiker?.RolId > 1)
+                    return false;
                 SimpleIoc.Default.GetInstance<ViewModelRepo>().GetViewModel(parameter as string);
                 return true;
             }
