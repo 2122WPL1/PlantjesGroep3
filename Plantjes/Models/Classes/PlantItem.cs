@@ -68,7 +68,6 @@ namespace Plantjes.Models.Classes
                 SimpleIoc.Default.Unregister<ViewModelPlantDetail>();
             SimpleIoc.Default.Register(() => new ViewModelPlantDetail(Plant));
             SimpleIoc.Default.GetInstance<ViewModelMain>().OnNavigationChanged("VIEWDETAIL");
-            MessageBox.Show("clicked");
         }
 
         public Plant Plant { get { return _plant; } }
