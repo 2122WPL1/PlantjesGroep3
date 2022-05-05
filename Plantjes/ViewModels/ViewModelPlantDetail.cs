@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Plantjes.ViewModels
 {
+    //Written by Renzo
     public class ViewModelPlantDetail : ViewModelBase
     {
         private string _plantNaam;

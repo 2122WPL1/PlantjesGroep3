@@ -39,6 +39,25 @@ namespace Plantjes.ViewModels
         private string familieColor = "Black";
         private string geslachtColor = "Black";
 
+        private IEnumerable<TfgsvType> _cmbTypes;
+        private IEnumerable<string> _cmbBladvorm;
+        private IEnumerable<string> _cmbBloeiwijze;
+        private IEnumerable<string> _cmbHabitus;
+        private IEnumerable<string> _cmbMaand;
+        private IEnumerable<string> _cmbSpruitfenologie;
+        private IEnumerable<MenuItem> _mBladkleur;
+        private IEnumerable<MenuItem> _mBloeikleur;
+        private IEnumerable<MenuItem> _mBezonning;
+        private IEnumerable<MenuItem> _mGrondsoort;
+        private IEnumerable<string> _cmbVochtbehoefte;
+        private IEnumerable<MenuItem> _mVoedingsbehoefte;
+        private IEnumerable<MenuItem> _mHabitat;
+        private IEnumerable<string> _CmbOntwikkeligssnelheid;
+        private IEnumerable<MenuItem> _mStrategie;
+        private IEnumerable<MenuItem> _mConcurrentiekracht;
+        private IEnumerable<string> _cbPollen;
+        private IEnumerable<string> _cbNectar;
+
         public ViewModelAdd(ISearchService searchService)
         {
             this.searchService = searchService;
@@ -46,10 +65,29 @@ namespace Plantjes.ViewModels
 
             beheersdaden = new ObservableCollection<Beheersdaad>() { new Beheersdaad() };
             fenotypeMonths = new ObservableCollection<FenotypeMonth>() { new FenotypeMonth() };
+
+            _cmbTypes = searchService.GetList<TfgsvType>().OrderBy(t => t.Planttypenaam);
+            _cmbBladvorm = searchService.GetList<FenoBladvorm>().Select(f => f.Vorm);
+            _cmbBloeiwijze = searchService.GetList<FenoBloeiwijze>().Select(f => f.Naam);
+            _cmbHabitus = searchService.GetList<FenoHabitu>().Select(f => f.Naam);
+            _cmbMaand = Helper.GetMonthsList();
+            _cmbSpruitfenologie = searchService.GetList<FenoSpruitfenologie>().Select(f => f.Fenologie);
+            _mBladkleur = Helper.MakeColorMenuItemList();
+            _mBloeikleur = Helper.MakeColorMenuItemList();
+            _mBezonning = Helper.MakeMenuItemList<AbioBezonning>(a => a.Naam);
+            _mGrondsoort = Helper.MakeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
+            _cmbVochtbehoefte = searchService.GetList<AbioVochtbehoefte>().Select(v => v.Vochtbehoefte);
+            _mVoedingsbehoefte = Helper.MakeMenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
+            _mHabitat = Helper.MakeMenuItemList<AbioHabitat>(a => a.Afkorting);
+            _CmbOntwikkeligssnelheid = searchService.GetList<CommOntwikkelsnelheid>().Select(o => o.Snelheid);
+            _mStrategie = Helper.MakeMenuItemList<CommStrategie>(s => s.Strategie);
+            _mConcurrentiekracht = Helper.MakeMenuItemList<CommLevensvorm>(a => a.Levensvorm);
+            _cbPollen = searchService.GetList<ExtraPollenwaarde>().Select(o => o.Waarde);
+            _cbNectar = searchService.GetList<ExtraNectarwaarde>().Select(o => o.Waarde);
+
             AddBeheersdaadCommand = new Command(new Action(AddBeheersdaadItem));
             AddFenotypeMonthCommand = new Command(new Action(AddFenotypeMonth));
             AddPlantCommand = new Command<object>(new Action<object>(AddPlant));
-
             BloeiFotoCommand = new Command(new Action(AddFoto));
         }
 
@@ -328,7 +366,7 @@ namespace Plantjes.ViewModels
         #region Algemene Info
         public IEnumerable<TfgsvType> CmbTypes
         {
-            get => searchService.GetList<TfgsvType>().OrderBy(t => t.Planttypenaam);
+            get => _cmbTypes;
         }
         public IEnumerable<TfgsvFamilie> CmbFamilies
         {
@@ -410,31 +448,31 @@ namespace Plantjes.ViewModels
         #region Fenotype
         public IEnumerable<string> CmbBladvorm
         {
-            get => searchService.GetList<FenoBladvorm>().Select(f => f.Vorm);
+            get => _cmbBladvorm;
         }
         public IEnumerable<string> CmbBloeiwijze
         {
-            get => searchService.GetList<FenoBloeiwijze>().Select(f => f.Naam);
+            get => _cmbBloeiwijze;
         }
         public IEnumerable<string> CmbHabitus
         {
-            get => searchService.GetList<FenoHabitu>().Select(f => f.Naam);
+            get => _cmbHabitus;
         }
         public IEnumerable<string> CmbMaand
         {
-            get => Helper.GetMonthsList();
+            get => _cmbMaand;
         }
         public IEnumerable<string> CmbSpruitfenologie
         {
-            get => searchService.GetList<FenoSpruitfenologie>().Select(f => f.Fenologie);
+            get => _cmbSpruitfenologie;
         }
         public IEnumerable<MenuItem> MBladkleur
         {
-            get => Helper.MakeColorMenuItemList();
+            get => _mBladkleur;
         }
         public IEnumerable<MenuItem> MBloeikleur
         {
-            get => Helper.MakeColorMenuItemList();
+            get => _mBloeikleur;
         }
 
         public string SelectedFenotypeMaand
@@ -462,23 +500,23 @@ namespace Plantjes.ViewModels
         #region Abiotische Factoren
         public IEnumerable<MenuItem> MBezonning
         {
-            get => Helper.MakeMenuItemList<AbioBezonning>(a => a.Naam);
+            get => _mBezonning;
         }
         public IEnumerable<MenuItem> MGrondsoort
         {
-            get => Helper.MakeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
+            get => _mGrondsoort;
         }
         public IEnumerable<string> CmbVochtbehoefte
         {
-            get => searchService.GetList<AbioVochtbehoefte>().Select(v => v.Vochtbehoefte);
+            get => _cmbVochtbehoefte;
         }
         public IEnumerable<MenuItem> MVoedingsbehoefte
         {
-            get => Helper.MakeMenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
+            get => _mVoedingsbehoefte;
         }
         public IEnumerable<MenuItem> MHabitat
         {
-            get => Helper.MakeMenuItemList<AbioHabitat>(a => a.Afkorting);
+            get => _mHabitat;
         }
         #endregion
 
@@ -493,15 +531,15 @@ namespace Plantjes.ViewModels
         #region Commensalisme
         public IEnumerable<string> CmbOntwikkelingssnelheid
         {
-            get => searchService.GetList<CommOntwikkelsnelheid>().Select(o => o.Snelheid);
+            get => _CmbOntwikkeligssnelheid;
         }
         public IEnumerable<MenuItem> MStrategie
         {
-            get => Helper.MakeMenuItemList<CommStrategie>(s => s.Strategie);
+            get => _mStrategie;
         }
         public IEnumerable<MenuItem> MConcurrentiekracht
         {
-            get => Helper.MakeMenuItemList<CommLevensvorm>(a => a.Levensvorm);
+            get => _mConcurrentiekracht;
         }
         #endregion
 
@@ -509,12 +547,12 @@ namespace Plantjes.ViewModels
         // Written by Ian Dumalin on 18/03
         public IEnumerable<string> CbPollen
         {
-            get => searchService.GetList<ExtraPollenwaarde>().Select(o => o.Waarde);
+            get => _cbPollen;
         }
 
         public IEnumerable<string> CbNectar
         {
-            get => searchService.GetList<ExtraNectarwaarde>().Select(o => o.Waarde);
+            get => _cbNectar;
         }
         #endregion
     }
