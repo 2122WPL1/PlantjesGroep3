@@ -18,6 +18,10 @@
         <DataTemplate DataType="{x:Type viewModels:ViewModelSearch}">
             <pages:UserControlSearch/>
         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewModels:ViewModelPlantDetail}">
+            <pages:UserControlPlantDetail/>
+        </DataTemplate>
     </Window.Resources>
 
     <DockPanel>
@@ -29,6 +33,9 @@
                 <Button Content="Toevoegen" Width="100" Height="30" Margin="5"
                     Command="{Binding mainNavigationCommand}"
                     CommandParameter="VIEWADD"/>
+                <Button Content="Detail" Width="100" Height="30" Margin="5"
+                    Command="{Binding mainNavigationCommand}"
+                    CommandParameter="VIEWDETAIL"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Docent" Width="100" Height="30" Margin="5"
