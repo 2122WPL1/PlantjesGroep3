@@ -39,7 +39,7 @@ namespace Plantjes.ViewModels.HelpClasses
 
         public static void ExportPlantsToCSV(IEnumerable<Plant> plantList)
         {
-            if (plantList.Count() == 0)
+            if (plantList == null || plantList.Count() == 0)
                 return;
             IEnumerable<string> lines = plantList.Select(p => p.PlantToString());
             SaveFileDialog save = new SaveFileDialog();
