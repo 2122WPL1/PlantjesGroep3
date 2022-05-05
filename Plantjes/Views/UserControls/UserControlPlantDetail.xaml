@@ -8,12 +8,12 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel Margin="250,0,250,180" VerticalAlignment="Stretch">
-            <Label FontWeight="Bold" HorizontalContentAlignment="Center" Content="{Binding Plant.Naam}"/>
+            <Label FontWeight="Bold" HorizontalContentAlignment="Center" Content="{Binding PlantNaam}"/>
             <Image Height="107" Width="216"/>
+            <Label HorizontalContentAlignment="Center" Content="{Binding Plant.Type}" Width="200"/>
             <Label HorizontalContentAlignment="Center" Content="{Binding Plant.Familie}" Width="200"/>
             <Label HorizontalContentAlignment="Center" Content="{Binding Plant.Geslacht}" Width="200"/>
             <Label HorizontalContentAlignment="Center" Content="{Binding Plant.Soort}" Width="200"/>
-            <Label HorizontalContentAlignment="Center" Content="{Binding Plant.Variant}" Width="200"/>
         </StackPanel>
     </Grid>
 </UserControl>
