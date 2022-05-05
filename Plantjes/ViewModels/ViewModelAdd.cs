@@ -39,10 +39,6 @@ namespace Plantjes.ViewModels
         private ObservableCollection<Beheersdaad> beheersdaden;
         private ObservableCollection<FenotypeMonth> fenotypeMonths;
 
-        private string typeColor = "Black";
-        private string familieColor = "Black";
-        private string geslachtColor = "Black";
-
         public ViewModelAdd(ISearchService searchService)
         {
             this.searchService = searchService;
@@ -109,18 +105,6 @@ namespace Plantjes.ViewModels
     {
         if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
         {
-            if (new List<string>() { SelectedType?.Planttypenaam }.Any(s => string.IsNullOrEmpty(s)))
-            {
-                TypeColor = "Red";
-            }
-            if (new List<string>() { TextFamilie }.Any(s => string.IsNullOrEmpty(s)))
-            {
-                FamilieColor = "Red";
-            }
-            if (new List<string>() { TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
-            {
-                GeslachtColor = "Red";
-            }
             MessageBox.Show("Zorg dat je de verplichte velden ingevuld hebt!");
             selectedTab = 0;
             OnPropertyChanged();
@@ -300,42 +284,11 @@ namespace Plantjes.ViewModels
             get { return selectedTab; }
             set
             {
-
                 if (IsRequiredFilled())
                 {
                     selectedTab = value;
                 
                 }
-            }
-        }
-
-        public string TypeColor
-        {
-            get { return typeColor; }
-            set
-            {
-                typeColor = value;
-                OnPropertyChanged("TypeColor");
-            }
-        }
-
-        public string FamilieColor
-        {
-            get { return familieColor; }
-            set
-            {
-                familieColor = value;
-                OnPropertyChanged("FamilieColor");
-            }
-        }
-
-        public string GeslachtColor
-        {
-            get { return geslachtColor; }
-            set
-            {
-                geslachtColor = value;
-                OnPropertyChanged("GeslachtColor");
             }
         }
 

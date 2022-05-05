@@ -8,7 +8,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="834" d:DesignWidth="1250">
     <UserControl.Resources>
-        <hc:CommonMultiValueConverter x:Key="PlantParameterConverter"/>
+        <hc:CommonMultiValueConverter x:Key="CommonMultiValueConverter"/>
+        <hc:InputToColorConverter x:Key="InputToColorConverter"/>
     </UserControl.Resources>
     
     <!-- Design and base WPF by Ian on 25/02 ; Last edited on 15/03 -->
@@ -17,7 +18,7 @@
         <Button DockPanel.Dock="Bottom" Content="Toevoegen" Width="150" Height="50" Margin="20" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 Command="{Binding AddPlantCommand}">
             <Button.CommandParameter>
-                <MultiBinding Converter="{StaticResource PlantParameterConverter}" UpdateSourceTrigger="PropertyChanged">
+                    <MultiBinding Converter="{StaticResource CommonMultiValueConverter}" UpdateSourceTrigger="PropertyChanged">
                     <Binding ElementName="cbVochtbehoefte" Path="SelectedItem"/>
                     <Binding ElementName="cbOntwikkelingSnelheid" Path="SelectedItem"/>
                     <Binding ElementName="chbSocI" Path="IsChecked"/>
@@ -43,21 +44,17 @@
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                             <TextBlock VerticalAlignment="Center">
-                                <TextBlock Foreground="{Binding TypeColor}" Text="Type" RenderTransformOrigin="59.174,15.046">
-                                    <TextBlock.Style>
-                                        <Style/>
-                                    </TextBlock.Style>
-                                </TextBlock>
+                                <TextBlock Foreground="{Binding ElementName=cbType, Path=SelectedIndex, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}" Text="Type" RenderTransformOrigin="59.174,15.046"/>
                                 <TextBlock Text="*" Foreground="Red"/>
                                 <TextBlock Text=":" Margin="0,0,5,0"/>
-                            </TextBlock> <!--BorderBrush doet tegen-->
+                            </TextBlock>
                             <ComboBox x:Name="cbType" Width="200"
                                       ItemsSource="{Binding CmbTypes}" DisplayMemberPath="Planttypenaam"
                                       SelectedItem="{Binding SelectedType}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                            <TextBlock Foreground="{Binding FamilieColor}" VerticalAlignment="Center">
+                            <TextBlock Foreground="{Binding ElementName=cbFamilie, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center">
                                 <TextBlock Text="Familie"/>
                                 <TextBlock Text="*" Foreground="Red"/>
                                 <TextBlock Text=":" Margin="0,0,5,0"/>
@@ -69,7 +66,7 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                            <TextBlock Foreground="{Binding GeslachtColor}" VerticalAlignment="Center">
+                            <TextBlock Foreground="{Binding ElementName=cbGeslacht, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center">
                                 <TextBlock Text="Geslacht"/>
                                 <TextBlock Text="*" Foreground="Red"/>
                                 <TextBlock Text=":" Margin="0,0,5,0"/>

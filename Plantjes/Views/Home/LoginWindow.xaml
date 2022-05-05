@@ -4,9 +4,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:Plantjes.ViewModels"
-        xmlns:uc="clr-namespace:Plantjes.Views.UserControls"
+        xmlns:hc="clr-namespace:Plantjes.ViewModels.HelpClasses"
         mc:Ignorable="d"
         Title="LoginWindow" Height="300" Width="450">
+    <Window.Resources>
+        <hc:InputToColorConverter x:Key="InputToColorConverter"/>
+    </Window.Resources>
     
     <Grid>
         <!-- Written by Ian on 25/02 -->
@@ -17,12 +20,12 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image x:Name="VivesLogo" Source="/image/vives-planten.png" MaxWidth="250"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label x:Name="lblUserName" Content="e-mail:"/>
+                <Label x:Name="lblUserName" Content="e-mail:" Foreground="{Binding ElementName=txtGebruikersnaam, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox Name="txtGebruikersnaam" Text="{Binding UserNameInput}" MinWidth="200" MaxWidth="250" Margin="5"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label x:Name="lblPasword" Content="wachtwoord:"/>
+                <Label x:Name="lblPasword" Content="wachtwoord:" Foreground="{Binding ElementName=txtWachtwoord, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBox x:Name="txtWachtwoord" Text="{Binding PasswordInput, UpdateSourceTrigger=PropertyChanged}" MinWidth="200" MaxWidth="250" Margin="5" FontFamily="{StaticResource Password}">
                     <TextBox.InputBindings>
                         <KeyBinding Command="{Binding LoginCommand}" Key="Return"/>
