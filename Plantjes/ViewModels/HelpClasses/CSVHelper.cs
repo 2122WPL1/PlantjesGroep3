@@ -42,7 +42,7 @@ namespace Plantjes.ViewModels.HelpClasses
             IEnumerable<string> lines = plantList.Select(p => p.PlantToString());
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "CSV file(*.csv)|*.csv";
-            string output = null;
+            string output = $"Type;Familie;Geslacht;Soort;Variant;Nederlandse naam\r\n";
             if (save.ShowDialog() ?? false)
             {
                 foreach (string s in lines)
