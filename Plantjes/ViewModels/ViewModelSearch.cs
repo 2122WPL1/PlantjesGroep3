@@ -61,7 +61,7 @@ namespace Plantjes.ViewModels
 
         private void ExportCSV()
         {
-            CSVHelper.PlantsCSVExport(plants);
+            CSVHelper.ExportPlantsToCSV(plants);
         }
 
         public Command SearchCommand { get; set; }

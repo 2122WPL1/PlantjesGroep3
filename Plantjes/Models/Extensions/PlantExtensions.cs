@@ -18,10 +18,10 @@ namespace Plantjes.Models.Extensions
             string soort = plant.Soort;
             soort =
                 soort == "__" ? string.Empty : plant.Soort.FirstToUpper();
-            string variant = plant.Variant.FirstToUpper();
-            plant.NederlandsNaam = plant.NederlandsNaam.FirstToUpper();
-            return $"{plant.Type};{plant.Familie};{plant.Geslacht};{plant.Soort};" +
-                   $"{plant.Variant};{plant.NederlandsNaam}";
+            string variant = plant.Variant.RemoveQuotes().FirstToUpper();
+            string nederlandsNaam = plant.NederlandsNaam.FirstToUpper();
+            return $"{type};{familie};{geslacht};{soort};" +
+                   $"{variant};{nederlandsNaam}";
         }
     }
 }

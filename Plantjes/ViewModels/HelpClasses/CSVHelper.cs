@@ -37,7 +37,7 @@ namespace Plantjes.ViewModels.HelpClasses
             return valueList;
         }
 
-        public static void PlantsCSVExport(IEnumerable<Plant> plantList)
+        public static void ExportPlantsToCSV(IEnumerable<Plant> plantList)
         {
             IEnumerable<string> lines = plantList.Select(p => p.PlantToString());
             SaveFileDialog save = new SaveFileDialog();
