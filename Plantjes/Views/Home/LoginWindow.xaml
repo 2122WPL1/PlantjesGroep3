@@ -7,14 +7,7 @@
         xmlns:uc="clr-namespace:Plantjes.Views.UserControls"
         mc:Ignorable="d"
         Title="LoginWindow" Height="300" Width="450">
-    <Window.Resources>
-        <!--<DataTemplate DataType="{x:Type vm:ViewModelLogin}">
-            <uc:UserControlName/>
-        </DataTemplate>-->
-    </Window.Resources>
-
-
-
+    
     <Grid>
         <!-- Written by Ian on 25/02 -->
         <Grid.Background>
@@ -30,7 +23,7 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblPasword" Content="wachtwoord:"/>
-                <TextBox x:Name="txtWachtwoord" Text="{Binding PasswordInput}" MinWidth="200" MaxWidth="250" Margin="5" FontFamily="{StaticResource Password}">
+                <TextBox x:Name="txtWachtwoord" Text="{Binding PasswordInput, UpdateSourceTrigger=PropertyChanged}" MinWidth="200" MaxWidth="250" Margin="5" FontFamily="{StaticResource Password}">
                     <TextBox.InputBindings>
                         <KeyBinding Command="{Binding LoginCommand}" Key="Return"/>
                     </TextBox.InputBindings>
