@@ -23,5 +23,20 @@ namespace Plantjes.Models.Extensions
                 name = name[..^1];
             return name;
         }
+
+        public static string SpaceOnUpper(this string input)
+        {
+            List<int> indexs = new List<int>();
+            foreach (var (value, i) in input.Select((value, i) => (value, i)))
+            {
+                if (char.IsUpper(value))
+                    indexs.Add(i);
+            }
+            foreach (var (index, i) in indexs.Select((value, i) => (value, i)))
+            {
+                input = input[..(index + i)] + " " + input[(index + i)..];
+            }
+            return input.Trim();
+        }
     }
 }
