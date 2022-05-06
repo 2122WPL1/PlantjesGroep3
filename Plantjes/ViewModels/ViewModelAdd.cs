@@ -17,8 +17,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static System.Net.Mime.MediaTypeNames;
-using Image = System.Windows.Controls.Image;
 using System.Drawing;
 
 namespace Plantjes.ViewModels
@@ -38,10 +36,6 @@ namespace Plantjes.ViewModels
 
         private ObservableCollection<Beheersdaad> beheersdaden;
         private ObservableCollection<FenotypeMonth> fenotypeMonths;
-
-        private string typeColor = "Black";
-        private string familieColor = "Black";
-        private string geslachtColor = "Black";
 
         private IEnumerable<TfgsvType> _cmbTypes;
         private IEnumerable<string> _cmbBladvorm;
