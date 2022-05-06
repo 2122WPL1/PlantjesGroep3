@@ -41,11 +41,11 @@ namespace Plantjes.Dao
             var passwordHashed = Helper.HashString(password);
 
             //written by Warre
-            int role = 3;
+            int role = 2;
             if (emailadres.ToLower().Contains("@vives.be"))
-                role = 1;
+                role = 0;
             if (emailadres.ToLower().Contains("@student.vives.be"))
-                role = 2;
+                role = 1;
 
             var gebruiker = new Gebruiker()
             {
