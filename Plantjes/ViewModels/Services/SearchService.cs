@@ -46,7 +46,9 @@ namespace Plantjes.ViewModels.Services
                 plantList = plantList.Where(p =>
                 (!string.IsNullOrEmpty(p.Variant) && p.Variant.ToLower().Contains(naam.ToLower())) ||
                 (!string.IsNullOrEmpty(p.Soort) && p.Soort.ToLower().Contains(naam.ToLower())) ||
-                (!string.IsNullOrEmpty(p.Geslacht) && p.Geslacht.ToLower().Contains(naam.ToLower())));
+                (!string.IsNullOrEmpty(p.Geslacht) && p.Geslacht.ToLower().Contains(naam.ToLower())) ||
+                (!string.IsNullOrEmpty(p.Familie) && p.Familie.ToLower().Contains(naam.ToLower())) ||
+                (!string.IsNullOrEmpty(p.Type) && p.Type.ToLower().Contains(naam.ToLower())));
             if (!string.IsNullOrWhiteSpace(grondsoort))
                 plantList = plantList.Where(p => p.Abiotieks.Any(a => !string.IsNullOrEmpty(a.Grondsoort) && a.Grondsoort.ToLower() == grondsoort.ToLower()));
             if (!string.IsNullOrWhiteSpace(habitus))
