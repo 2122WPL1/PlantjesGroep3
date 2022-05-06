@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Plantjes.ViewModels.HelpClasses
+namespace Plantjes.ViewModels.Converters
 {
     internal class CommonMultiValueConverter : IMultiValueConverter
     {

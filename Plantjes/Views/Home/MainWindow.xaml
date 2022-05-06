@@ -6,13 +6,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:pages="clr-namespace:Plantjes.Views.UserControls"
         xmlns:viewModels="clr-namespace:Plantjes.ViewModels"
-        xmlns:hc="clr-namespace:Plantjes.ViewModels.HelpClasses"
+        xmlns:conv="clr-namespace:Plantjes.ViewModels.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1250">
 
     <Window.Resources>
-        <hc:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-        <hc:CommonMultiValueConverter x:Key="CommonMultiValueConverter"/>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <conv:CommonMultiValueConverter x:Key="CommonMultiValueConverter"/>
 
         <DataTemplate DataType="{x:Type viewModels:ViewModelAdd}">
             <pages:UserControlAdd/>

@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Plantjes.Views.UserControls"
-             xmlns:hc="clr-namespace:Plantjes.ViewModels.HelpClasses"
+             xmlns:conv="clr-namespace:Plantjes.ViewModels.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="834" d:DesignWidth="1250">
     <UserControl.Resources>
-        <hc:CommonMultiValueConverter x:Key="PlantParameterConverter"/>
+        <conv:CommonMultiValueConverter x:Key="PlantParameterConverter"/>
     </UserControl.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -18,22 +18,7 @@
                     <Label x:Name="lblNaam" Content="Naam:"/>
                     <TextBox x:Name="txtNaam" Width="200" VerticalContentAlignment="Center">
                         <TextBox.InputBindings>
-                            <KeyBinding Command="{Binding SearchCommand}" Key="Return">
-                                <KeyBinding.CommandParameter>
-                                    <MultiBinding Converter="{StaticResource PlantParameterConverter}">
-                                        <Binding ElementName="txtNaam" Path="Text"/>
-                                        <Binding ElementName="cbGrondsoort" Path="SelectedItem"/>
-                                        <Binding ElementName="cbHabitat" Path="SelectedItem"/>
-                                        <Binding ElementName="cbHabitus" Path="SelectedItem"/>
-                                        <Binding ElementName="chbSocI" Path="IsChecked"/>
-                                        <Binding ElementName="chbSocII" Path="IsChecked"/>
-                                        <Binding ElementName="chbSocIII" Path="IsChecked"/>
-                                        <Binding ElementName="chbSocIV" Path="IsChecked"/>
-                                        <Binding ElementName="chbSocV" Path="IsChecked"/>
-                                        <Binding ElementName="cbBezonning" Path="SelectedItem"/>
-                                    </MultiBinding>
-                                </KeyBinding.CommandParameter>
-                            </KeyBinding>
+                            <KeyBinding Command="{Binding ElementName=btnZoeken, Path=Command}" CommandParameter="{Binding ElementName=btnZoeken, Path=CommandParameter}" Key="Return"/>
                         </TextBox.InputBindings>
                     </TextBox>
                 </StackPanel>

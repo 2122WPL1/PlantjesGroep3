@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Plantjes.ViewModels.HelpClasses
+namespace Plantjes.ViewModels.Converters
 {
     internal class BoolToVisibilityConverter : IValueConverter
     {

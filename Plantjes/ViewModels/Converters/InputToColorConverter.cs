@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Plantjes.ViewModels.HelpClasses
+namespace Plantjes.ViewModels.Converters
 {
     internal class InputToColorConverter : IValueConverter
     {

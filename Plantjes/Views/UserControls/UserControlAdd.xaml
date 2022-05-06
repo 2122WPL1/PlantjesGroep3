@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Plantjes.Views.UserControls"
-             xmlns:hc="clr-namespace:Plantjes.ViewModels.HelpClasses"
+             xmlns:conv="clr-namespace:Plantjes.ViewModels.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="834" d:DesignWidth="1250">
     <UserControl.Resources>
-        <hc:CommonMultiValueConverter x:Key="CommonMultiValueConverter"/>
-        <hc:InputToColorConverter x:Key="InputToColorConverter"/>
+        <conv:CommonMultiValueConverter x:Key="CommonMultiValueConverter"/>
+        <conv:InputToColorConverter x:Key="InputToColorConverter"/>
     </UserControl.Resources>
     
     <!-- Design and base WPF by Ian on 25/02 ; Last edited on 15/03 -->

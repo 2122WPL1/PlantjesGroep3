@@ -4,11 +4,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:Plantjes.ViewModels"
-        xmlns:hc="clr-namespace:Plantjes.ViewModels.HelpClasses"
+        xmlns:conv="clr-namespace:Plantjes.ViewModels.Converters"
         mc:Ignorable="d"
         Title="LoginWindow" Height="300" Width="450">
     <Window.Resources>
-        <hc:InputToColorConverter x:Key="InputToColorConverter"/>
+        <conv:InputToColorConverter x:Key="InputToColorConverter"/>
     </Window.Resources>
     
     <Grid>
