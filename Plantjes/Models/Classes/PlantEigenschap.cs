@@ -20,8 +20,13 @@ namespace Plantjes.Models.Classes
             {
                 foreach (var prop in item.GetType().GetProperties())
                 {
-                    if (!new List<string>() { "PlantId", "Plant", "Id" }.Any(n => n == prop.Name))
-                        Children.Add(new Label() { Content = $"{prop.Name.SpaceOnUpper()}: {prop.GetValue(item)}" });
+                    if (!new List<string>() { "PlantId", "Plant", "Id" }.Any(n => n == prop.Name) && prop.GetValue(item) != null)
+                    {
+                        if (prop.GetValue(item) is not bool)
+                            Children.Add(new Label() { Content = $"{prop.Name.SpaceOnUpper()}: {prop.GetValue(item)}" });
+                        else
+                            Children.Add(new Label() { Content = prop.Name.SpaceOnUpper() });
+                    }
                 }
             }
         }

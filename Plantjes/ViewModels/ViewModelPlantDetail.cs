@@ -21,11 +21,16 @@ namespace Plantjes.ViewModels
         {
             Plant = plant;
             _eigenschappen = new List<StackPanel>();
-            _eigenschappen.Add(new PlantEigenschap<Fenotype, FenotypeMulti>(plant.Fenotypes, plant.FenotypeMultis));
-            _eigenschappen.Add(new PlantEigenschap<Abiotiek, AbiotiekMulti>(plant.Abiotieks, plant.AbiotiekMultis));
-            _eigenschappen.Add(new PlantEigenschap<Commensalisme, CommensalismeMulti>(plant.Commensalismes, plant.CommensalismeMultis));
-            _eigenschappen.Add(new PlantEigenschap<BeheerMaand, object>(plant.BeheerMaands));
-            _eigenschappen.Add(new PlantEigenschap<ExtraEigenschap, object>(plant.ExtraEigenschaps));
+            if (plant.Fenotypes.Count > 0 || plant.FenotypeMultis.Count > 0)
+                _eigenschappen.Add(new PlantEigenschap<Fenotype, FenotypeMulti>(plant.Fenotypes, plant.FenotypeMultis));
+            if (plant.Abiotieks.Count > 0 || plant.AbiotiekMultis.Count > 0)
+                _eigenschappen.Add(new PlantEigenschap<Abiotiek, AbiotiekMulti>(plant.Abiotieks, plant.AbiotiekMultis));
+            if (plant.Commensalismes.Count > 0 || plant.CommensalismeMultis.Count > 0)
+                _eigenschappen.Add(new PlantEigenschap<Commensalisme, CommensalismeMulti>(plant.Commensalismes, plant.CommensalismeMultis));
+            if (plant.BeheerMaands.Count > 0)
+                _eigenschappen.Add(new PlantEigenschap<BeheerMaand, object>(plant.BeheerMaands));
+            if (plant.ExtraEigenschaps.Count > 0)
+                _eigenschappen.Add(new PlantEigenschap<ExtraEigenschap, object>(plant.ExtraEigenschaps));
         }
 
         public string PlantNaam
