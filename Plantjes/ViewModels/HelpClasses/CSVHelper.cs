@@ -47,12 +47,23 @@ namespace Plantjes.ViewModels.HelpClasses
             string output = $"Type;Familie;Geslacht;Soort;Variant;Nederlandse naam\r\n";
             if (save.ShowDialog() ?? false)
             {
-                foreach (string s in lines)
-                {
-                    output += $"{s}\r\n";
-                }
-                File.WriteAllText(save.FileName, output);
+                FillCSV(save.FileName, lines, output);
+                //foreach (string s in lines)
+                //{
+                //    output += $"{s}\r\n";
+                //}
+                //File.WriteAllText(save.FileName, output);
             }
+        }
+
+        public static void ExportPlantDetailsToCSV(Plant plant)
+        {
+
+        }
+
+        private static void FillCSV(string path, IEnumerable<string> valuesToString, string header)
+        {
+
         }
 
         public static void RegisterMemberToCSV(string csvLocation, string email, string rNumber, string password)
