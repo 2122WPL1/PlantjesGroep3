@@ -12,12 +12,15 @@ namespace Plantjes.Dao
         public static ExtraEigenschap AddExtraEigenschap(string nectarwaarde = null, string pollenwaarde = null, bool? bijvriendelijke = null,
             bool? vlindervriendelijk = null, bool? eetbaar = null, bool? kruidgebruik = null, bool? geurend = null, bool? voorstgevoelig = null)
         {
+            if (string.IsNullOrEmpty(pollenwaarde) && string.IsNullOrEmpty(pollenwaarde) && bijvriendelijke != null
+                && vlindervriendelijk != null && eetbaar != null && kruidgebruik != null && geurend != null && voorstgevoelig != null)
+                return null; 
             ExtraEigenschap extraEigenschap = new ExtraEigenschap();
-            if (nectarwaarde != null)
+            if (string.IsNullOrEmpty(nectarwaarde))
             {
                 extraEigenschap.Nectarwaarde = nectarwaarde;
             }
-            if (pollenwaarde != null)
+            if (string.IsNullOrEmpty(pollenwaarde))
             {
                 extraEigenschap.Pollenwaarde = pollenwaarde;
             }

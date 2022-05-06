@@ -12,12 +12,14 @@ namespace Plantjes.Dao
     {
         public static Commensalisme AddCommensalisme(Plant plant, string ontwikkelinssnelheid = null, string strategie = null)
         {
+            if (string.IsNullOrEmpty(ontwikkelinssnelheid) && string.IsNullOrEmpty(strategie)) 
+                return null;
             Commensalisme commensalisme = new Commensalisme();
-            if (ontwikkelinssnelheid != null)
+            if (string.IsNullOrEmpty(ontwikkelinssnelheid))
             {
                 commensalisme.Ontwikkelsnelheid = ontwikkelinssnelheid;
             }
-            if (strategie != null)
+            if (string.IsNullOrEmpty(strategie))
             {
                 commensalisme.Strategie = strategie;
             }

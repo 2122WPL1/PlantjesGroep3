@@ -38,6 +38,7 @@ namespace Plantjes.ViewModels
         private ObservableCollection<FenotypeMonth> fenotypeMonths;
 
         private IEnumerable<TfgsvType> _cmbTypes;
+        private IEnumerable<string> _cmbBladgrootte;
         private IEnumerable<string> _cmbBladvorm;
         private IEnumerable<string> _cmbBloeiwijze;
         private IEnumerable<string> _cmbHabitus;
@@ -65,6 +66,7 @@ namespace Plantjes.ViewModels
             fenotypeMonths = new ObservableCollection<FenotypeMonth>() { new FenotypeMonth() };
 
             _cmbTypes = searchService.GetList<TfgsvType>().OrderBy(t => t.Planttypenaam);
+            _cmbBladgrootte = searchService.GetList<FenoBladgrootte>().Select(f => f.Bladgrootte);
             _cmbBladvorm = searchService.GetList<FenoBladvorm>().Select(f => f.Vorm);
             _cmbBloeiwijze = searchService.GetList<FenoBloeiwijze>().Select(f => f.Naam);
             _cmbHabitus = searchService.GetList<FenoHabitu>().Select(f => f.Naam);
@@ -413,6 +415,10 @@ namespace Plantjes.ViewModels
         #endregion
 
         #region Fenotype
+        public IEnumerable<string> CmbBladgrootte
+        {
+            get => _cmbBladgrootte;
+        }
         public IEnumerable<string> CmbBladvorm
         {
             get => _cmbBladvorm;
