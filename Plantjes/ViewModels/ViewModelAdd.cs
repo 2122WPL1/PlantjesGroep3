@@ -205,7 +205,7 @@ namespace Plantjes.ViewModels
 
             // Adds the base plant to the DB
             Plant plant = DaoPlant.AddPlant(SelectedType.Planttypenaam, TextFamilie, TextGeslacht, 
-                string.IsNullOrEmpty(TextFamilie) ? null : TextFamilie,
+                string.IsNullOrEmpty(TextSoort) ? null : TextSoort,
                 string.IsNullOrEmpty(TextVariant) ? null : TextVariant);
 
             // checks if any fields for abiotiek are filled in
