@@ -110,6 +110,7 @@ namespace Plantjes.ViewModels.HelpClasses
             }
         }
 
+        // written by Warre
         /// <summary>
         /// Gets a list of all months.
         /// </summary>
@@ -120,6 +121,14 @@ namespace Plantjes.ViewModels.HelpClasses
             {
                 yield return isUpper ? item.FirstToUpper() : item;
             }
+        }
+
+        // written by Warre
+        public static bool? RadioButtonsToBool(bool? ja, bool? nee)
+        {
+            if (ja == null && nee == null)
+                return null;
+            return (bool)ja;
         }
     }
 }

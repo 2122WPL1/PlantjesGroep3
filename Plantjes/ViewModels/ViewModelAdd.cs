@@ -195,7 +195,8 @@ namespace Plantjes.ViewModels
             List<object> items = parameters as List<object>;
 
             // Checks if the required fields are filled in
-            IsRequiredFilled();
+            if (!IsRequiredFilled())
+                return;
 
             // Adds the base plant to the DB
             Plant plant = DaoPlant.AddPlant(SelectedType.Planttypenaam, TextFamilie, TextGeslacht, 
@@ -241,11 +242,12 @@ namespace Plantjes.ViewModels
             }
 
             // checks each habitat if filled in and adds to db
-            foreach (MenuItem item in MHabitat)
-            {
-                if (item.IsChecked)
-                    DaoAbiotiek.AddAbiotiekMulti(plant, "habitat", item.Header as string);
-            }
+            if (MHabitat.Any(mi => mi.IsChecked))
+                foreach (MenuItem item in MHabitat)
+                {
+                    if (item.IsChecked)
+                        DaoAbiotiek.AddAbiotiekMulti(plant, "habitat", item.Header as string);
+                }
 
             // checks each beheersdaad and adds to db if not empty
             foreach (Beheersdaad beheersdaad in IctrlBeheersdaad)
@@ -277,15 +279,10 @@ namespace Plantjes.ViewModels
             }
 
             // checks if any param are filled, adds fenotype to DB
-            if (new List<object>() { items[7], items[8], items[9], items[10], items[11], items[12], items[13] }.Any(s => !string.IsNullOrEmpty(s as string)))
+            if (new List<object>() { items[7], items[8], items[9], items[10], items[11], items[12] }.Any(s => !string.IsNullOrEmpty(s as string)))
             {
-                int bladGrootte;
-                if (!int.TryParse(items[7] as string, out bladGrootte))
-                {
-                    bladGrootte = 0;
-                }
                 DaoFenotype.AddFenotype(plant,
-                    bladGrootte <= 0 ? null : bladGrootte,
+                    string.IsNullOrEmpty(items[7] as string) ? null : int.Parse(items[7] as string),
                     string.IsNullOrEmpty(items[8] as string) ? null : items[8] as string,
                     string.IsNullOrEmpty(items[9] as string) ? null : items[9] as string,
                     string.IsNullOrEmpty(items[10] as string) ? null : items[10] as string,
@@ -303,15 +300,30 @@ namespace Plantjes.ViewModels
                         DaoFenotype.AddFenotypeMulti(plant, "bladhoogte", fenotype.Bladhoogte, fenotype.SelectedMonth);
                 }
             }
-            foreach (MenuItem item in MBladkleur)
+            if (MBladkleur.Any(mi => mi.IsChecked))
+                foreach (MenuItem item in MBladkleur)
+                {
+                    if (item.IsChecked)
+                        DaoFenotype.AddFenotypeMulti(plant, "bladkleur", item.Header as string);
+                }
+            if (MBloeikleur.Any(mi => mi.IsChecked))
+                foreach (MenuItem item in MBloeikleur)
+                {
+                    if (item.IsChecked)
+                        DaoFenotype.AddFenotypeMulti(plant, "bloeikleur", item.Header as string);
+                }
+
+            if (!string.IsNullOrEmpty(items[13] as string) || !string.IsNullOrEmpty(items[14] as string) || items.GetRange(15, 10).Any(b => b is bool))
             {
-                if (item.IsChecked)
-                    DaoFenotype.AddFenotypeMulti(plant, "bladkleur", item.Header as string);
-            }
-            foreach (MenuItem item in MBloeikleur)
-            {
-                if (item.IsChecked)
-                    DaoFenotype.AddFenotypeMulti(plant, "bloeikleur", item.Header as string);
+                IList<bool?> booleans = items.GetRange(15, 10).Select(o => o as bool?).ToList();
+                DaoExtraeigenschap.AddExtraEigenschap(plant,
+                    string.IsNullOrEmpty(items[13] as string) ? null : items[13] as string,
+                    string.IsNullOrEmpty(items[14] as string) ? null : items[14] as string,
+                    Helper.RadioButtonsToBool(booleans[15], booleans[16]),
+                    Helper.RadioButtonsToBool(booleans[17], booleans[18]),
+                    Helper.RadioButtonsToBool(booleans[19], booleans[20]),
+                    Helper.RadioButtonsToBool(booleans[21], booleans[22]),
+                    Helper.RadioButtonsToBool(booleans[23], booleans[24]));
             }
         }
 
