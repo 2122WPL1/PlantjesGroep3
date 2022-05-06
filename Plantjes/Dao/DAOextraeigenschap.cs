@@ -9,7 +9,7 @@ namespace Plantjes.Dao
 {
     internal class DaoExtraeigenschap : DaoBase
     {
-        public static ExtraEigenschap AddExtraEigenschap(string nectarwaarde = null, string pollenwaarde = null, bool? bijvriendelijke = null,
+        public static ExtraEigenschap AddExtraEigenschap(Plant plant, string nectarwaarde = null, string pollenwaarde = null, bool? bijvriendelijke = null,
             bool? vlindervriendelijk = null, bool? eetbaar = null, bool? kruidgebruik = null, bool? geurend = null, bool? voorstgevoelig = null)
         {
             if (string.IsNullOrEmpty(pollenwaarde) && string.IsNullOrEmpty(pollenwaarde) && bijvriendelijke != null
@@ -48,7 +48,7 @@ namespace Plantjes.Dao
             {
                 extraEigenschap.Vorstgevoelig = voorstgevoelig;
             };
-            context.ExtraEigenschaps.Add(extraEigenschap);
+            context.Plants.First(x=>x==plant).ExtraEigenschaps.Add(extraEigenschap);
             context.SaveChanges();
             return extraEigenschap;
         }
