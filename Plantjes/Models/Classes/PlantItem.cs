@@ -37,23 +37,13 @@ namespace Plantjes.Models.Classes
             Margin = new Thickness(10);
             MouseDown += OnClick;
 
-            BitmapImage biImage = null;
-            if (plant.Fotos.Count > 0)
-                using (var ms = new MemoryStream(plant.Fotos.First().Tumbnail))
-                {
-                    biImage = new BitmapImage();
-                    biImage.BeginInit();
-                    biImage.CacheOption = BitmapCacheOption.OnLoad;
-                    biImage.StreamSource = ms;
-                    biImage.EndInit();
-                }
-            Image image = new Image() { Source = biImage ?? new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + @"Image\default-plant.png", UriKind.Absolute)) };
+            Image image = new Image() { Source = plant.GetPlantImage() };
             DockPanel.SetDock(image, Dock.Top);
             panel.Children.Add(image);
 
             Label nameLabel = new Label()
             {
-                Content = plant.Variant.RemoveQuotes() ?? $"{plant.Geslacht.FirstToUpper()} {plant.Soort.FirstToUpper()}",
+                Content = plant.GetPlantName(),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Bottom
             };

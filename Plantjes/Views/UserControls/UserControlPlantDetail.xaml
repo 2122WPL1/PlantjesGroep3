@@ -5,15 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Plantjes.Views.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <StackPanel Margin="250,0,250,180" VerticalAlignment="Stretch">
-            <Label FontWeight="Bold" HorizontalContentAlignment="Center" Content="{Binding PlantNaam}"/>
-            <Image Height="107" Width="216"/>
-            <Label HorizontalContentAlignment="Center" Content="{Binding Plant.Type}" Width="200"/>
-            <Label HorizontalContentAlignment="Center" Content="{Binding Plant.Familie}" Width="200"/>
-            <Label HorizontalContentAlignment="Center" Content="{Binding Plant.Geslacht}" Width="200"/>
-            <Label HorizontalContentAlignment="Center" Content="{Binding Plant.Soort}" Width="200"/>
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel HorizontalAlignment="Stretch">
+            <Label Content="{Binding PlantNaam}" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <Image Source="{Binding PlantImage}" HorizontalAlignment="Center"/>
+            <Label Content="{Binding Plant.Type}" HorizontalAlignment="Center"/>
+            <Label Content="{Binding Plant.Familie}" HorizontalAlignment="Center"/>
+            <Label Content="{Binding Plant.Geslacht}" HorizontalAlignment="Center"/>
+            <Label Content="{Binding Plant.Soort}" HorizontalAlignment="Center"/>
+            <ItemsControl ItemsSource="{Binding Eigenschappen}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </UserControl>
