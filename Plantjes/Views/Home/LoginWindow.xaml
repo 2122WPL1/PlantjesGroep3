@@ -20,17 +20,22 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image x:Name="VivesLogo" Source="/image/vives-planten.png" MaxWidth="250"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label x:Name="lblUserName" Content="e-mail:" Foreground="{Binding ElementName=txtGebruikersnaam, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox Name="txtGebruikersnaam" Text="{Binding UserNameInput}" MinWidth="200" MaxWidth="250" Margin="5"/>
+                <Label x:Name="lblUserName" Content="e-mail:"/>
+                <TextBox Name="txtGebruikersnaam" Text="{Binding UserNameInput}" MinWidth="200" MaxWidth="250" Margin="5"
+                             BorderBrush="{Binding ElementName=txtWachtwoord, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label x:Name="lblPasword" Content="wachtwoord:" Foreground="{Binding ElementName=txtWachtwoord, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBox x:Name="txtWachtwoord" Text="{Binding PasswordInput, UpdateSourceTrigger=PropertyChanged}" MinWidth="200" MaxWidth="250" Margin="5" FontFamily="{StaticResource Password}">
-                    <TextBox.InputBindings>
-                        <KeyBinding Command="{Binding LoginCommand}" Key="Return"/>
-                    </TextBox.InputBindings>
-                </TextBox>
+                <Label x:Name="lblPasword" Content="wachtwoord:"/>
+                <Grid Margin="5">
+                    <Rectangle MinWidth="200" MaxWidth="250" Width="auto" Height="auto" />
+                    <TextBox x:Name="txtWachtwoord" Text="{Binding PasswordInput, UpdateSourceTrigger=PropertyChanged}" MinWidth="200" MaxWidth="250" FontFamily="{StaticResource Password}"
+                             BorderBrush="{Binding ElementName=txtWachtwoord, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding LoginCommand}" Key="Return"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
+                </Grid>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
