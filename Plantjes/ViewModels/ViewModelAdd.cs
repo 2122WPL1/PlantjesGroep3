@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Drawing;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Plantjes.ViewModels
 {
@@ -267,7 +268,7 @@ namespace Plantjes.ViewModels
                         DaoFenotype.AddFenotypeMulti(plant, "bloeikleur", item.Header as string);
                 }
 
-            if (!string.IsNullOrEmpty(items[13] as string) || !string.IsNullOrEmpty(items[14] as string) || items.GetRange(15, 10).Any(b => b is bool))
+            if (!string.IsNullOrEmpty(items[13] as string) || !string.IsNullOrEmpty(items[14] as string) || items.GetRange(15, 10).Any(b => b as bool? ?? false))
             {
                 IList<bool?> booleans = items.GetRange(15, 10).Select(o => o as bool?).ToList();
                 DaoExtraeigenschap.AddExtraEigenschap(plant,
@@ -279,6 +280,10 @@ namespace Plantjes.ViewModels
                     Helper.RadioButtonsToBool(booleans[6], booleans[7]),
                     Helper.RadioButtonsToBool(booleans[8], booleans[9]));
             }
+
+            Helper.SwitchTabAndReset("VIEWDETAIL", 
+                () => new ViewModelPlantDetail(plant), 
+                () => new ViewModelAdd(SimpleIoc.Default.GetInstance<ISearchService>()));
         }
 
         public int SelectedTab

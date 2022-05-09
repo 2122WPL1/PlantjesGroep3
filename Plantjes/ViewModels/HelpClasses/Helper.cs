@@ -10,10 +10,12 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Win32;
 using Plantjes.Dao;
 using Plantjes.Models.Db;
 using Plantjes.Models.Extensions;
+using Plantjes.ViewModels.Interfaces;
 
 namespace Plantjes.ViewModels.HelpClasses
 {
@@ -22,6 +24,27 @@ namespace Plantjes.ViewModels.HelpClasses
     /// </summary>
     public static class Helper
     {
+        public static void SwitchTabAndReset<TCurrent, T>(string tab, Func<TCurrent> thisFactory, Func<T> factory) 
+            where T : class
+            where TCurrent : class
+        {
+            if (SimpleIoc.Default.IsRegistered<TCurrent>() || SimpleIoc.Default.ContainsCreated<T>())
+                SimpleIoc.Default.Unregister<TCurrent>();
+            SimpleIoc.Default.Register(thisFactory);
+            SwitchTab<T>(tab, factory);
+        }
+
+        public static void SwitchTab<T>(string tab, Func<T> factory = null) where T : class
+        {
+            if (factory != null)
+            {
+                if (SimpleIoc.Default.IsRegistered<T>() || SimpleIoc.Default.ContainsCreated<T>())
+                    SimpleIoc.Default.Unregister<T>();
+                SimpleIoc.Default.Register(factory);
+            }
+            SimpleIoc.Default.GetInstance<ViewModelMain>().OnNavigationChanged(tab);
+        }
+
         // Written by Warre, converted to help method by Ian
         /// <summary>
         /// Converts a string to a collection of bytes
