@@ -91,65 +91,17 @@ namespace Plantjes.ViewModels
             BloeiFotoCommand = new Command(new Action(AddFoto));
         }
 
-        /// <summary>
-        /// Makes an MenuItem list with all colors in the database.
-        /// </summary>
-        /// <returns>Returns a menuitem list with all color previews and names.</returns>
-        private IEnumerable<MenuItem> MakeColorMenuItemList()
+        private bool IsRequiredFilled()
         {
-            foreach (FenoKleur item in searchService.GetList<FenoKleur>())
+            if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
             {
-                yield return new MenuItem()
-                {
-                    Width = double.NaN,
-                    IsCheckable = true,
-                    StaysOpenOnClick = true,
-                    Header = new System.Windows.Shapes.Rectangle()
-                    {
-                        Width = 20,
-                        Height = 20,
-                        Fill = (SolidColorBrush)new BrushConverter().ConvertFromString("#" + Convert.ToHexString(item.HexWaarde)),
-                    },
-                    InputGestureText = item.NaamKleur.FirstToUpper(),
-                };
+                MessageBox.Show("Zorg dat je de verplichte velden ingevuld hebt!");
+                selectedTab = 0;
+                OnPropertyChanged();
+                return false;
             }
+            return true;
         }
-
-        /// <summary>
-        /// Makes a MenuItem list with preset settings.
-        /// </summary>
-        /// <typeparam name="TEntity">The entity to be used for selector.</typeparam>
-        /// <param name="selector">The name of the TEntity.</param>
-        /// <returns>Returns a list of menu items with the name of TEntity.</returns>
-        private IEnumerable<MenuItem> MakeMenuItemList<TEntity>(Func<TEntity, string> selector) where TEntity : class
-        {
-            foreach (TEntity item in searchService.GetList<TEntity>())
-            {
-                if (selector(item).Contains('-') ||
-                    (item is AbioGrondsoort && selector(item).Length > 1) ||
-                    (item is CommStrategie && selector(item).Length > 1))
-                    continue;
-                yield return new MenuItem()
-                {
-                    Width = double.NaN,
-                    IsCheckable = true,
-                    StaysOpenOnClick = true,
-                    Header = selector(item).FirstToUpper(),
-                };
-            }
-        }
-
-    private bool IsRequiredFilled()
-    {
-        if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
-        {
-            MessageBox.Show("Zorg dat je de verplichte velden ingevuld hebt!");
-            selectedTab = 0;
-            OnPropertyChanged();
-            return false;
-        }
-        return true;
-    }
 
         /// <summary>
         /// Adds a <see cref="Beheersdaad"/> to <see cref="beheersdaden"/>.
