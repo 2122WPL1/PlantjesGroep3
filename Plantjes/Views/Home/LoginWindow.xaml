@@ -22,7 +22,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="lblUserName" Content="e-mail:"/>
                 <TextBox Name="txtGebruikersnaam" Text="{Binding UserNameInput}" MinWidth="200" MaxWidth="250" Margin="5"
-                             BorderBrush="{Binding ElementName=txtWachtwoord, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                             BorderBrush="{Binding ElementName=txtGebruikersnaam, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
