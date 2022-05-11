@@ -52,7 +52,7 @@ namespace Plantjes.ViewModels
             _cmbGrondsoort = searchService.GetList<AbioGrondsoort>().Select(a => a.Grondsoort).Prepend(string.Empty);
             _mBladkleur = searchService.GetList<FenoKleur>().Select(a => new StackLabelRect(a)).Prepend(null);
             _mBloeikleur = searchService.GetList<FenoKleur>().Select(a => new StackLabelRect(a)).Prepend(null);
-            _cmbBladvorm = searchService.GetList<FenoBladvorm>().Select(f => f.Vorm);
+            _cmbBladvorm = searchService.GetList<FenoBladvorm>().Select(f => f.Vorm).Prepend(null);
         }
 
         // GetListPlants(string? type, string? familie, string? geslacht, string? grondsoort, string? habitat, string? habitus, string? sociabiliteit, string? bezonning)

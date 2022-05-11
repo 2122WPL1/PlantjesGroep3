@@ -34,6 +34,9 @@
                             <Binding ElementName="chbSocIV" Path="IsChecked"/>
                             <Binding ElementName="chbSocV" Path="IsChecked"/>
                             <Binding ElementName="cbBezonning" Path="SelectedItem"/>
+                            <Binding ElementName="CbBladKleur" Path="SelectedItem"/>
+                            <Binding ElementName="CbBloeiKleur" Path="SelectedItem"/>
+                            <Binding ElementName="CbBladVorm" Path="SelectedItem"/>
                         </MultiBinding>
                     </Button.CommandParameter>
                 </Button>
@@ -41,21 +44,20 @@
                                    Command="{Binding ExportCommand}"/>
                 <Button Command="{Binding CollapseCommand}" Width="200" Content="More" x:Name="btnExpand" Margin="10,0,10,0" VerticalAlignment="Center" Height="25"/>
             </StackPanel>
-            <WrapPanel Visibility="{Binding BtnCollapse}" HorizontalAlignment="Center" Margin="0,10,0,0" Height="136">
-
-                <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
+            <WrapPanel Visibility="{Binding BtnCollapse}" HorizontalAlignment="Center" Margin="0,10">
+                <StackPanel Orientation="Horizontal" Margin="10,0" Height="25">
                     <Label x:Name="lblGrondsoort" Content="Grondsoort:"/>
                     <ComboBox x:Name="cbGrondsoort" Width="200"
                               ItemsSource="{Binding CmbGrondsoort}"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
+                <StackPanel Orientation="Horizontal" Margin="10,0" Height="25">
                     <Label x:Name="lblHabitat" Content="Habitat:"/>
                     <ComboBox x:Name="cbHabitat" Width="200"
                               ItemsSource="{Binding CmbHabitat}"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
+                <StackPanel Orientation="Horizontal" Margin="10,0" Height="25">
                     <Label x:Name="lblHabitus" Content="Habitus:"/>
                     <ComboBox x:Name="cbHabitus" Width="200"
                               ItemsSource="{Binding CmbHabitus}"/>
@@ -81,20 +83,26 @@
                     <RadioButton x:Name="chbSocV" GroupName="soc"/>
                     <Label Content="V"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label x:Name="lblBezonning" Content="Bezonning:" Margin="0,10,0,0"/>
-                    <ComboBox x:Name="cbBezonning" Width="200" Height="25"
-                              ItemsSource="{Binding CmbBezonning}" Margin="0,10,0,0"/>
+                <StackPanel Orientation="Horizontal" Margin="10,0" Height="25">
+                    <Label x:Name="lblBezonning" Content="Bezonning:"/>
+                    <ComboBox x:Name="cbBezonning" Width="200"
+                              ItemsSource="{Binding CmbBezonning}"/>
                 </StackPanel>
-                
-                <Label Content="Bladkleur" Width="65" Height="28" Margin="0,10,0,0"/>
-                <ComboBox ItemsSource="{Binding CbBladkleur}"/>
-                
-                <Label Content="Bloeikleur" Width="67" Margin="0,10,0,0"/>
-                <ComboBox ItemsSource="{Binding CbBloeikleur}"/>
-                
-                <Label x:Name="lblBladVorm" Content="Bladvorm:"/>
-                <ComboBox x:Name="cbBladVorm" Width="144" ItemsSource="{Binding CmbBladvorm}"/>
+
+                <StackPanel Orientation="Horizontal" Margin="10,0" Height="25">
+                    <Label Content="Bladkleur"/>
+                    <ComboBox x:Name="CbBladKleur" ItemsSource="{Binding CbBladkleur}" Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="10,0" Height="25">
+                    <Label Content="Bloeikleur" Width="67"/>
+                    <ComboBox x:Name="CbBloeiKleur" ItemsSource="{Binding CbBloeikleur}" Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="10,0" Height="25">
+                    <Label x:Name="lblBladVorm" Content="Bladvorm:"/>
+                    <ComboBox x:Name="cbBladVorm" ItemsSource="{Binding CmbBladvorm}" Width="200"/>
+                </StackPanel>
             </WrapPanel>
             <ItemsControl ItemsSource="{Binding Plants}">
                 <ItemsControl.ItemsPanel>
