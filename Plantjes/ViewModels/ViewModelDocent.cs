@@ -8,22 +8,15 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Plantjes.Dao;
 using Plantjes.Models.Classes;
+using Plantjes.Models.Db;
 
 namespace Plantjes.ViewModels
 {
-    internal class ViewModelDocent:ViewModelBase
+    //written by renzo
+    public class ViewModelDocent:ViewModelBase
     {
-        private ObservableCollection<GroupBox> Notificaties;
-
-        public ViewModelDocent()
-        {
-            Notificaties = new ObservableCollection<GroupBox>() { new PlantNotification(" ") };//TODO add parameter for object
-        }
-
-        private void AddNotificatie()
-        {
-            Notificaties.Add(new PlantNotification(""));
-        }
+        public IEnumerable<Gebruiker> Gebruikers { get => DaoUser.GetGebruikerList() ?? Enumerable.Empty<Gebruiker>(); }
     }
 }
