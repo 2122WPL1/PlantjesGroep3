@@ -79,8 +79,8 @@ namespace Plantjes.ViewModels
                 items[3] as string,
                 selectedSoc,
                 items[9] as string,
-                (items[10] as StackLabelRect).NamenKleur,
-                (items[11] as StackLabelRect).NamenKleur,
+                (items[10] as StackLabelRect)?.NamenKleur ?? null,
+                (items[11] as StackLabelRect)?.NamenKleur ?? null,
                 items[12] as string);
             OnPropertyChanged("Plants");
         }
