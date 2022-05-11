@@ -27,13 +27,13 @@
                     <Binding ElementName="chbSocIV" Path="IsChecked"/>
                     <Binding ElementName="chbSocV" Path="IsChecked"/>
                     <Binding ElementName="cbBladgrootte" Path="SelectedItem"/>
-                    <Binding ElementName="cbBladvorm" Path="SelectedItem"/>
+                    <Binding ElementName="cbBladVorm" Path="SelectedItem"/>
                     <Binding ElementName="txtBloeiBladRatio" Path="Text"/>
                     <Binding ElementName="cbSpruitfenologie" Path="SelectedItem"/>
                     <Binding ElementName="cbBloeiwijze" Path="SelectedItem"/>
                     <Binding ElementName="cbHabitus" Path="SelectedItem"/>
-                    <Binding ElementName="cbNectarwaarde" Path="SelectedItem"/>
-                    <Binding ElementName="cbPollenwaarde" Path="SelectedItem"/>
+                    <Binding ElementName="cbNectar" Path="SelectedItem"/>
+                    <Binding ElementName="CbPollen" Path="SelectedItem"/>
                     <Binding ElementName="rbBijJa" Path="IsChecked"/>
                     <Binding ElementName="rbBijNee" Path="IsChecked"/>
                     <Binding ElementName="rbVlinderJa" Path="IsChecked"/>
