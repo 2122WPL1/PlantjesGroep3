@@ -28,7 +28,7 @@ namespace Plantjes.Models.Classes
 
             panel.Children.Add(new Label() { Content = "Maand:", VerticalAlignment = VerticalAlignment.Center });
             Menu months = new Menu() { Width = 150, Height = 25 };
-            MenuItem header = new MenuItem() { VerticalAlignment = VerticalAlignment.Center, Header = "Maanden selecteren...", ItemsSource = makeMonths() };
+            MenuItem header = new MenuItem() { VerticalAlignment = VerticalAlignment.Center, Header = "Maanden selecteren...", ItemsSource = makeMonths().ToList() };
             months.Items.Add(header);
             panel.Children.Add(months);
 
@@ -62,7 +62,7 @@ namespace Plantjes.Models.Classes
 
         public List<MenuItem> Months
         {
-            get { return ((((Content as StackPanel).Children[3] as Menu).Items[0] as MenuItem).Items[0] as MenuItem).ItemsSource as List<MenuItem>; }
+            get { return (((Content as StackPanel).Children[3] as Menu).Items[0] as MenuItem).ItemsSource as List<MenuItem>; }
         }
 
         public string Frequency
