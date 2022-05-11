@@ -12,7 +12,7 @@ namespace Plantjes.Dao
         public static Fenotype AddFenotype(Plant plant, int? bladgrootte = null, string bladvorm = null, string ratiobloeiblad = null,
             string spruitfenologie = null, string bloeiwijze = null, string habitus = null, string levensvorm = null)
         {
-            if (bladgrootte != null && string.IsNullOrEmpty(bladvorm) && string.IsNullOrEmpty(ratiobloeiblad)
+            if (bladgrootte == null && string.IsNullOrEmpty(bladvorm) && string.IsNullOrEmpty(ratiobloeiblad)
                 && string.IsNullOrEmpty(spruitfenologie) && string.IsNullOrEmpty(bloeiwijze) && string.IsNullOrEmpty(habitus) && string.IsNullOrEmpty(levensvorm)) 
                 return null;
             Fenotype fenotype = new Fenotype();
@@ -20,27 +20,27 @@ namespace Plantjes.Dao
             {
                 fenotype.Bladgrootte = bladgrootte;
             }
-            if (string.IsNullOrEmpty(bladvorm))
+            if (!string.IsNullOrEmpty(bladvorm))
             {
                 fenotype.Bladvorm = bladvorm;
             }
-            if (string.IsNullOrEmpty(ratiobloeiblad))
+            if (!string.IsNullOrEmpty(ratiobloeiblad))
             {
                 fenotype.RatioBloeiBlad = ratiobloeiblad;
             }
-            if (string.IsNullOrEmpty(spruitfenologie))
+            if (!string.IsNullOrEmpty(spruitfenologie))
             {
                 fenotype.Spruitfenologie = spruitfenologie;
             }
-            if (string.IsNullOrEmpty(bloeiwijze))
+            if (!string.IsNullOrEmpty(bloeiwijze))
             {
                 fenotype.Bloeiwijze = bloeiwijze;
             }
-            if (string.IsNullOrEmpty(habitus))
+            if (!string.IsNullOrEmpty(habitus))
             {
                 fenotype.Habitus = habitus;
             }
-            if (string.IsNullOrEmpty(levensvorm))
+            if (!string.IsNullOrEmpty(levensvorm))
             {
                 fenotype.Levensvorm = levensvorm;
             }
