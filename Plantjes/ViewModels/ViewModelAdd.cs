@@ -73,16 +73,16 @@ namespace Plantjes.ViewModels
             _cmbHabitus = searchService.GetList<FenoHabitu>().Select(f => f.Naam);
             _cmbMaand = Helper.GetMonthsList();
             _cmbSpruitfenologie = searchService.GetList<FenoSpruitfenologie>().Select(f => f.Fenologie);
-            _mBladkleur = Helper.MakeColorMenuItemList();
-            _mBloeikleur = Helper.MakeColorMenuItemList();
-            _mBezonning = Helper.MakeMenuItemList<AbioBezonning>(a => a.Naam);
-            _mGrondsoort = Helper.MakeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
+            _mBladkleur = Helper.MakeColorMenuItemList().ToList();
+            _mBloeikleur = Helper.MakeColorMenuItemList().ToList();
+            _mBezonning = Helper.MakeMenuItemList<AbioBezonning>(a => a.Naam).ToList();
+            _mGrondsoort = Helper.MakeMenuItemList<AbioGrondsoort>(a => a.Grondsoort).ToList();
             _cmbVochtbehoefte = searchService.GetList<AbioVochtbehoefte>().Select(v => v.Vochtbehoefte);
             _mVoedingsbehoefte = Helper.MakeMenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
-            _mHabitat = Helper.MakeMenuItemList<AbioHabitat>(a => a.Afkorting);
+            _mHabitat = Helper.MakeMenuItemList<AbioHabitat>(a => a.Afkorting).ToList();
             _CmbOntwikkeligssnelheid = searchService.GetList<CommOntwikkelsnelheid>().Select(o => o.Snelheid);
-            _mStrategie = Helper.MakeMenuItemList<CommStrategie>(s => s.Strategie);
-            _mConcurrentiekracht = Helper.MakeMenuItemList<CommLevensvorm>(a => a.Levensvorm);
+            _mStrategie = Helper.MakeMenuItemList<CommStrategie>(s => s.Strategie).ToList();
+            _mConcurrentiekracht = Helper.MakeMenuItemList<CommLevensvorm>(a => a.Levensvorm).ToList();
             _cbPollen = searchService.GetList<ExtraPollenwaarde>().Select(o => o.Waarde);
             _cbNectar = searchService.GetList<ExtraNectarwaarde>().Select(o => o.Waarde);
 
