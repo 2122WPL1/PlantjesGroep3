@@ -33,7 +33,7 @@
                     <Binding ElementName="cbBloeiwijze" Path="SelectedItem"/>
                     <Binding ElementName="cbHabitus" Path="SelectedItem"/>
                     <Binding ElementName="cbNectar" Path="SelectedItem"/>
-                    <Binding ElementName="CbPollen" Path="SelectedItem"/>
+                    <Binding ElementName="cbPollen" Path="SelectedItem"/>
                     <Binding ElementName="rbBijJa" Path="IsChecked"/>
                     <Binding ElementName="rbBijNee" Path="IsChecked"/>
                     <Binding ElementName="rbVlinderJa" Path="IsChecked"/>
