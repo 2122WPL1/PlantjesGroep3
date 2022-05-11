@@ -147,7 +147,7 @@ namespace Plantjes.ViewModels.HelpClasses
         }
 
         // written by Warre
-        public static bool? RadioButtonsToBool(bool? ja, bool? nee)
-            => !(bool)ja && !(bool)nee ? null : (bool)ja;
+        public static bool? RadioButtonToBool(bool? ja, bool? nee)
+            => !(bool)ja && !(bool)nee ? null : (bool)ja ? true : null;
     }
 }
