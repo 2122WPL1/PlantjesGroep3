@@ -233,6 +233,13 @@ namespace Plantjes.ViewModels
                 socIndex++;
             }
 
+            if (MConcurrentiekracht.Any(mi => mi.IsChecked))
+                foreach (MenuItem item in MConcurrentiekracht)
+                {
+                    if (item.IsChecked)
+                        DaoCommensalisme.AddCommensalismeMulti(plant, "concurrentiekracht", item.Header as string);
+                }
+
             // checks if any param are filled, adds fenotype to DB
             if (new List<object>() { items[7], items[8], items[9], items[10], items[11], items[12] }.Any(s => !string.IsNullOrEmpty(s as string)))
             {
