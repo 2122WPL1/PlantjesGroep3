@@ -46,7 +46,7 @@ namespace Plantjes.Models.Classes
                     string.Join(", ", listMultis
                     .Where(m => m.GetType().GetProperty("Eigenschap").GetValue(m) as string == eigenschap)
                     .Select(m => m.GetType().GetProperty("Waarde").GetValue(m)));
-                Children.Add(new Label() { Content = $"{eigenschap.SpaceOnUpper()}: {stringWaarde}" });
+                Children.Add(new Label() { Content = $"{eigenschap.SpaceOnUpper().FirstToUpper()}: {stringWaarde}" });
             }
         }
     }

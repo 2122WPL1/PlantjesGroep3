@@ -29,8 +29,7 @@ namespace Plantjes.ViewModels.HelpClasses
                     string[] readValues = line.Split(';');
                     if (readValues[0] != "Studentennummer")
                     {
-                        if (readValues[5] == "admin") valueList.Add(new Gebruiker(readValues[0], readValues[1], readValues[2], readValues[5], Helper.HashString("admin")));
-                        else valueList.Add(new Gebruiker(readValues[0], readValues[1], readValues[2], readValues[5], Helper.HashString(readValues[0])));
+                        valueList.Add(new Gebruiker() { Vivesnr = readValues[0], Voornaam = readValues[1], Achternaam = readValues[2], Emailadres = readValues[5], HashPaswoord = Helper.HashString(readValues[0]) });
                     }
                 }
             }

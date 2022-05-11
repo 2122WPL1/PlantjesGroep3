@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Drawing;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Plantjes.ViewModels
 {
@@ -38,6 +39,7 @@ namespace Plantjes.ViewModels
         private ObservableCollection<FenotypeMonth> fenotypeMonths;
 
         private IEnumerable<TfgsvType> _cmbTypes;
+        private IEnumerable<string> _cmbBladgrootte;
         private IEnumerable<string> _cmbBladvorm;
         private IEnumerable<string> _cmbBloeiwijze;
         private IEnumerable<string> _cmbHabitus;
@@ -65,21 +67,22 @@ namespace Plantjes.ViewModels
             fenotypeMonths = new ObservableCollection<FenotypeMonth>() { new FenotypeMonth() };
 
             _cmbTypes = searchService.GetList<TfgsvType>().OrderBy(t => t.Planttypenaam);
+            _cmbBladgrootte = searchService.GetList<FenoBladgrootte>().Select(f => f.Bladgrootte);
             _cmbBladvorm = searchService.GetList<FenoBladvorm>().Select(f => f.Vorm);
             _cmbBloeiwijze = searchService.GetList<FenoBloeiwijze>().Select(f => f.Naam);
             _cmbHabitus = searchService.GetList<FenoHabitu>().Select(f => f.Naam);
             _cmbMaand = Helper.GetMonthsList();
             _cmbSpruitfenologie = searchService.GetList<FenoSpruitfenologie>().Select(f => f.Fenologie);
-            _mBladkleur = Helper.MakeColorMenuItemList();
-            _mBloeikleur = Helper.MakeColorMenuItemList();
-            _mBezonning = Helper.MakeMenuItemList<AbioBezonning>(a => a.Naam);
-            _mGrondsoort = Helper.MakeMenuItemList<AbioGrondsoort>(a => a.Grondsoort);
+            _mBladkleur = Helper.MakeColorMenuItemList().ToList();
+            _mBloeikleur = Helper.MakeColorMenuItemList().ToList();
+            _mBezonning = Helper.MakeMenuItemList<AbioBezonning>(a => a.Naam).ToList();
+            _mGrondsoort = Helper.MakeMenuItemList<AbioGrondsoort>(a => a.Grondsoort).ToList();
             _cmbVochtbehoefte = searchService.GetList<AbioVochtbehoefte>().Select(v => v.Vochtbehoefte);
             _mVoedingsbehoefte = Helper.MakeMenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
-            _mHabitat = Helper.MakeMenuItemList<AbioHabitat>(a => a.Afkorting);
+            _mHabitat = Helper.MakeMenuItemList<AbioHabitat>(a => a.Afkorting).ToList();
             _CmbOntwikkeligssnelheid = searchService.GetList<CommOntwikkelsnelheid>().Select(o => o.Snelheid);
-            _mStrategie = Helper.MakeMenuItemList<CommStrategie>(s => s.Strategie);
-            _mConcurrentiekracht = Helper.MakeMenuItemList<CommLevensvorm>(a => a.Levensvorm);
+            _mStrategie = Helper.MakeMenuItemList<CommStrategie>(s => s.Strategie).ToList();
+            _mConcurrentiekracht = Helper.MakeMenuItemList<CommLevensvorm>(a => a.Levensvorm).ToList();
             _cbPollen = searchService.GetList<ExtraPollenwaarde>().Select(o => o.Waarde);
             _cbNectar = searchService.GetList<ExtraNectarwaarde>().Select(o => o.Waarde);
 
@@ -89,65 +92,17 @@ namespace Plantjes.ViewModels
             BloeiFotoCommand = new Command(new Action(AddFoto));
         }
 
-        /// <summary>
-        /// Makes an MenuItem list with all colors in the database.
-        /// </summary>
-        /// <returns>Returns a menuitem list with all color previews and names.</returns>
-        private IEnumerable<MenuItem> MakeColorMenuItemList()
+        private bool IsRequiredFilled()
         {
-            foreach (FenoKleur item in searchService.GetList<FenoKleur>())
+            if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
             {
-                yield return new MenuItem()
-                {
-                    Width = double.NaN,
-                    IsCheckable = true,
-                    StaysOpenOnClick = true,
-                    Header = new System.Windows.Shapes.Rectangle()
-                    {
-                        Width = 20,
-                        Height = 20,
-                        Fill = (SolidColorBrush)new BrushConverter().ConvertFromString("#" + Convert.ToHexString(item.HexWaarde)),
-                    },
-                    InputGestureText = item.NaamKleur.FirstToUpper(),
-                };
+                MessageBox.Show("Zorg dat je de verplichte velden ingevuld hebt!");
+                selectedTab = 0;
+                OnPropertyChanged();
+                return false;
             }
+            return true;
         }
-
-        /// <summary>
-        /// Makes a MenuItem list with preset settings.
-        /// </summary>
-        /// <typeparam name="TEntity">The entity to be used for selector.</typeparam>
-        /// <param name="selector">The name of the TEntity.</param>
-        /// <returns>Returns a list of menu items with the name of TEntity.</returns>
-        private IEnumerable<MenuItem> MakeMenuItemList<TEntity>(Func<TEntity, string> selector) where TEntity : class
-        {
-            foreach (TEntity item in searchService.GetList<TEntity>())
-            {
-                if (selector(item).Contains('-') ||
-                    (item is AbioGrondsoort && selector(item).Length > 1) ||
-                    (item is CommStrategie && selector(item).Length > 1))
-                    continue;
-                yield return new MenuItem()
-                {
-                    Width = double.NaN,
-                    IsCheckable = true,
-                    StaysOpenOnClick = true,
-                    Header = selector(item).FirstToUpper(),
-                };
-            }
-        }
-
-    private bool IsRequiredFilled()
-    {
-        if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
-        {
-            MessageBox.Show("Zorg dat je de verplichte velden ingevuld hebt!");
-            selectedTab = 0;
-            OnPropertyChanged();
-            return false;
-        }
-        return true;
-    }
 
         /// <summary>
         /// Adds a <see cref="Beheersdaad"/> to <see cref="beheersdaden"/>.
@@ -195,7 +150,8 @@ namespace Plantjes.ViewModels
             List<object> items = parameters as List<object>;
 
             // Checks if the required fields are filled in
-            IsRequiredFilled();
+            if (!IsRequiredFilled())
+                return;
 
             // Adds the base plant to the DB
             Plant plant = DaoPlant.AddPlant(SelectedType.Planttypenaam, TextFamilie, TextGeslacht, 
@@ -241,11 +197,12 @@ namespace Plantjes.ViewModels
             }
 
             // checks each habitat if filled in and adds to db
-            foreach (MenuItem item in MHabitat)
-            {
-                if (item.IsChecked)
-                    DaoAbiotiek.AddAbiotiekMulti(plant, "habitat", item.Header as string);
-            }
+            if (MHabitat.Any(mi => mi.IsChecked))
+                foreach (MenuItem item in MHabitat)
+                {
+                    if (item.IsChecked)
+                        DaoAbiotiek.AddAbiotiekMulti(plant, "habitat", item.Header as string);
+                }
 
             // checks each beheersdaad and adds to db if not empty
             foreach (Beheersdaad beheersdaad in IctrlBeheersdaad)
@@ -268,7 +225,7 @@ namespace Plantjes.ViewModels
             }
 
             // converts number to its asci and adds sociabiliteit to DB if checked
-            int socIndex = 49;
+            int socIndex = 65;
             foreach (bool? check in items.GetRange(2, 5))
             {
                 if (check ?? false)
@@ -277,15 +234,10 @@ namespace Plantjes.ViewModels
             }
 
             // checks if any param are filled, adds fenotype to DB
-            if (new List<object>() { items[7], items[8], items[9], items[10], items[11], items[12], items[13] }.Any(s => !string.IsNullOrEmpty(s as string)))
+            if (new List<object>() { items[7], items[8], items[9], items[10], items[11], items[12] }.Any(s => !string.IsNullOrEmpty(s as string)))
             {
-                int bladGrootte;
-                if (!int.TryParse(items[7] as string, out bladGrootte))
-                {
-                    bladGrootte = 0;
-                }
                 DaoFenotype.AddFenotype(plant,
-                    bladGrootte <= 0 ? null : bladGrootte,
+                    string.IsNullOrEmpty(items[7] as string) ? null : int.Parse(items[7] as string),
                     string.IsNullOrEmpty(items[8] as string) ? null : items[8] as string,
                     string.IsNullOrEmpty(items[9] as string) ? null : items[9] as string,
                     string.IsNullOrEmpty(items[10] as string) ? null : items[10] as string,
@@ -303,16 +255,35 @@ namespace Plantjes.ViewModels
                         DaoFenotype.AddFenotypeMulti(plant, "bladhoogte", fenotype.Bladhoogte, fenotype.SelectedMonth);
                 }
             }
-            foreach (MenuItem item in MBladkleur)
+            if (MBladkleur.Any(mi => mi.IsChecked))
+                foreach (MenuItem item in MBladkleur)
+                {
+                    if (item.IsChecked)
+                        DaoFenotype.AddFenotypeMulti(plant, "bladkleur", item.Header as string);
+                }
+            if (MBloeikleur.Any(mi => mi.IsChecked))
+                foreach (MenuItem item in MBloeikleur)
+                {
+                    if (item.IsChecked)
+                        DaoFenotype.AddFenotypeMulti(plant, "bloeikleur", item.Header as string);
+                }
+
+            if (!string.IsNullOrEmpty(items[13] as string) || !string.IsNullOrEmpty(items[14] as string) || items.GetRange(15, 10).Any(b => b as bool? ?? false))
             {
-                if (item.IsChecked)
-                    DaoFenotype.AddFenotypeMulti(plant, "bladkleur", item.Header as string);
+                IList<bool?> booleans = items.GetRange(15, 10).Select(o => o as bool?).ToList();
+                DaoExtraeigenschap.AddExtraEigenschap(plant,
+                    string.IsNullOrEmpty(items[13] as string) ? null : items[13] as string,
+                    string.IsNullOrEmpty(items[14] as string) ? null : items[14] as string,
+                    Helper.RadioButtonsToBool(booleans[0], booleans[1]),
+                    Helper.RadioButtonsToBool(booleans[2], booleans[3]),
+                    Helper.RadioButtonsToBool(booleans[4], booleans[5]),
+                    Helper.RadioButtonsToBool(booleans[6], booleans[7]),
+                    Helper.RadioButtonsToBool(booleans[8], booleans[9]));
             }
-            foreach (MenuItem item in MBloeikleur)
-            {
-                if (item.IsChecked)
-                    DaoFenotype.AddFenotypeMulti(plant, "bloeikleur", item.Header as string);
-            }
+
+            Helper.SwitchTabAndReset("VIEWDETAIL", 
+                () => new ViewModelPlantDetail(plant), 
+                () => new ViewModelAdd(SimpleIoc.Default.GetInstance<ISearchService>()));
         }
 
         public int SelectedTab
@@ -413,6 +384,10 @@ namespace Plantjes.ViewModels
         #endregion
 
         #region Fenotype
+        public IEnumerable<string> CmbBladgrootte
+        {
+            get => _cmbBladgrootte;
+        }
         public IEnumerable<string> CmbBladvorm
         {
             get => _cmbBladvorm;

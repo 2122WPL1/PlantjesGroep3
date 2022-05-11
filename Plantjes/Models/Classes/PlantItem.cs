@@ -2,6 +2,7 @@
 using Plantjes.Models.Db;
 using Plantjes.Models.Extensions;
 using Plantjes.ViewModels;
+using Plantjes.ViewModels.HelpClasses;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -54,10 +55,7 @@ namespace Plantjes.Models.Classes
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            if (SimpleIoc.Default.IsRegistered<ViewModelPlantDetail>() || SimpleIoc.Default.ContainsCreated<ViewModelPlantDetail>())
-                SimpleIoc.Default.Unregister<ViewModelPlantDetail>();
-            SimpleIoc.Default.Register(() => new ViewModelPlantDetail(Plant));
-            SimpleIoc.Default.GetInstance<ViewModelMain>().OnNavigationChanged("VIEWDETAIL");
+            Helper.SwitchTab("VIEWDETAIL", () => new ViewModelPlantDetail(Plant));
         }
 
         public Plant Plant { get { return _plant; } }

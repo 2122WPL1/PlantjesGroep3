@@ -12,39 +12,42 @@ namespace Plantjes.Dao
         public static Fenotype AddFenotype(Plant plant, int? bladgrootte = null, string bladvorm = null, string ratiobloeiblad = null,
             string spruitfenologie = null, string bloeiwijze = null, string habitus = null, string levensvorm = null)
         {
+            if (bladgrootte == null && string.IsNullOrEmpty(bladvorm) && string.IsNullOrEmpty(ratiobloeiblad)
+                && string.IsNullOrEmpty(spruitfenologie) && string.IsNullOrEmpty(bloeiwijze) && string.IsNullOrEmpty(habitus) && string.IsNullOrEmpty(levensvorm)) 
+                return null;
             Fenotype fenotype = new Fenotype();
             if (bladgrootte != null)
             {
                 fenotype.Bladgrootte = bladgrootte;
             }
-            if (bladvorm != null)
+            if (!string.IsNullOrEmpty(bladvorm))
             {
                 fenotype.Bladvorm = bladvorm;
             }
-            if (ratiobloeiblad != null)
+            if (!string.IsNullOrEmpty(ratiobloeiblad))
             {
                 fenotype.RatioBloeiBlad = ratiobloeiblad;
             }
-            if (spruitfenologie != null)
+            if (!string.IsNullOrEmpty(spruitfenologie))
             {
                 fenotype.Spruitfenologie = spruitfenologie;
             }
-            if (bloeiwijze != null)
+            if (!string.IsNullOrEmpty(bloeiwijze))
             {
                 fenotype.Bloeiwijze = bloeiwijze;
             }
-            if (habitus != null)
+            if (!string.IsNullOrEmpty(habitus))
             {
                 fenotype.Habitus = habitus;
             }
-            if (levensvorm != null)
+            if (!string.IsNullOrEmpty(levensvorm))
             {
                 fenotype.Levensvorm = levensvorm;
             }
 
             context.Plants.First(p => p == plant).Fenotypes.Add(fenotype);
             context.SaveChanges();
-            return fenotype;
+            return fenotype; 
         }
 
         public static FenotypeMulti AddFenotypeMulti(Plant plant, string eigenschap, string waarde, string? month = null)

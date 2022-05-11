@@ -6,9 +6,22 @@
              xmlns:local="clr-namespace:Plantjes.Views.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="834" d:DesignWidth="1250">
-    <DockPanel >
-        <Button  DockPanel.Dock="Bottom" Command="{Binding AddStudentCommand}" CommandParameter="null"  Content="Exporteer studentenlijst" Width="150" Height="50" HorizontalAlignment="Right" Margin="0,5,10,10"/>
-        <ItemsControl x:Name="icNotification" ItemsSource="{Binding IctrlNotification}"/>
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right"  Margin="0,5,10,10">
+            <Button Command="{Binding ImportCommand}" CommandParameter="null" Content="Importeer studentenlijst" Width="150" Height="50" Margin="10,0"/>
+            <Button Command="{Binding ExportCommand}" CommandParameter="null" Content="Exporteer studentenlijst" Width="150" Height="50"/>
+        </StackPanel>
+        <ListView x:Name="icNotification" ItemsSource="{Binding Gebruikers}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Vives Nr" DisplayMemberBinding="{Binding Vivesnr}"/>
+                    <GridViewColumn Header="Achternaam" DisplayMemberBinding="{Binding Achternaam}"/>
+                    <GridViewColumn Header="Voornaam" DisplayMemberBinding="{Binding Voornaam}"/>
+                    <GridViewColumn Header="Emailadres" DisplayMemberBinding="{Binding Emailadres}"/>
+                    <GridViewColumn Header="Last Login" DisplayMemberBinding="{Binding LastLogin}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </DockPanel>
         
 </UserControl>

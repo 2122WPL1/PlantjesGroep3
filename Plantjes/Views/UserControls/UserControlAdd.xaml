@@ -27,12 +27,23 @@
                     <Binding ElementName="chbSocIV" Path="IsChecked"/>
                     <Binding ElementName="chbSocV" Path="IsChecked"/>
                     <Binding ElementName="cbBladgrootte" Path="SelectedItem"/>
-                    <Binding ElementName="cbBladvorm" Path="SelectedItem"/>
+                    <Binding ElementName="cbBladVorm" Path="SelectedItem"/>
                     <Binding ElementName="txtBloeiBladRatio" Path="Text"/>
                     <Binding ElementName="cbSpruitfenologie" Path="SelectedItem"/>
                     <Binding ElementName="cbBloeiwijze" Path="SelectedItem"/>
                     <Binding ElementName="cbHabitus" Path="SelectedItem"/>
-                    <Binding ElementName="" Path="SelectedItem"/>
+                    <Binding ElementName="cbNectar" Path="SelectedItem"/>
+                    <Binding ElementName="CbPollen" Path="SelectedItem"/>
+                    <Binding ElementName="rbBijJa" Path="IsChecked"/>
+                    <Binding ElementName="rbBijNee" Path="IsChecked"/>
+                    <Binding ElementName="rbVlinderJa" Path="IsChecked"/>
+                    <Binding ElementName="rbVlinderNee" Path="IsChecked"/>
+                    <Binding ElementName="rbKruidJa" Path="IsChecked"/>
+                    <Binding ElementName="rbKruidNee" Path="IsChecked"/>
+                    <Binding ElementName="rbGeurJa" Path="IsChecked"/>
+                    <Binding ElementName="rbGeurNee" Path="IsChecked"/>
+                    <Binding ElementName="rbVorstJa" Path="IsChecked"/>
+                    <Binding ElementName="rbVorstNee" Path="IsChecked"/>
                 </MultiBinding>
             </Button.CommandParameter>
         </Button>
@@ -44,37 +55,46 @@
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                             <TextBlock VerticalAlignment="Center">
-                                <TextBlock Foreground="{Binding ElementName=cbType, Path=SelectedIndex, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}" Text="Type" RenderTransformOrigin="59.174,15.046"/>
+                                <TextBlock Text="Type" RenderTransformOrigin="59.174,15.046"/>
                                 <TextBlock Text="*" Foreground="Red"/>
                                 <TextBlock Text=":" Margin="0,0,5,0"/>
                             </TextBlock>
-                            <ComboBox x:Name="cbType" Width="200"
+                            <Grid>
+                                <ComboBox x:Name="cbType" Width="200"
                                       ItemsSource="{Binding CmbTypes}" DisplayMemberPath="Planttypenaam"
                                       SelectedItem="{Binding SelectedType}"/>
+                                <Border BorderBrush="{Binding ElementName=cbType, Path=SelectedIndex, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}" BorderThickness="1"/>
+                            </Grid>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                            <TextBlock Foreground="{Binding ElementName=cbFamilie, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center">
+                            <TextBlock VerticalAlignment="Center">
                                 <TextBlock Text="Familie"/>
                                 <TextBlock Text="*" Foreground="Red"/>
                                 <TextBlock Text=":" Margin="0,0,5,0"/>
                             </TextBlock>
-                            <ComboBox x:Name="cbFamilie" Width="200"
+                            <Grid>
+                                <ComboBox x:Name="cbFamilie" Width="200"
                                       IsEditable="True" IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False" StaysOpenOnEdit="True"
                                       ItemsSource="{Binding CmbFamilies}" DisplayMemberPath="Familienaam"
                                       SelectedItem="{Binding SelectedFamilie}" Text="{Binding TextFamilie}"/>
+                                <Border BorderBrush="{Binding ElementName=cbFamilie, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}" BorderThickness="1"/>
+                            </Grid>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-                            <TextBlock Foreground="{Binding ElementName=cbGeslacht, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center">
+                            <TextBlock VerticalAlignment="Center">
                                 <TextBlock Text="Geslacht"/>
                                 <TextBlock Text="*" Foreground="Red"/>
                                 <TextBlock Text=":" Margin="0,0,5,0"/>
                             </TextBlock>
-                            <ComboBox x:Name="cbGeslacht" Width="200"
+                            <Grid>
+                                <ComboBox x:Name="cbGeslacht" Width="200"
                                       IsEditable="True" IsTextSearchEnabled="True" IsTextSearchCaseSensitive="False" StaysOpenOnEdit="True"
                                       ItemsSource="{Binding CmbGeslacht}" DisplayMemberPath="Geslachtnaam"
                                       SelectedItem="{Binding SelectedGeslacht}" Text="{Binding TextGeslacht}"/>
+                                <Border BorderBrush="{Binding ElementName=cbGeslacht, Path=Text, Converter={StaticResource InputToColorConverter}, UpdateSourceTrigger=PropertyChanged}" BorderThickness="1"/>
+                            </Grid>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
@@ -295,13 +315,13 @@
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                         <Label x:Name="lblNectar" Content="Nectarwaarde:"/>
                         <ComboBox x:Name="cbNectar" Width="200"
-                                  ItemsSource="{Binding cbNectar}"/>
+                                  ItemsSource="{Binding CbNectar}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                         <Label x:Name="lblPollen" Content="Pollenwaarde:"/>
                         <ComboBox x:Name="cbPollen" Width="200"
-                                  ItemsSource="{Binding cbPollen}"/>
+                                  ItemsSource="{Binding CbPollen}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">

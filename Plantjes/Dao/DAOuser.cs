@@ -40,30 +40,11 @@ namespace Plantjes.Dao
         {
             var passwordHashed = Helper.HashString(password);
 
-            //written by Warre
-            int role = 2;
-            if (emailadres.ToLower().Contains("@vives.be"))
-                role = 0;
-            if (emailadres.ToLower().Contains("@student.vives.be"))
-                role = 1;
-
-            var gebruiker = new Gebruiker()
-            {
-                Vivesnr = vivesNr,
-                Voornaam = firstName,
-                Achternaam = lastName,
-                Emailadres = emailadres,
-                RolId = role,
-                HashPaswoord = passwordHashed
-            };
-            context.Gebruikers.Add(gebruiker);
-            context.SaveChanges();
-            return gebruiker;
+            return AddUser(vivesNr, firstName, lastName, emailadres, passwordHashed);
         }
 
         public static Gebruiker AddUser(string vivesNr, string firstName, string lastName, string emailadres, byte[] password)
         {
-
             //written by Warre
             int role = 2;
             if (emailadres.ToLower().Contains("@vives.be"))
@@ -98,7 +79,7 @@ namespace Plantjes.Dao
             {
                 gebruiker.HashPaswoord = password;
             }
-            DaoUser.UpdateUserLogin(gebruiker);
+            UpdateUserLogin(gebruiker);
             context.SaveChanges();
         }
     }

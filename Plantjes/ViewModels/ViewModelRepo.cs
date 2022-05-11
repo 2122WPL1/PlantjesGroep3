@@ -17,6 +17,7 @@ namespace Plantjes.ViewModels
                 "VIEWADD" => SimpleIoc.Default.GetInstance<ViewModelAdd>(),
                 "VIEWSEARCH" => SimpleIoc.Default.GetInstance<ViewModelSearch>(),
                 "VIEWDETAIL" => SimpleIoc.Default.GetInstance<ViewModelPlantDetail>(),
+                "VIEWDOCENT" => SimpleIoc.Default.GetInstance<ViewModelDocent>(),
                 _ => null,
             };
     }

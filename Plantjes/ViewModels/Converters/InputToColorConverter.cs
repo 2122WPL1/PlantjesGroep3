@@ -20,7 +20,7 @@ namespace Plantjes.ViewModels.Converters
                 return Brushes.Red;
             if (value is string input && string.IsNullOrEmpty(input.Trim()))
                 return Brushes.Red;
-            return Brushes.Black;
+            return Brushes.LightGray;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

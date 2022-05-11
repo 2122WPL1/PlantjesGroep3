@@ -25,6 +25,10 @@
         <DataTemplate DataType="{x:Type viewModels:ViewModelPlantDetail}">
             <pages:UserControlPlantDetail/>
         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewModels:ViewModelDocent}">
+            <pages:UserControlDocent/>
+        </DataTemplate>
     </Window.Resources>
 
     <DockPanel>

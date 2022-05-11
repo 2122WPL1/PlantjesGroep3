@@ -58,7 +58,7 @@ namespace Plantjes.ViewModels.Services
             if (!string.IsNullOrWhiteSpace(habitat)) 
                 plantList = plantList.Where(p => p.AbiotiekMultis.Any(a => a.Eigenschap.ToLower() == "habitat" && a.Waarde.ToLower() == habitat.ToLower()));
             if (!string.IsNullOrWhiteSpace(sociabiliteit)) 
-                plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "sociabiliteit" && f.Waarde.ToLower() == sociabiliteit.ToLower()));
+                plantList = plantList.Where(p => p.CommensalismeMultis.Any(f => f.Eigenschap.ToLower() == "sociabiliteit" && f.Waarde.ToLower() == sociabiliteit.ToLower()));
 
             return plantList;
         }
