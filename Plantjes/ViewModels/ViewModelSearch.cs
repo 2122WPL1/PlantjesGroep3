@@ -11,10 +11,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using GalaSoft.MvvmLight.Command;
 using Plantjes.ViewModels.HelpClasses;
+using System.Windows.Shapes;
+using System.Windows.Controls;
 
 namespace Plantjes.ViewModels
 {
-    // Written by Warre
+    // Written by Warre and Renzo
     // Export written bij Ian Dumalin on 4/5
     public class ViewModelSearch : ViewModelBase
     {
@@ -28,10 +30,19 @@ namespace Plantjes.ViewModels
         private IEnumerable<string> _cmbHabitat;
         private IEnumerable<string> _cmbGrondsoort;
 
+        private IEnumerable<StackPanel> _mBladkleur;
+        private IEnumerable<StackPanel> _mBloeikleur;
+        private IEnumerable<string> _cmbBladvorm;
+
+        private Visibility _btnCollapse = Visibility.Collapsed;
+
+        public Command CollapseCommand { get; set; }
+
         public ViewModelSearch(ISearchService searchService)
         {
             this.searchService = searchService;
 
+            CollapseCommand = new Command(new Action(Collapse));
             SearchCommand = new Command<object>(new Action<object>(Search));
             ExportCommand = new RelayCommand(ExportCSV);
 
@@ -39,6 +50,9 @@ namespace Plantjes.ViewModels
             _cmbBezonning = searchService.GetList<AbioBezonning>().Select(a => a.Naam).Prepend(string.Empty);
             _cmbHabitat = searchService.GetList<AbioHabitat>().Select(a => a.Afkorting).Prepend(string.Empty);
             _cmbGrondsoort = searchService.GetList<AbioGrondsoort>().Select(a => a.Grondsoort).Prepend(string.Empty);
+            _mBladkleur = searchService.GetList<FenoKleur>().Select(a => new StackLabelRect(a)).Prepend(null);
+            _mBloeikleur = searchService.GetList<FenoKleur>().Select(a => new StackLabelRect(a)).Prepend(null);
+            _cmbBladvorm = searchService.GetList<FenoBladvorm>().Select(f => f.Vorm);
         }
 
         // GetListPlants(string? type, string? familie, string? geslacht, string? grondsoort, string? habitat, string? habitus, string? sociabiliteit, string? bezonning)
@@ -66,6 +80,19 @@ namespace Plantjes.ViewModels
                 selectedSoc,
                 items[^1] as string);
             OnPropertyChanged("Plants");
+        }
+
+        private void Collapse()
+        {
+            if (_btnCollapse == Visibility.Collapsed)
+            {
+                _btnCollapse = Visibility.Visible;
+            }
+            else
+            {
+                _btnCollapse = Visibility.Collapsed;
+            }
+            OnPropertyChanged("BtnCollapse");
         }
 
         private void ExportCSV()
@@ -99,6 +126,23 @@ namespace Plantjes.ViewModels
         public IEnumerable<string> CmbGrondsoort
         {
             get => _cmbGrondsoort;
+        }
+
+        public Visibility BtnCollapse
+        {
+            get => _btnCollapse;
+        }
+        public IEnumerable<StackPanel> CbBladkleur
+        {
+            get => _mBladkleur;
+        }
+        public IEnumerable<StackPanel> CbBloeikleur
+        {
+            get => _mBloeikleur;
+        }
+        public IEnumerable<string> CmbBladvorm
+        {
+            get => _cmbBladvorm;
         }
     }
 }
