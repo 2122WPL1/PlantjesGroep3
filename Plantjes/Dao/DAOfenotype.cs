@@ -20,27 +20,27 @@ namespace Plantjes.Dao
             {
                 fenotype.Bladgrootte = bladgrootte;
             }
-            if (string.IsNullOrEmpty(bladvorm))
+            if (!string.IsNullOrEmpty(bladvorm))
             {
                 fenotype.Bladvorm = bladvorm;
             }
-            if (string.IsNullOrEmpty(ratiobloeiblad))
+            if (!string.IsNullOrEmpty(ratiobloeiblad))
             {
                 fenotype.RatioBloeiBlad = ratiobloeiblad;
             }
-            if (string.IsNullOrEmpty(spruitfenologie))
+            if (!string.IsNullOrEmpty(spruitfenologie))
             {
                 fenotype.Spruitfenologie = spruitfenologie;
             }
-            if (string.IsNullOrEmpty(bloeiwijze))
+            if (!string.IsNullOrEmpty(bloeiwijze))
             {
                 fenotype.Bloeiwijze = bloeiwijze;
             }
-            if (string.IsNullOrEmpty(habitus))
+            if (!string.IsNullOrEmpty(habitus))
             {
                 fenotype.Habitus = habitus;
             }
-            if (string.IsNullOrEmpty(levensvorm))
+            if (!string.IsNullOrEmpty(levensvorm))
             {
                 fenotype.Levensvorm = levensvorm;
             }

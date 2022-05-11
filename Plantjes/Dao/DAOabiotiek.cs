@@ -15,19 +15,19 @@ namespace Plantjes.Dao
             if (string.IsNullOrEmpty(bezonning) && string.IsNullOrEmpty(bezonning) && string.IsNullOrEmpty(bezonning) && string.IsNullOrEmpty(bezonning))
                 return null;
             Abiotiek abiotiek = new Abiotiek();
-            if (string.IsNullOrEmpty(bezonning))
+            if (!string.IsNullOrEmpty(bezonning))
             {
                 abiotiek.Bezonning = bezonning;
             }
-            if (string.IsNullOrEmpty(grondsoort))
+            if (!string.IsNullOrEmpty(grondsoort))
             {
                 abiotiek.Grondsoort = grondsoort;
             }
-            if (string.IsNullOrEmpty(voedingsbehoeftes))
+            if (!string.IsNullOrEmpty(voedingsbehoeftes))
             {
                 abiotiek.Voedingsbehoefte = voedingsbehoeftes;
             }
-            if (string.IsNullOrEmpty(antagonischeomgeving))
+            if (!string.IsNullOrEmpty(antagonischeomgeving))
             {
                 abiotiek.AntagonischeOmgeving = antagonischeomgeving;
             }
