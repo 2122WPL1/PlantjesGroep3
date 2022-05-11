@@ -281,11 +281,11 @@ namespace Plantjes.ViewModels
                 DaoExtraeigenschap.AddExtraEigenschap(plant,
                     string.IsNullOrEmpty(items[13] as string) ? null : items[13] as string,
                     string.IsNullOrEmpty(items[14] as string) ? null : items[14] as string,
-                    Helper.RadioButtonsToBool(booleans[0], booleans[1]),
-                    Helper.RadioButtonsToBool(booleans[2], booleans[3]),
-                    Helper.RadioButtonsToBool(booleans[4], booleans[5]),
-                    Helper.RadioButtonsToBool(booleans[6], booleans[7]),
-                    Helper.RadioButtonsToBool(booleans[8], booleans[9]));
+                    Helper.RadioButtonToBool(booleans[0], booleans[1]),
+                    Helper.RadioButtonToBool(booleans[2], booleans[3]),
+                    Helper.RadioButtonToBool(booleans[4], booleans[5]),
+                    Helper.RadioButtonToBool(booleans[6], booleans[7]),
+                    Helper.RadioButtonToBool(booleans[8], booleans[9]));
             }
 
             Helper.SwitchTabAndReset("VIEWDETAIL", 
