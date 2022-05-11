@@ -23,5 +23,7 @@ namespace Plantjes.Models.Classes
             });
             Children.Add(new Label { Content = fenoKleur.NaamKleur });
         }
+
+        public string NamenKleur { get => (Children[1] as Label).Content as string; }
     }
 }
