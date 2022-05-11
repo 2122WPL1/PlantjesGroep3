@@ -16,11 +16,11 @@ namespace Plantjes.Dao
                 && vlindervriendelijk != null && eetbaar != null && kruidgebruik != null && geurend != null && voorstgevoelig != null)
                 return null; 
             ExtraEigenschap extraEigenschap = new ExtraEigenschap();
-            if (string.IsNullOrEmpty(nectarwaarde))
+            if (!string.IsNullOrEmpty(nectarwaarde))
             {
                 extraEigenschap.Nectarwaarde = nectarwaarde;
             }
-            if (string.IsNullOrEmpty(pollenwaarde))
+            if (!string.IsNullOrEmpty(pollenwaarde))
             {
                 extraEigenschap.Pollenwaarde = pollenwaarde;
             }

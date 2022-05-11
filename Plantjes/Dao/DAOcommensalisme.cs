@@ -15,11 +15,11 @@ namespace Plantjes.Dao
             if (string.IsNullOrEmpty(ontwikkelinssnelheid) && string.IsNullOrEmpty(strategie)) 
                 return null;
             Commensalisme commensalisme = new Commensalisme();
-            if (string.IsNullOrEmpty(ontwikkelinssnelheid))
+            if (!string.IsNullOrEmpty(ontwikkelinssnelheid))
             {
                 commensalisme.Ontwikkelsnelheid = ontwikkelinssnelheid;
             }
-            if (string.IsNullOrEmpty(strategie))
+            if (!string.IsNullOrEmpty(strategie))
             {
                 commensalisme.Strategie = strategie;
             }
