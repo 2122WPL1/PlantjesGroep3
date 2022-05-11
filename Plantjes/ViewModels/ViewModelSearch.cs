@@ -78,7 +78,10 @@ namespace Plantjes.ViewModels
                 items[2] as string,
                 items[3] as string,
                 selectedSoc,
-                items[^1] as string);
+                items[9] as string,
+                items[10] as string,
+                items[11] as string,
+                items[12] as string);
             OnPropertyChanged("Plants");
         }
 

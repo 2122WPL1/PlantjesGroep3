@@ -32,7 +32,7 @@ namespace Plantjes.ViewModels.Services
 
         //Written by Ian Dumalin on 28/04
         //edited by Warre on 04/05
-        public IEnumerable<Plant> GetListPlants(string? naam, string? grondsoort, string? habitat, string? habitus, string? sociabiliteit, string? bezonning)
+        public IEnumerable<Plant> GetListPlants(string? naam, string? grondsoort, string? habitat, string? habitus, string? sociabiliteit, string? bezonning, string? bladkleur, string? bloeikleur, string? bladvorm)
         {
             var plantList = DaoPlant.GetPlants();
             // if search values are null => return every plant in DB.
@@ -59,6 +59,12 @@ namespace Plantjes.ViewModels.Services
                 plantList = plantList.Where(p => p.AbiotiekMultis.Any(a => a.Eigenschap.ToLower() == "habitat" && a.Waarde.ToLower() == habitat.ToLower()));
             if (!string.IsNullOrWhiteSpace(sociabiliteit)) 
                 plantList = plantList.Where(p => p.CommensalismeMultis.Any(f => f.Eigenschap.ToLower() == "sociabiliteit" && f.Waarde.ToLower() == sociabiliteit.ToLower()));
+            if (!string.IsNullOrWhiteSpace(bladkleur))
+                plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "bladkleur" && f.Waarde.ToLower() == bladkleur.ToLower()));
+            if (!string.IsNullOrWhiteSpace(bladkleur))
+                plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "bloeikleur" && f.Waarde.ToLower() == bloeikleur.ToLower()));
+            if (!string.IsNullOrWhiteSpace(bladkleur))
+                plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "bladvorm" && f.Waarde.ToLower() == bladvorm.ToLower()));
 
             return plantList;
         }
