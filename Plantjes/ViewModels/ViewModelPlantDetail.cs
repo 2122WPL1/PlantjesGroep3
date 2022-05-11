@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using GalaSoft.MvvmLight.Command;
+using Plantjes.ViewModels.HelpClasses;
 
 namespace Plantjes.ViewModels
 {
@@ -19,6 +21,8 @@ namespace Plantjes.ViewModels
 
         public ViewModelPlantDetail(Plant plant)
         {
+            ExportCommand = new RelayCommand(ExportCSV);
+
             Plant = plant;
             _eigenschappen = new List<StackPanel>();
             if (plant.Fenotypes.Count > 0 || plant.FenotypeMultis.Count > 0)
@@ -33,15 +37,18 @@ namespace Plantjes.ViewModels
                 _eigenschappen.Add(new PlantEigenschap<ExtraEigenschap, object>(plant.ExtraEigenschaps));
         }
 
-        public string PlantNaam
+        public void ExportCSV()
         {
-            get => Plant.GetPlantName();
+            CSVHelper.ExportPlantDetailsToCSV(Plant);
         }
+        public string PlantNaam { get => Plant.GetPlantName(); }
 
         public Plant Plant { get; private set; }
         
         public BitmapImage PlantImage { get => Plant.GetPlantImage(); }
 
         public List<StackPanel> Eigenschappen { get => _eigenschappen; }
+
+        public RelayCommand ExportCommand { get; set; }
     }
 }

@@ -54,5 +54,10 @@ namespace Plantjes.Dao
             context.SaveChanges();
             return updateplant;
         }
+
+        public List<string> GetAbiotiek()
+        {
+            return null;
+        }
     }
 }
