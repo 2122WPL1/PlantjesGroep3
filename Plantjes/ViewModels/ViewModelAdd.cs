@@ -225,7 +225,7 @@ namespace Plantjes.ViewModels
             }
 
             // converts number to its asci and adds sociabiliteit to DB if checked
-            int socIndex = 49;
+            int socIndex = 65;
             foreach (bool? check in items.GetRange(2, 5))
             {
                 if (check ?? false)
