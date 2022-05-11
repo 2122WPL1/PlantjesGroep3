@@ -38,7 +38,7 @@ namespace Plantjes.Models.Extensions
                     biImage.StreamSource = ms;
                     biImage.EndInit();
                 }
-            return biImage ?? new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + @"Image\default-plant.png", UriKind.Absolute));
+            return biImage ?? new BitmapImage(new Uri(Environment.CurrentDirectory + @"Image\default-plant.png", UriKind.Absolute));
         }
 
         public static string GetPlantName(this Plant plant)

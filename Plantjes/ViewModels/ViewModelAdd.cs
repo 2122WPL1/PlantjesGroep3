@@ -41,8 +41,8 @@ namespace Plantjes.ViewModels
         private IEnumerable<TfgsvType> _cmbTypes;
         private IEnumerable<string> _cmbBladgrootte;
         private IEnumerable<string> _cmbBladvorm;
-        private IEnumerable<string> _cmbBloeiwijze;
-        private IEnumerable<string> _cmbHabitus;
+        private IEnumerable<StackPanel> _cmbBloeiwijze;
+        private IEnumerable<StackPanel> _cmbHabitus;
         private IEnumerable<string> _cmbMaand;
         private IEnumerable<string> _cmbSpruitfenologie;
         private IEnumerable<MenuItem> _mBladkleur;
@@ -69,8 +69,8 @@ namespace Plantjes.ViewModels
             _cmbTypes = searchService.GetList<TfgsvType>().OrderBy(t => t.Planttypenaam);
             _cmbBladgrootte = searchService.GetList<FenoBladgrootte>().Select(f => f.Bladgrootte);
             _cmbBladvorm = searchService.GetList<FenoBladvorm>().Select(f => f.Vorm);
-            _cmbBloeiwijze = searchService.GetList<FenoBloeiwijze>().Select(f => f.Naam);
-            _cmbHabitus = searchService.GetList<FenoHabitu>().Select(f => f.Naam);
+            _cmbBloeiwijze = searchService.GetList<FenoBloeiwijze>().Select(f => new StackLabelImage(f.Naam, false));
+            _cmbHabitus = searchService.GetList<FenoHabitu>().Select(f => new StackLabelImage(f.Naam, true));
             _cmbMaand = Helper.GetMonthsList();
             _cmbSpruitfenologie = searchService.GetList<FenoSpruitfenologie>().Select(f => f.Fenologie);
             _mBladkleur = Helper.MakeColorMenuItemList().ToList();
@@ -399,11 +399,11 @@ namespace Plantjes.ViewModels
         {
             get => _cmbBladvorm;
         }
-        public IEnumerable<string> CmbBloeiwijze
+        public IEnumerable<StackPanel> CmbBloeiwijze
         {
             get => _cmbBloeiwijze;
         }
-        public IEnumerable<string> CmbHabitus
+        public IEnumerable<StackPanel> CmbHabitus
         {
             get => _cmbHabitus;
         }
