@@ -23,20 +23,6 @@ namespace Plantjes.ViewModels.Services
         //written by Warre
         public Gebruiker Gebruiker { get; private set; }
 
-        /// <summary>
-        /// Checks if a string is a valid email adress.
-        /// </summary>
-        /// <param name="input">The string to be parsed.</param>
-        /// <returns>Returns a boolean depending on if the parser failed or not.</returns>
-        private bool IsEmail(string input)
-        {
-            if (!string.IsNullOrEmpty(input) && input.IndexOf('@') != -1 && input[input.IndexOf('@')..].Contains('.'))
-            {
-                return true;
-            }
-            return false;
-        }
-
         #region Login Region
         //written by Warre, appended by Ian
         /// <summary>
@@ -52,7 +38,7 @@ namespace Plantjes.ViewModels.Services
 
             //check if email is valid email
             Gebruiker currentGebruiker;
-            if (IsEmail(emailInput) || emailInput == "admin@vives.be")
+            if (Helper.IsEmail(emailInput) || emailInput == "admin@vives.be")
             {   //gebruiker zoeken in de databank
                 currentGebruiker = DaoUser.GetGebruiker(emailInput);
             }
@@ -122,7 +108,7 @@ namespace Plantjes.ViewModels.Services
                 passwordRepeatInput != null)
             {
                 //checken als het emailadres een geldig vives email is.
-                if (!IsEmail(emailInput))
+                if (!Helper.IsEmail(emailInput))
                 {
                     throw new Exception($"{emailInput} is geen geldig emailadres!");
                 }
