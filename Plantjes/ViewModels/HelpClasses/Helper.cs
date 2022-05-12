@@ -24,7 +24,19 @@ namespace Plantjes.ViewModels.HelpClasses
     /// </summary>
     public static class Helper
     {
-        //written by Warre
+        /// <summary>
+        /// Checks if a string is a valid email adress.
+        /// </summary>
+        /// <param name="input">The string to be parsed.</param>
+        /// <returns>Returns a boolean depending on if the parser failed or not.</returns>
+        public static bool IsEmail(string input)
+        {
+            if (!string.IsNullOrEmpty(input) && input.IndexOf('@') != -1 && input[input.IndexOf('@')..].Contains('.'))
+            {
+                return true;
+            }
+            return false;
+        }
         public static void SwitchTabAndReset<TCurrent, T>(string tab, Func<TCurrent> thisFactory, Func<T> factory) 
             where T : class
             where TCurrent : class
@@ -60,29 +72,6 @@ namespace Plantjes.ViewModels.HelpClasses
             return passwordHashed;
         }
 
-        //Written by Ian Dumalin on 27/04 and 28/04
-        /// <summary>
-        /// Loops through all de available users in the database, adding missing users from a .csv file.
-        /// </summary>
-        public static void PopulateDB()
-        {
-            string path = Directory.GetCurrentDirectory() + "\\CSV\\members.csv";
-            var gebruikerList = DaoUser.GetGebruikerList();
-            var gebruikerListCSV = CSVHelper.CSVToMemberList(path);
-            Dictionary<string, string> gebruikerDictionary = new Dictionary<string, string>();
-            foreach (Gebruiker g in gebruikerList)
-            {
-                gebruikerDictionary.Add(g.Vivesnr, g.Emailadres);
-            }
-
-            foreach (Gebruiker g in gebruikerListCSV)
-            {
-                if (!gebruikerDictionary.Keys.Contains(g.Vivesnr) && !gebruikerDictionary.Values.Contains(g.Emailadres))
-                {
-                    DaoUser.AddUser(g.Vivesnr, g.Voornaam, g.Achternaam, g.Emailadres, g.HashPaswoord);
-                }
-            }
-        }
 
         // written by Warre
         /// <summary>
@@ -131,6 +120,32 @@ namespace Plantjes.ViewModels.HelpClasses
                     StaysOpenOnClick = true,
                     Header = selector(item).FirstToUpper(),
                 };
+            }
+        }
+
+        //Written by Ian Dumalin on 27/04 and 28/04
+        /// <summary>
+        /// Loops through all de available users in the database, adding missing users from a .csv file.
+        /// </summary>
+        public static void PopulateDB()
+        {
+            var gebruikerList = DaoUser.GetGebruikerList();
+            var gebruikerListCSV = CSVHelper.ImportNewMembersFromCSV();
+            Dictionary<string, string> gebruikerDictionary = new Dictionary<string, string>();
+            foreach (Gebruiker g in gebruikerList)
+            {
+                gebruikerDictionary.Add(g.Vivesnr, g.Emailadres);
+            }
+
+            if (gebruikerListCSV != null)
+            {
+                foreach (Gebruiker g in gebruikerListCSV)
+                {
+                    if (!gebruikerDictionary.Keys.Contains(g.Vivesnr) && !gebruikerDictionary.Values.Contains(g.Emailadres))
+                    {
+                        DaoUser.AddUserToDB(g.Vivesnr, g.Voornaam, g.Achternaam, g.Emailadres, g.HashPaswoord);
+                    }
+                } 
             }
         }
 
