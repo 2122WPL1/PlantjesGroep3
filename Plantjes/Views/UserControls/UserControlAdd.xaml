@@ -49,7 +49,8 @@
         </Button>
         <TabControl SelectedIndex="{Binding SelectedTab}" x:Name="tcAdd"  DockPanel.Dock="Top" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <!--#region MainInfo-->
-            <TabItem Header="Algemene Info" IsSelected="True" x:Name="tiMainInfo" Height="22" Margin="-2,-2,-2,0" VerticalAlignment="Top">
+            <TabItem Header="Algemene Info" IsSelected="True" x:Name="tiMainInfo">
+                
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel Orientation="Vertical">
 
