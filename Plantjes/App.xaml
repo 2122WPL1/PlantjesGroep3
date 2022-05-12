@@ -2,13 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Plantjes"
-             StartupUri="Views/Home/MainWindow.xaml">
+             StartupUri="Views/Home/LoginWindow.xaml">
     <Application.Resources>
         <FontFamily x:Key="Password">./Font/password.ttf#Password</FontFamily>
-        <ResourceDictionary>
-            <Color x:Key="base-color"></Color>
-            <Color x:Key="secondary-color"></Color>
-            <Color x:Key="tertiary-color"></Color>
-        </ResourceDictionary>
+        <Color x:Key="base-color">#fdf</Color>
+        <Color x:Key="secondary-color">#fdfd</Color>
+        <Color x:Key="tertiary-color">#fdf</Color>
     </Application.Resources>
 </Application>

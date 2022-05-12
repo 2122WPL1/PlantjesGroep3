@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:Plantjes.ViewModels"
         xmlns:conv="clr-namespace:Plantjes.ViewModels.Converters"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="300" Width="450">
+        Title="LoginWindow" Height="300" Width="450" Background="{StaticResource base-color}">
     <Window.Resources>
         <conv:InputToColorConverter x:Key="InputToColorConverter"/>
     </Window.Resources>
