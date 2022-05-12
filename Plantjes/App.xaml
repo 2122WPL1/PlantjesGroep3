@@ -14,7 +14,7 @@
         <Style TargetType="Window">
             <Setter Property="Background" Value="{StaticResource base}"/>
         </Style>
-        
+
         <Style TargetType="TabControl">
             <Setter Property="Background" Value="{StaticResource base}"/>
         </Style>
@@ -37,7 +37,7 @@
             <Setter Property="Foreground" Value="{StaticResource highlight}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{StaticResource quaternary}"/>
+                    <Setter Property="Foreground" Value="{StaticResource quaternary}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -45,10 +45,29 @@
         <Style TargetType="Menu">
             <Setter Property="Background" Value="{StaticResource tertiary}"/>
         </Style>
+
         <Style TargetType="MenuItem">
             <Setter Property="Foreground" Value="{StaticResource highlight}"/>
             <Setter Property="Background" Value="{StaticResource tertiary}"/>
         </Style>
-        
+
+        <Style TargetType="ListView">
+            <Setter Property="Background" Value="{StaticResource base}"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="White"/>
+        </Style>
+
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Background" Value="{StaticResource tertiary}"/>
+            <Setter Property="Foreground" Value="{StaticResource highlight}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource quaternary}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
     </Application.Resources>
 </Application>
