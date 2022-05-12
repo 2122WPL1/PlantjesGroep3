@@ -23,17 +23,13 @@ namespace Plantjes.ViewModels
             set { SetProperty(ref _currentViewModel, value); }
         }
 
-        public ILoginUserService loginUserService;
-        private ISearchService _searchService;
-        public ViewModelMain(ILoginUserService loginUserService, ISearchService searchService)
+        public ViewModelMain(ILoginUserService loginUserService)
         {
             loggedInMessage = loginUserService.LoggedInMessage();
             this._viewModelRepo = iocc.GetInstance<ViewModelRepo>();
-            this._searchService = searchService;
-            this.loginUserService = loginUserService;
             _currentViewModel = iocc.GetInstance<ViewModelSearch>();
 
-            mainNavigationCommand = new TabCommand(new Action<string>(OnNavigationChanged));
+            mainNavigationCommand = new TabCommand(new Action<string>(OnNavigationChanged), loginUserService.Gebruiker);
             //  dialogService.ShowMessageBox(this, "", "");
         }
 
@@ -47,7 +43,6 @@ namespace Plantjes.ViewModels
             set
             {
                 _loggedInMessage = value;
-
                 RaisePropertyChanged("loggedInMessage");
             }
         }

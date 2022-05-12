@@ -127,12 +127,11 @@ namespace Plantjes.ViewModels.HelpClasses
         /// <summary>
         /// Loops through all de available users in the database, adding missing users from a .csv file.
         /// </summary>
-        public static void PopulateDB()
+        public static IEnumerable<Gebruiker> PopulateDB(IEnumerable<Gebruiker> gebruiker)
         {
-            var gebruikerList = DaoUser.GetGebruikerList();
             var gebruikerListCSV = CSVHelper.ImportNewMembersFromCSV();
             Dictionary<string, string> gebruikerDictionary = new Dictionary<string, string>();
-            foreach (Gebruiker g in gebruikerList)
+            foreach (Gebruiker g in gebruiker)
             {
                 gebruikerDictionary.Add(g.Vivesnr, g.Emailadres);
             }
@@ -143,7 +142,7 @@ namespace Plantjes.ViewModels.HelpClasses
                 {
                     if (!gebruikerDictionary.Keys.Contains(g.Vivesnr) && !gebruikerDictionary.Values.Contains(g.Emailadres))
                     {
-                        DaoUser.AddUserToDB(g.Vivesnr, g.Voornaam, g.Achternaam, g.Emailadres, g.HashPaswoord);
+                        yield return DaoUser.AddUserToDB(g.Vivesnr, g.Voornaam, g.Achternaam, g.Emailadres, g.HashPaswoord);
                     }
                 } 
             }

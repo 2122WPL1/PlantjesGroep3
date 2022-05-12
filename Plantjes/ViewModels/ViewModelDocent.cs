@@ -21,11 +21,7 @@ namespace Plantjes.ViewModels
     // Export made by Ian
     public class ViewModelDocent : ViewModelBase
     {
-        public List<Gebruiker> Gebruikers
-        {
-            get => _gebruikers;
-        }
-        private List<Gebruiker> _gebruikers;
+        private IEnumerable<Gebruiker> _gebruikers;
         public RelayCommand ExportCommand { get; set; }
         public RelayCommand ImportCommand { get; set; }
 
@@ -33,7 +29,11 @@ namespace Plantjes.ViewModels
         {
             ExportCommand = new RelayCommand(ExportClick);
             ImportCommand = new RelayCommand(ImportClick);
-            _gebruikers = (List<Gebruiker>)(DaoUser.GetGebruikerList() ?? Enumerable.Empty<Gebruiker>());
+            _gebruikers = DaoUser.GetGebruikerList() ?? Enumerable.Empty<Gebruiker>();
+        }
+        public IEnumerable<Gebruiker> Gebruikers
+        {
+            get => _gebruikers;
         }
 
         private void ExportClick()
@@ -43,8 +43,7 @@ namespace Plantjes.ViewModels
 
         private void ImportClick()
         {
-            Helper.PopulateDB();
-            _gebruikers = DaoUser.GetGebruikerList();
+            _gebruikers = Helper.PopulateDB(_gebruikers).ToList();
             OnPropertyChanged("Gebruikers");
         }
     }
