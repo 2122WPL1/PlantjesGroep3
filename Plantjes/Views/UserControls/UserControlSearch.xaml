@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Plantjes.Views.UserControls"
              xmlns:conv="clr-namespace:Plantjes.ViewModels.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="834" d:DesignWidth="1250" Background="white">
+             d:DesignHeight="834" d:DesignWidth="1250" Background="{StaticResource base}">
     <UserControl.Resources>
         <conv:CommonMultiValueConverter x:Key="PlantParameterConverter"/>
         <conv:VisibilityToArrowConverter x:Key="VisibilityToArrowConverter"/>

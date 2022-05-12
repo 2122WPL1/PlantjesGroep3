@@ -5,8 +5,9 @@
              StartupUri="Views/Home/LoginWindow.xaml">
     <Application.Resources>
         <FontFamily x:Key="Password">./Font/password.ttf#Password</FontFamily>
-        <SolidColorBrush x:Key="base-color">#EBFADC</SolidColorBrush>
-        <SolidColorBrush x:Key="secondary-color">#CADEB6</SolidColorBrush>
-        <SolidColorBrush x:Key="tertiary-color">#3E4239</SolidColorBrush>
+        <SolidColorBrush x:Key="base">#F3F9ED</SolidColorBrush>
+        <SolidColorBrush x:Key="highlight">#f9f9f9</SolidColorBrush>
+        <SolidColorBrush x:Key="secondary">#D4E5C3</SolidColorBrush>
+        <SolidColorBrush x:Key="tertiary">#3E4239</SolidColorBrush>
     </Application.Resources>
 </Application>
