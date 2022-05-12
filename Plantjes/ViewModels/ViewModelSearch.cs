@@ -41,7 +41,6 @@ namespace Plantjes.ViewModels
             _cmbGrondsoort = searchService.GetList<AbioGrondsoort>().Select(a => a.Grondsoort).Prepend(string.Empty);
         }
 
-        // GetListPlants(string? type, string? familie, string? geslacht, string? grondsoort, string? habitat, string? habitus, string? sociabiliteit, string? bezonning)
         private void Search(object parameters)
         {
             List<object> items = parameters as List<object>;

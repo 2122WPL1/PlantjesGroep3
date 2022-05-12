@@ -24,6 +24,7 @@ namespace Plantjes.ViewModels.HelpClasses
     /// </summary>
     public static class Helper
     {
+        //written by Warre
         public static void SwitchTabAndReset<TCurrent, T>(string tab, Func<TCurrent> thisFactory, Func<T> factory) 
             where T : class
             where TCurrent : class

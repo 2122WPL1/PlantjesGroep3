@@ -266,13 +266,13 @@ namespace Plantjes.ViewModels
                 foreach (MenuItem item in MBladkleur)
                 {
                     if (item.IsChecked)
-                        DaoFenotype.AddFenotypeMulti(plant, "bladkleur", item.Header as string);
+                        DaoFenotype.AddFenotypeMulti(plant, "bladkleur", item.InputGestureText as string);
                 }
             if (MBloeikleur.Any(mi => mi.IsChecked))
                 foreach (MenuItem item in MBloeikleur)
                 {
                     if (item.IsChecked)
-                        DaoFenotype.AddFenotypeMulti(plant, "bloeikleur", item.Header as string);
+                        DaoFenotype.AddFenotypeMulti(plant, "bloeikleur", item.InputGestureText as string);
                 }
 
             if (!string.IsNullOrEmpty(items[13] as string) || !string.IsNullOrEmpty(items[14] as string) || items.GetRange(15, 10).Any(b => b as bool? ?? false))
