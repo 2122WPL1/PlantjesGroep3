@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Microsoft.Win32;
+using Plantjes.Dao;
 using Plantjes.Models.Db;
 using Plantjes.Models.Extensions;
 
@@ -12,28 +15,49 @@ namespace Plantjes.ViewModels.HelpClasses
 {
     internal class CSVHelper
     {
-        /// <summary>
-        /// Converts the read .csv into a list of Gebruikers.
-        /// </summary>
-        /// <param name="csvLocation">Location of the .csv file.</param>
-        /// <returns>A list of Gebruikers</returns>
-        public static IList<Gebruiker> CSVToMemberList(string csvLocation)
+        public static List<Gebruiker> ImportNewMembersFromCSV()
         {
-            // Written by Ian Dumalin on 27/04
-            List<Gebruiker> valueList = new List<Gebruiker>();
-            using (StreamReader reader = new StreamReader(csvLocation))
+            // Written by Ian Dumalin on 11/05
+            List<Gebruiker> readGebruikers = new List<Gebruiker>();
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "CSV file(*.csv)|*.csv";
+            try
             {
-                while (!reader.EndOfStream)
+                if (open.ShowDialog() ?? false)
                 {
+                    StreamReader reader = new StreamReader(open.FileName);
                     string line = reader.ReadLine();
-                    string[] readValues = line.Split(';');
-                    if (readValues[0] != "Studentennummer")
+                    while (line != null)
                     {
-                        valueList.Add(new Gebruiker() { Vivesnr = readValues[0], Voornaam = readValues[1], Achternaam = readValues[2], Emailadres = readValues[5], HashPaswoord = Helper.HashString(readValues[0]) });
+                        var readList = line.Split(";");
+
+                        // error handling for CSV reading.
+                        if (!Helper.IsEmail(readList[5]) && readList[5] != "Emailadres") throw new Exception("E-mail syntax verkeerd.");
+                        if (readList.Length != 6) throw new Exception("CSV File niet in juiste opdeling.");
+
+                        //making a list item for each readline.
+                        readGebruikers.Add(new Gebruiker()
+                        {
+                            Emailadres = readList[5],
+                            Achternaam = readList[2],
+                            Voornaam = readList[1],
+                            Vivesnr = readList[0]
+                        });
+                        line = reader.ReadLine();
                     }
                 }
+                return readGebruikers;
             }
-            return valueList;
+            catch (IOException e)
+            {
+                MessageBox.Show($"{e.Message}\r\n\r\nFile in gebruik! Sluit de te-openen file en probeer opnieuw.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"{e.Message}\r\n\r\nCSV file niet ingedeeld zoals opgegeven.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return null;
         }
 
         /// <summary>
@@ -70,7 +94,6 @@ namespace Plantjes.ViewModels.HelpClasses
             string output = $"Beheersdaad;Omschrijving;Maand\r\n";
             if (save.ShowDialog() ?? false)
             {
-
                 foreach (var beheersdaad in plant.BeheerMaands)
                 {
                     string months = null;
@@ -88,8 +111,31 @@ namespace Plantjes.ViewModels.HelpClasses
                     if (beheersdaad.Dec != null && (bool)beheersdaad.Dec) months += "december";
                     output += $"{beheersdaad.Beheerdaad};{beheersdaad.Omschrijving};{months}\r\n";
                 }
-
                 File.WriteAllText(save.FileName, output);
+            }
+        }
+
+        public static void ExportUsersToCSV(IEnumerable<Gebruiker> gebruikers)
+        {
+            try
+            {
+                SaveFileDialog save = new SaveFileDialog();
+                save.Filter = "CSV file(*.csv)|*.csv";
+                string output = "Studentennummer;Voornaam;Familienaam;Tweede naam;Correspondentie;Emailadres\r\n";
+                if (save.ShowDialog() ?? false)
+                {
+                    foreach (var gebruiker in gebruikers)
+                    {
+                        output +=
+                            $"{gebruiker.Vivesnr};{gebruiker.Voornaam};{gebruiker.Achternaam};;;{gebruiker.Emailadres}\r\n";
+                    }
+                    File.WriteAllText(save.FileName, output);
+                }
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show($"{e.Message}\r\n\r\nFile in gebruik! Sluit de te-openen file en probeer opnieuw.",
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

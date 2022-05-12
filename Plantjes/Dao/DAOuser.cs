@@ -39,11 +39,10 @@ namespace Plantjes.Dao
         public static Gebruiker AddUser(string vivesNr, string firstName, string lastName, string emailadres, string password)
         {
             var passwordHashed = Helper.HashString(password);
-
-            return AddUser(vivesNr, firstName, lastName, emailadres, passwordHashed);
+            return AddUserToDB(vivesNr, firstName, lastName, emailadres, passwordHashed);
         }
 
-        public static Gebruiker AddUser(string vivesNr, string firstName, string lastName, string emailadres, byte[] password)
+        public static Gebruiker AddUserToDB(string vivesNr, string firstName, string lastName, string emailadres, byte[] password)
         {
             //written by Warre
             int role = 2;
