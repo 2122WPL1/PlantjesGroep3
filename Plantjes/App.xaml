@@ -5,5 +5,10 @@
              StartupUri="Views/Home/MainWindow.xaml">
     <Application.Resources>
         <FontFamily x:Key="Password">./Font/password.ttf#Password</FontFamily>
+        <ResourceDictionary>
+            <Color x:Key="base-color"></Color>
+            <Color x:Key="secondary-color"></Color>
+            <Color x:Key="tertiary-color"></Color>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
