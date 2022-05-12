@@ -56,15 +56,15 @@ namespace Plantjes.ViewModels.Services
             if (!string.IsNullOrWhiteSpace(bezonning))
                 plantList = plantList.Where(p => p.Abiotieks.Any(a => !string.IsNullOrEmpty(a.Bezonning) && a.Bezonning.ToLower() == bezonning.ToLower()));
             if (!string.IsNullOrWhiteSpace(habitat)) 
-                plantList = plantList.Where(p => p.AbiotiekMultis.Any(a => a.Eigenschap.ToLower() == "habitat" && a.Waarde.ToLower() == habitat.ToLower()));
+                plantList = plantList.Where(p => p.AbiotiekMultis.Any(a => a.Eigenschap.ToLower() == "habitat" && !string.IsNullOrEmpty(a.Waarde) && a.Waarde.ToLower() == habitat.ToLower()));
             if (!string.IsNullOrWhiteSpace(sociabiliteit)) 
-                plantList = plantList.Where(p => p.CommensalismeMultis.Any(f => f.Eigenschap.ToLower() == "sociabiliteit" && f.Waarde.ToLower() == sociabiliteit.ToLower()));
+                plantList = plantList.Where(p => p.CommensalismeMultis.Any(f => f.Eigenschap.ToLower() == "sociabiliteit" && !string.IsNullOrEmpty(f.Waarde) && f.Waarde.ToLower() == sociabiliteit.ToLower()));
             if (!string.IsNullOrWhiteSpace(bladkleur))
-                plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "bladkleur" && f.Waarde.ToLower() == bladkleur.ToLower()));
+                plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "bladkleur" && !string.IsNullOrEmpty(f.Waarde) && f.Waarde.ToLower() == bladkleur.ToLower()));
             if (!string.IsNullOrWhiteSpace(bloeikleur))
-                plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "bloeikleur" && f.Waarde.ToLower() == bloeikleur.ToLower()));
+                plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "bloeikleur" && !string.IsNullOrEmpty(f.Waarde) && f.Waarde.ToLower() == bloeikleur.ToLower()));
             if (!string.IsNullOrWhiteSpace(bladvorm))
-                plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "bladvorm" && f.Waarde.ToLower() == bladvorm.ToLower()));
+                plantList = plantList.Where(p => p.Fenotypes.Any(f => !string.IsNullOrEmpty(f.Bladvorm) && f.Bladvorm.ToLower() == bladvorm.ToLower()));
 
             return plantList;
         }
