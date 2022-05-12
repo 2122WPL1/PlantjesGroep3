@@ -13,10 +13,6 @@
     
     <Grid>
         <!-- Written by Ian on 25/02 -->
-        <Grid.Background>
-            <SolidColorBrush Color="#EEEEEE"/>
-        </Grid.Background>
-
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image x:Name="VivesLogo" Source="/image/vives-planten.png" MaxWidth="250"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
