@@ -9,42 +9,45 @@
              d:DesignHeight="834" d:DesignWidth="1250" Background="white">
     <UserControl.Resources>
         <conv:CommonMultiValueConverter x:Key="PlantParameterConverter"/>
+        <conv:VisibilityToArrowConverter x:Key="VisibilityToArrowConverter"/>
     </UserControl.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0">
-            <StackPanel Orientation="Horizontal" Margin="10,0,10,0">
-                <Label x:Name="lblNaam" Content="Naam:"/>
-                <TextBox x:Name="txtNaam" Width="200" VerticalContentAlignment="Center">
+            <StackPanel Orientation="Horizontal" Margin="10,0,10,0" HorizontalAlignment="Center">
+                <Label x:Name="lblNaam" Content="Naam:" Margin="-10,0"/>
+                <TextBox x:Name="txtNaam" Width="200" Margin="10,0" VerticalContentAlignment="Center">
                     <TextBox.InputBindings>
                         <KeyBinding Command="{Binding ElementName=btnZoeken, Path=Command}" CommandParameter="{Binding ElementName=btnZoeken, Path=CommandParameter}" Key="Return"/>
                     </TextBox.InputBindings>
                 </TextBox>
-                <Button Width="200" Content="Zoeken" x:Name="btnZoeken" Margin="10,0,10,0" VerticalAlignment="Center" Height="25"
+                <Button Command="{Binding CollapseCommand}" Width="25" Content="{Binding ElementName=stkMore, Path=Visibility, Converter={StaticResource VisibilityToArrowConverter}}" FontWeight="Bold" x:Name="btnExpand" Margin="10,0" VerticalAlignment="Center" Height="25"/>
+                <StackPanel Orientation="Horizontal" RenderTransformOrigin="1.5,0.5">
+                    <Button Width="200" Content="Zoeken" x:Name="btnZoeken" Margin="10,0,10,0" VerticalAlignment="Center" Height="25"
                         Command="{Binding SearchCommand}">
-                    <Button.CommandParameter>
-                        <MultiBinding Converter="{StaticResource PlantParameterConverter}">
-                            <Binding ElementName="txtNaam" Path="Text"/>
-                            <Binding ElementName="cbGrondsoort" Path="SelectedItem"/>
-                            <Binding ElementName="cbHabitat" Path="SelectedItem"/>
-                            <Binding ElementName="cbHabitus" Path="SelectedItem"/>
-                            <Binding ElementName="chbSocI" Path="IsChecked"/>
-                            <Binding ElementName="chbSocII" Path="IsChecked"/>
-                            <Binding ElementName="chbSocIII" Path="IsChecked"/>
-                            <Binding ElementName="chbSocIV" Path="IsChecked"/>
-                            <Binding ElementName="chbSocV" Path="IsChecked"/>
-                            <Binding ElementName="cbBezonning" Path="SelectedItem"/>
-                            <Binding ElementName="CbBladKleur" Path="SelectedItem"/>
-                            <Binding ElementName="CbBloeiKleur" Path="SelectedItem"/>
-                            <Binding ElementName="CbBladVorm" Path="SelectedItem"/>
-                        </MultiBinding>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Width="200" Content="Export" x:Name="btnExporteren" Margin="10,0,10,0" VerticalAlignment="Center" Height="25"
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource PlantParameterConverter}">
+                                <Binding ElementName="txtNaam" Path="Text"/>
+                                <Binding ElementName="cbGrondsoort" Path="SelectedItem"/>
+                                <Binding ElementName="cbHabitat" Path="SelectedItem"/>
+                                <Binding ElementName="cbHabitus" Path="SelectedItem"/>
+                                <Binding ElementName="chbSocI" Path="IsChecked"/>
+                                <Binding ElementName="chbSocII" Path="IsChecked"/>
+                                <Binding ElementName="chbSocIII" Path="IsChecked"/>
+                                <Binding ElementName="chbSocIV" Path="IsChecked"/>
+                                <Binding ElementName="chbSocV" Path="IsChecked"/>
+                                <Binding ElementName="cbBezonning" Path="SelectedItem"/>
+                                <Binding ElementName="CbBladKleur" Path="SelectedItem"/>
+                                <Binding ElementName="CbBloeiKleur" Path="SelectedItem"/>
+                                <Binding ElementName="CbBladVorm" Path="SelectedItem"/>
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Width="200" Content="Export" x:Name="btnExporteren" Margin="10,0,10,0" VerticalAlignment="Center" Height="25"
                                    Command="{Binding ExportCommand}"/>
-                <Button Command="{Binding CollapseCommand}" Width="200" Content="More" x:Name="btnExpand" Margin="10,0,10,0" VerticalAlignment="Center" Height="25"/>
+                </StackPanel>
             </StackPanel>
-            <WrapPanel Visibility="{Binding BtnCollapse}" HorizontalAlignment="Center" Margin="0,10">
+            <WrapPanel x:Name="stkMore" Visibility="{Binding BtnCollapse}" HorizontalAlignment="Center" Margin="0,10">
                 <StackPanel Orientation="Horizontal" Margin="10,0" Height="25">
                     <Label x:Name="lblGrondsoort" Content="Grondsoort:"/>
                     <ComboBox x:Name="cbGrondsoort" Width="200"
