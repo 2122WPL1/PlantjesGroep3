@@ -25,5 +25,15 @@ namespace Plantjes.Models.Classes
         }
 
         public string NamenKleur { get => (Children[1] as Label).Content as string; }
+
+        public static StackPanel Empty 
+        { 
+            get 
+            {
+                StackPanel panel = new StackPanel();
+                panel.Children.Add(new Label { Content = string.Empty });
+                return panel;
+            } 
+        }
     }
 }
