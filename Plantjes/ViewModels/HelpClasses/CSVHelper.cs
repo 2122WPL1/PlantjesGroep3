@@ -68,7 +68,7 @@ namespace Plantjes.ViewModels.HelpClasses
         {
             if (plantList == null || plantList.Count() == 0)
                 return;
-            IEnumerable<string> lines = plantList.Select(p => p.PlantToString());
+            IEnumerable<string> lines = plantList.Select(p => p.PlantToString(";"));
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "CSV file(*.csv)|*.csv";
             string output = $"Type;Familie;Geslacht;Soort;Variant;Nederlandse naam\r\n";
@@ -91,6 +91,7 @@ namespace Plantjes.ViewModels.HelpClasses
         {
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "CSV file(*.csv)|*.csv";
+            save.FileName = plant.PlantToString(" ");
             string output = $"Beheersdaad;Omschrijving;Maand\r\n";
             if (save.ShowDialog() ?? false)
             {
