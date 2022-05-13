@@ -19,21 +19,7 @@ namespace Plantjes.Dao
             };
             context.Plants.First(p => p == plant).Fotos.Add(foto);
             context.SaveChanges();
-            _ = context.SaveChanges();
             return foto;
-        }
-
-        ///Owen
-        public static string GetImageLocation(long plantId, string imageCategorie)
-        {
-            var foto = context.Fotos.Where(s => s.Eigenschap == imageCategorie).SingleOrDefault(s => s.Plant == plantId);
-
-            if (foto != null)
-            {
-                return foto.UrlLocatie;
-            }
-
-            return null;
         }
     }
 }
