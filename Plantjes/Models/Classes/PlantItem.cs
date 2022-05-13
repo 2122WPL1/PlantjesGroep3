@@ -33,7 +33,8 @@ namespace Plantjes.Models.Classes
         {
             _plant = plant;
 
-            Children.Add(new Rectangle() { Fill = Brushes.White });
+            Children.Add(new Border() { BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3E4239")), BorderThickness = new Thickness(1) });
+            Children.Add(new Rectangle() { Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F9F9F9")), Margin = new Thickness(1) });
             DockPanel panel = new DockPanel();
             HorizontalAlignment = HorizontalAlignment.Center;
             VerticalAlignment = VerticalAlignment.Center;
