@@ -69,31 +69,5 @@ namespace Plantjes.ViewModels.Services
             return plantList;
         }
         #endregion
-
-        //geschreven door owen
-        //omgezet voor de service door kenny
-        public ImageSource GetImageLocation(string ImageCatogrie, Plant SelectedPlantInResult)
-        {
-            // Request location of the image
-            string location = "";
-            if (SelectedPlantInResult != null)
-            {
-                location = DaoFoto.GetImageLocation(SelectedPlantInResult.PlantId, ImageCatogrie);
-            }
-
-            if (!string.IsNullOrEmpty(location))
-            {
-                    //Converting it to a bitmap image. This makes it possible to also have online image.
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.UriSource = new Uri(location, UriKind.Absolute);
-                    bitmap.EndInit();
-
-                    return bitmap;
-            }
-
-            return null;
-        }
-
     }
 }

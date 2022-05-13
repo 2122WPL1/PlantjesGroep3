@@ -35,6 +35,8 @@ namespace Plantjes.ViewModels
                 _eigenschappen.Add(new PlantEigenschap<BeheerMaand, object>(plant.BeheerMaands));
             if (plant.ExtraEigenschaps.Count > 0)
                 _eigenschappen.Add(new PlantEigenschap<ExtraEigenschap, object>(plant.ExtraEigenschaps));
+            if (plant.Fotos.Count > 0)
+                _eigenschappen.Add(new PlantEigenschap<Foto, object>(plant.Fotos));
         }
 
         public void ExportCSV()
