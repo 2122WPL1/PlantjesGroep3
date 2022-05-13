@@ -153,6 +153,19 @@ namespace Plantjes.ViewModels
             if (!IsRequiredFilled())
                 return;
 
+            TfgsvFamilie familie = DaoTfgsv.GetList<TfgsvFamilie>().FirstOrDefault(f => f.Familienaam == TextFamilie);
+            if (familie == null)
+                familie = DaoTfgsv.AddFamilie(SelectedType, TextFamilie);
+            TfgsvGeslacht geslacht = DaoTfgsv.GetList<TfgsvGeslacht>().FirstOrDefault(g => g.Geslachtnaam == TextGeslacht);
+            if (geslacht == null)
+                geslacht = DaoTfgsv.AddGeslacht(familie, TextGeslacht);
+            TfgsvSoort soort = DaoTfgsv.GetList<TfgsvSoort>().FirstOrDefault(s => s.Soortnaam == TextSoort);
+            if (soort == null)
+                soort = DaoTfgsv.AddSoort(geslacht, TextSoort);
+            TfgsvVariant variant = DaoTfgsv.GetList<TfgsvVariant>().FirstOrDefault(v => v.Variantnaam == TextVariant);
+            if (variant == null)
+                variant = DaoTfgsv.AddVariant(soort, TextVariant);
+
             // Adds the base plant to the DB
             Plant plant = DaoPlant.AddPlant(SelectedType.Planttypenaam, TextFamilie, TextGeslacht, 
                 string.IsNullOrEmpty(TextSoort) ? null : TextSoort,
