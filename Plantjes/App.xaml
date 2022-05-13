@@ -35,6 +35,13 @@
         <Style TargetType="Button">
             <Setter Property="Background" Value="{StaticResource tertiary}"/>
             <Setter Property="Foreground" Value="{StaticResource highlight}"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="200"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="3"/>
+                </Style>
+            </Style.Resources>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="{StaticResource quaternary}"/>
@@ -68,6 +75,5 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
     </Application.Resources>
 </Application>

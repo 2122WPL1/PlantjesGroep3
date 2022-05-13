@@ -34,8 +34,8 @@
     <DockPanel>
         <Grid Name="TopGrid" DockPanel.Dock="Top" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="197*"/>
-                <ColumnDefinition Width="213*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button Content="Zoeken" Width="100" Height="30" Margin="5"
@@ -48,7 +48,7 @@
                     Command="{Binding mainNavigationCommand}"
                     CommandParameter="VIEWDETAIL"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="1" Margin="529,0,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
                 <Button x:Name="btnDocent" Content="Docent" Width="100" Height="30" Margin="5"
                     Command="{Binding mainNavigationCommand}"
                     CommandParameter="VIEWDOCENT"
@@ -57,7 +57,11 @@
         </Grid >
 
         <Grid x:Name="MainContent">
-            <ContentControl Content="{Binding currentViewModel}"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="307*"/>
+                <ColumnDefinition Width="943*"/>
+            </Grid.ColumnDefinitions>
+            <ContentControl Content="{Binding currentViewModel}" Grid.ColumnSpan="2"/>
         </Grid>
     </DockPanel>
 </Window>
