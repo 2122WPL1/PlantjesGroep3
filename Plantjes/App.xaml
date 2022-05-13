@@ -5,8 +5,76 @@
              StartupUri="Views/Home/LoginWindow.xaml">
     <Application.Resources>
         <FontFamily x:Key="Password">./Font/password.ttf#Password</FontFamily>
-        <SolidColorBrush x:Key="base-color">#EBFADC</SolidColorBrush>
-        <SolidColorBrush x:Key="secondary-color">#CADEB6</SolidColorBrush>
-        <SolidColorBrush x:Key="tertiary-color">#3E4239</SolidColorBrush>
+        <SolidColorBrush x:Key="base">#F3F9ED</SolidColorBrush>
+        <SolidColorBrush x:Key="highlight">#f9f9f9</SolidColorBrush>
+        <SolidColorBrush x:Key="secondary">#D4E5C3</SolidColorBrush>
+        <SolidColorBrush x:Key="tertiary">#3E4239</SolidColorBrush>
+        <SolidColorBrush x:Key="quaternary">#3d4f2b</SolidColorBrush>
+
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="{StaticResource base}"/>
+        </Style>
+
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="{StaticResource base}"/>
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="{StaticResource tertiary}"/>
+            <Setter Property="Foreground" Value="{StaticResource highlight}"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource tertiary}"/>
+            <Setter Property="Foreground" Value="{StaticResource highlight}"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="200"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="3"/>
+                </Style>
+            </Style.Resources>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource quaternary}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="Menu">
+            <Setter Property="Background" Value="{StaticResource tertiary}"/>
+        </Style>
+
+        <Style TargetType="MenuItem">
+            <Setter Property="Foreground" Value="{StaticResource highlight}"/>
+            <Setter Property="Background" Value="{StaticResource tertiary}"/>
+        </Style>
+
+        <Style TargetType="ListView">
+            <Setter Property="Background" Value="{StaticResource base}"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="White"/>
+        </Style>
+
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Background" Value="{StaticResource tertiary}"/>
+            <Setter Property="Foreground" Value="{StaticResource highlight}"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource quaternary}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
     </Application.Resources>
 </Application>
