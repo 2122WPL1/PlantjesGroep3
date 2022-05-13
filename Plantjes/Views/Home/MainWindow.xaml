@@ -21,18 +21,22 @@
         <DataTemplate DataType="{x:Type viewModels:ViewModelSearch}">
             <pages:UserControlSearch/>
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type viewModels:ViewModelPlantDetail}">
             <pages:UserControlPlantDetail/>
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type viewModels:ViewModelDocent}">
             <pages:UserControlDocent/>
         </DataTemplate>
     </Window.Resources>
 
     <DockPanel>
-        <Grid DockPanel.Dock="Top" Margin="10">
+        <Grid Name="TopGrid" DockPanel.Dock="Top" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button Content="Zoeken" Width="100" Height="30" Margin="5"
                     Command="{Binding mainNavigationCommand}"
@@ -44,16 +48,20 @@
                     Command="{Binding mainNavigationCommand}"
                     CommandParameter="VIEWDETAIL"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
                 <Button x:Name="btnDocent" Content="Docent" Width="100" Height="30" Margin="5"
                     Command="{Binding mainNavigationCommand}"
                     CommandParameter="VIEWDOCENT"
                     Visibility="{Binding ElementName=btnDocent, Path=IsEnabled, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
-        </Grid>
+        </Grid >
 
         <Grid x:Name="MainContent">
-            <ContentControl Content="{Binding currentViewModel}"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="307*"/>
+                <ColumnDefinition Width="943*"/>
+            </Grid.ColumnDefinitions>
+            <ContentControl Content="{Binding currentViewModel}" Grid.ColumnSpan="2"/>
         </Grid>
     </DockPanel>
 </Window>

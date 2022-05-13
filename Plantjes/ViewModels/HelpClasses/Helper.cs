@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Win32;
@@ -127,12 +128,11 @@ namespace Plantjes.ViewModels.HelpClasses
         /// <summary>
         /// Loops through all de available users in the database, adding missing users from a .csv file.
         /// </summary>
-        public static void PopulateDB()
+        public static IEnumerable<Gebruiker> PopulateDB(IEnumerable<Gebruiker> gebruiker)
         {
-            var gebruikerList = DaoUser.GetGebruikerList();
             var gebruikerListCSV = CSVHelper.ImportNewMembersFromCSV();
             Dictionary<string, string> gebruikerDictionary = new Dictionary<string, string>();
-            foreach (Gebruiker g in gebruikerList)
+            foreach (Gebruiker g in gebruiker)
             {
                 gebruikerDictionary.Add(g.Vivesnr, g.Emailadres);
             }
@@ -143,7 +143,7 @@ namespace Plantjes.ViewModels.HelpClasses
                 {
                     if (!gebruikerDictionary.Keys.Contains(g.Vivesnr) && !gebruikerDictionary.Values.Contains(g.Emailadres))
                     {
-                        DaoUser.AddUserToDB(g.Vivesnr, g.Voornaam, g.Achternaam, g.Emailadres, g.HashPaswoord);
+                        yield return DaoUser.AddUserToDB(g.Vivesnr, g.Voornaam, g.Achternaam, g.Emailadres, g.HashPaswoord);
                     }
                 } 
             }
@@ -165,5 +165,19 @@ namespace Plantjes.ViewModels.HelpClasses
         // written by Warre
         public static bool? RadioButtonToBool(bool? ja, bool? nee)
             => !(bool)ja && !(bool)nee ? null : (bool)ja ? true : null;
+
+        public static BitmapImage ToImage(byte[] bytes)
+        {
+            BitmapImage biImage = null;
+            using (var ms = new MemoryStream(bytes))
+            {
+                biImage = new BitmapImage();
+                biImage.BeginInit();
+                biImage.CacheOption = BitmapCacheOption.OnLoad;
+                biImage.StreamSource = ms;
+                biImage.EndInit();
+            }
+            return biImage;
+        }
     }
 }

@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Plantjes.Models.Classes
 {
@@ -32,13 +33,15 @@ namespace Plantjes.Models.Classes
         {
             _plant = plant;
 
+            Children.Add(new Border() { BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3E4239")), BorderThickness = new Thickness(1) });
+            Children.Add(new Rectangle() { Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F9F9F9")), Margin = new Thickness(1) });
             DockPanel panel = new DockPanel();
             HorizontalAlignment = HorizontalAlignment.Center;
             VerticalAlignment = VerticalAlignment.Center;
             Margin = new Thickness(10);
             MouseDown += OnClick;
 
-            Image image = new Image() { Source = plant.GetPlantImage() };
+            Image image = new Image() { Source = plant.GetPlantImage(), Margin = new Thickness(1) };
             DockPanel.SetDock(image, Dock.Top);
             panel.Children.Add(image);
 

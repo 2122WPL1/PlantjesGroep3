@@ -12,7 +12,7 @@
             <Button Content="Exporteer details" Width="130" Height="20" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top"
                     Command="{Binding ExportCommand}"/>
             <Label Content="{Binding PlantNaam}" FontWeight="Bold" HorizontalAlignment="Center"/>
-            <Image Source="{Binding PlantImage}" HorizontalAlignment="Center" Width="500"/>
+            <Image Source="{Binding PlantImage}" HorizontalAlignment="Center" Height="200"/>
             <Label Content="{Binding Plant.Type}" HorizontalAlignment="Center"/>
             <Label Content="{Binding Plant.Familie}" HorizontalAlignment="Center"/>
             <Label Content="{Binding Plant.Geslacht}" HorizontalAlignment="Center"/>

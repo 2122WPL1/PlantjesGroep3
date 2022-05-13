@@ -25,7 +25,7 @@ namespace Plantjes.Dao
         /// <returns>Returns a <see cref="IEnumerable{T}"/> of type <see cref="DbSet{TEntity}"/>.</returns>
         public static IEnumerable<TEntity> GetList<TEntity>(bool distinct = false) where TEntity : class
         {
-            var dbset = context.Set<TEntity>();
+            var dbset = context.Set<TEntity>().ToList();
 
             return distinct ? dbset.Distinct() : dbset;
         }

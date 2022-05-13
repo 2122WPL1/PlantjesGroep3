@@ -9,10 +9,12 @@ namespace Plantjes.ViewModels.HelpClasses
     public class TabCommand : ICommand
     {
         private readonly Action<string> _action;
+        private readonly Gebruiker _gebruiker;
 
-        public TabCommand(Action<string> action)
+        public TabCommand(Action<string> action, Gebruiker gebruiker)
         {
             _action = action;
+            _gebruiker = gebruiker;
         }
 
         public event EventHandler CanExecuteChanged
@@ -25,7 +27,7 @@ namespace Plantjes.ViewModels.HelpClasses
         {
             try
             {
-                if (parameter as string == "VIEWDOCENT" && SimpleIoc.Default.IsRegistered<ViewModelMain>() && SimpleIoc.Default.GetInstance<ViewModelMain>().Gebruiker?.RolId > 1)
+                if (parameter as string == "VIEWDOCENT" && _gebruiker?.RolId > 1)
                     return false;
                 SimpleIoc.Default.GetInstance<ViewModelRepo>().GetViewModel(parameter as string);
                 return true;

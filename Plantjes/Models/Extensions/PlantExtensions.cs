@@ -30,7 +30,7 @@ namespace Plantjes.Models.Extensions
         {
             BitmapImage biImage = null;
             if (plant.Fotos.Count > 0)
-                using (var ms = new MemoryStream(plant.Fotos.First().Tumbnail))
+                using (var ms = new MemoryStream((plant.Fotos.FirstOrDefault(f => f.Eigenschap == "habitus") ?? plant.Fotos.First()).Tumbnail))
                 {
                     biImage = new BitmapImage();
                     biImage.BeginInit();

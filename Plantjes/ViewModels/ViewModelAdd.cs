@@ -19,6 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Drawing;
 using GalaSoft.MvvmLight.Ioc;
+using System.Reflection;
 
 namespace Plantjes.ViewModels
 {
@@ -37,6 +38,10 @@ namespace Plantjes.ViewModels
 
         private ObservableCollection<Beheersdaad> beheersdaden;
         private ObservableCollection<FenotypeMonth> fenotypeMonths;
+
+        private byte[] _bloeiImage = new byte[0];
+        private byte[] _habitusImage = new byte[0];
+        private byte[] _bladImage = new byte[0];
 
         private IEnumerable<TfgsvType> _cmbTypes;
         private IEnumerable<string> _cmbBladgrootte;
@@ -89,7 +94,7 @@ namespace Plantjes.ViewModels
             AddBeheersdaadCommand = new Command(new Action(AddBeheersdaadItem));
             AddFenotypeMonthCommand = new Command(new Action(AddFenotypeMonth));
             AddPlantCommand = new Command<object>(new Action<object>(AddPlant));
-            BloeiFotoCommand = new Command(new Action(AddFoto));
+            FotoCommand = new Command<string>(new Action<string>(AddFoto));
         }
 
         private bool IsRequiredFilled()
@@ -120,24 +125,15 @@ namespace Plantjes.ViewModels
             fenotypeMonths.Add(new FenotypeMonth());
         }
 
-        private void AddFoto()
+        private void AddFoto(string imageName)
         {
-            string path = "";
-            string savepath = "";
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "JPEG files|*.jpeg|PNG files|*.png";
+            ofd.Filter = "Image|*.jpeg;*.png;*.jpg";
 
-            if (ofd.ShowDialog() == true) 
-            {
-                path = ofd.FileName;
-            }
-            else
-            {
+            if (!(ofd.ShowDialog() ?? false))
                 return;
-            }
 
-            BitmapImage inputImage = new BitmapImage(new Uri(path, UriKind.Absolute));
-
+            GetType().GetField(imageName, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(this, File.ReadAllBytes(ofd.FileName));
         }
 
         /// <summary>
@@ -153,10 +149,30 @@ namespace Plantjes.ViewModels
             if (!IsRequiredFilled())
                 return;
 
+            TfgsvFamilie familie = DaoTfgsv.GetList<TfgsvFamilie>().FirstOrDefault(f => f.Familienaam == TextFamilie);
+            if (familie == null)
+                familie = DaoTfgsv.AddFamilie(SelectedType, TextFamilie);
+            TfgsvGeslacht geslacht = DaoTfgsv.GetList<TfgsvGeslacht>().FirstOrDefault(g => g.Geslachtnaam == TextGeslacht);
+            if (geslacht == null)
+                geslacht = DaoTfgsv.AddGeslacht(familie, TextGeslacht);
+            TfgsvSoort soort = DaoTfgsv.GetList<TfgsvSoort>().FirstOrDefault(s => s.Soortnaam == TextSoort);
+            if (soort == null)
+                soort = DaoTfgsv.AddSoort(geslacht, TextSoort);
+            TfgsvVariant variant = DaoTfgsv.GetList<TfgsvVariant>().FirstOrDefault(v => v.Variantnaam == TextVariant);
+            if (variant == null)
+                variant = DaoTfgsv.AddVariant(soort, TextVariant);
+
             // Adds the base plant to the DB
             Plant plant = DaoPlant.AddPlant(SelectedType.Planttypenaam, TextFamilie, TextGeslacht, 
                 string.IsNullOrEmpty(TextSoort) ? null : TextSoort,
                 string.IsNullOrEmpty(TextVariant) ? null : TextVariant);
+
+            if (_bloeiImage.Length > 0)
+                DaoFoto.AddFoto(plant, "bloei", string.Empty, _bloeiImage);
+            if (_bladImage.Length > 0)
+                DaoFoto.AddFoto(plant, "blad", string.Empty, _bladImage);
+            if (_habitusImage.Length > 0)
+                DaoFoto.AddFoto(plant, "habitus", string.Empty, _habitusImage);
 
             // checks if any fields for abiotiek are filled in
             if (MBezonning.Any(mi => mi.IsChecked) || MGrondsoort.Any(mi => mi.IsChecked) || MVoedingsbehoefte.Any(mi => mi.IsChecked))
@@ -387,7 +403,7 @@ namespace Plantjes.ViewModels
             }
         }
 
-        public Command BloeiFotoCommand { get; set; }
+        public Command<string> FotoCommand { get; set; }
         #endregion
 
         #region Fenotype
