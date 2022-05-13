@@ -17,14 +17,14 @@ namespace Plantjes.ViewModels
     //Written by Renzo
     public class ViewModelPlantDetail : ViewModelBase
     {
-        private List<StackPanel> _eigenschappen;
+        private List<Grid> _eigenschappen;
 
         public ViewModelPlantDetail(Plant plant)
         {
             ExportCommand = new RelayCommand(ExportCSV);
 
             Plant = plant;
-            _eigenschappen = new List<StackPanel>();
+            _eigenschappen = new List<Grid>();
             if (plant.Fenotypes.Count > 0 || plant.FenotypeMultis.Count > 0)
                 _eigenschappen.Add(new PlantEigenschap<Fenotype, FenotypeMulti>(plant.Fenotypes, plant.FenotypeMultis));
             if (plant.Abiotieks.Count > 0 || plant.AbiotiekMultis.Count > 0)
@@ -49,7 +49,7 @@ namespace Plantjes.ViewModels
         
         public BitmapImage PlantImage { get => Plant.GetPlantImage(); }
 
-        public List<StackPanel> Eigenschappen { get => _eigenschappen; }
+        public List<Grid> Eigenschappen { get => _eigenschappen; }
 
         public RelayCommand ExportCommand { get; set; }
     }

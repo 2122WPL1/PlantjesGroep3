@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Win32;
@@ -164,5 +165,19 @@ namespace Plantjes.ViewModels.HelpClasses
         // written by Warre
         public static bool? RadioButtonToBool(bool? ja, bool? nee)
             => !(bool)ja && !(bool)nee ? null : (bool)ja ? true : null;
+
+        public static BitmapImage ToImage(byte[] bytes)
+        {
+            BitmapImage biImage = null;
+            using (var ms = new MemoryStream(bytes))
+            {
+                biImage = new BitmapImage();
+                biImage.BeginInit();
+                biImage.CacheOption = BitmapCacheOption.OnLoad;
+                biImage.StreamSource = ms;
+                biImage.EndInit();
+            }
+            return biImage;
+        }
     }
 }
