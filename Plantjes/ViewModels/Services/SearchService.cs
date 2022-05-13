@@ -61,9 +61,9 @@ namespace Plantjes.ViewModels.Services
                 plantList = plantList.Where(p => p.CommensalismeMultis.Any(f => f.Eigenschap.ToLower() == "sociabiliteit" && f.Waarde.ToLower() == sociabiliteit.ToLower()));
             if (!string.IsNullOrWhiteSpace(bladkleur))
                 plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "bladkleur" && f.Waarde.ToLower() == bladkleur.ToLower()));
-            if (!string.IsNullOrWhiteSpace(bladkleur))
+            if (!string.IsNullOrWhiteSpace(bloeikleur))
                 plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "bloeikleur" && f.Waarde.ToLower() == bloeikleur.ToLower()));
-            if (!string.IsNullOrWhiteSpace(bladkleur))
+            if (!string.IsNullOrWhiteSpace(bladvorm))
                 plantList = plantList.Where(p => p.FenotypeMultis.Any(f => f.Eigenschap.ToLower() == "bladvorm" && f.Waarde.ToLower() == bladvorm.ToLower()));
 
             return plantList;

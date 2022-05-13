@@ -39,7 +39,7 @@
                                 <Binding ElementName="cbBezonning" Path="SelectedItem"/>
                                 <Binding ElementName="CbBladKleur" Path="SelectedItem"/>
                                 <Binding ElementName="CbBloeiKleur" Path="SelectedItem"/>
-                                <Binding ElementName="CbBladVorm" Path="SelectedItem"/>
+                                <Binding ElementName="cbBladVorm" Path="SelectedItem"/>
                             </MultiBinding>
                         </Button.CommandParameter>
                     </Button>
