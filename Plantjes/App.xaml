@@ -56,7 +56,6 @@
         <Style TargetType="MenuItem">
             <Setter Property="Foreground" Value="{StaticResource highlight}"/>
             <Setter Property="Background" Value="{StaticResource tertiary}"/>
-            <Setter Property="FontWeight" Value="Bold"/>
         </Style>
 
         <Style TargetType="ListView">
@@ -65,7 +64,7 @@
 
         <Style TargetType="TextBox">
             <Setter Property="Background" Value="White"/>
-        </Style> 
+        </Style>
 
         <Style TargetType="GridViewColumnHeader">
             <Setter Property="Background" Value="{StaticResource tertiary}"/>
@@ -76,6 +75,5 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
     </Application.Resources>
 </Application>
