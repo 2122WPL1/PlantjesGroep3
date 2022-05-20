@@ -21,7 +21,8 @@ namespace Plantjes.Dao
                 .Include(p => p.FenotypeMultis)
                 .Include(p => p.ExtraEigenschaps)
                 .Include(p => p.BeheerMaands)
-                .Include(p => p.Fotos);
+                .Include(p => p.Fotos)
+                .ToList();
         }
 
         public static Plant AddPlant(string type, string familie, string geslacht, string soort = null, string variant = null)
