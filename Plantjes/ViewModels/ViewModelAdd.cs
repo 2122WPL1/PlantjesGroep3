@@ -122,6 +122,7 @@ namespace Plantjes.ViewModels
         /// </summary>
         private void AddFenotypeMonth()
         {
+            
             fenotypeMonths.Add(new FenotypeMonth());
         }
 
@@ -129,6 +130,7 @@ namespace Plantjes.ViewModels
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Image|*.jpeg;*.png;*.jpg";
+            ofd.InitialDirectory = "C:/Users/Gebruiker/Downloads";
 
             if (!(ofd.ShowDialog() ?? false))
                 return;
