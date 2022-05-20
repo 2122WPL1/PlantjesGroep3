@@ -39,6 +39,7 @@ namespace Plantjes.Models.Classes
             HorizontalAlignment = HorizontalAlignment.Center;
             VerticalAlignment = VerticalAlignment.Center;
             Margin = new Thickness(10);
+            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F9F9F9"));
             MouseDown += OnClick;
 
             Image image = new Image() { Source = plant.GetPlantImage(), Margin = new Thickness(1) };

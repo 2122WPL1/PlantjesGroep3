@@ -95,6 +95,8 @@ namespace Plantjes.ViewModels.HelpClasses
                         Fill = (SolidColorBrush)new BrushConverter().ConvertFromString("#" + Convert.ToHexString(item.HexWaarde)),
                     },
                     InputGestureText = item.NaamKleur.FirstToUpper(),
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F9F9F9")),
+                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3E4239"))
                 };
             }
         }
@@ -120,6 +122,8 @@ namespace Plantjes.ViewModels.HelpClasses
                     IsCheckable = true,
                     StaysOpenOnClick = true,
                     Header = selector(item).FirstToUpper(),
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F9F9F9")),
+                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3E4239"))
                 };
             }
         }
