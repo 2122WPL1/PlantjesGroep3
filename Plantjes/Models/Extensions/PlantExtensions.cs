@@ -12,7 +12,7 @@ namespace Plantjes.Models.Extensions
     //Written by Ian Dumalin on 05/05
     internal static class PlantExtensions
     {
-        public static string PlantToString(this Plant plant)
+        public static string PlantToString(this Plant plant, string? delimiter)
         {
             string type = plant.Type.FirstToUpper();
             string familie = plant.Familie.FirstToUpper();
@@ -22,8 +22,8 @@ namespace Plantjes.Models.Extensions
                 soort == "__" ? string.Empty : plant.Soort.FirstToUpper();
             string variant = plant.Variant.RemoveQuotes().FirstToUpper();
             string nederlandsNaam = plant.NederlandsNaam.FirstToUpper();
-            return $"{type};{familie};{geslacht};{soort};" +
-                   $"{variant};{nederlandsNaam}";
+            return $"{type}{delimiter}{familie}{delimiter}{geslacht}{delimiter}{soort}{delimiter}" +
+                   $"{variant}{delimiter}{nederlandsNaam}";
         }
 
         public static BitmapImage GetPlantImage(this Plant plant)
