@@ -10,7 +10,10 @@ namespace Plantjes.Models.Extensions
     {
         //written by Warre
         public static string FirstToUpper(this string input) 
-            =>input != null ? (input.Length > 1 ? char.ToUpper(input[0]) + input[1..].ToLower() : input.ToUpper()) : null;
+            =>input != null ? (input.Length > 1 ? char.ToUpper(input[0]) + input[1..] : input.ToUpper()) : null;
+
+        public static string FirstToUpperRestToLower(this string input)
+            => input != null ? (input.Length > 1 ? char.ToUpper(input[0]) + input[1..].ToLower() : input.ToUpper()) : null;
 
         public static string RemoveQuotes(this string name)
         {

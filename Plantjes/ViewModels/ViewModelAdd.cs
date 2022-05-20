@@ -133,7 +133,9 @@ namespace Plantjes.ViewModels
             if (!(ofd.ShowDialog() ?? false))
                 return;
 
-            GetType().GetField(imageName, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(this, File.ReadAllBytes(ofd.FileName));
+            var field = GetType().GetField(imageName, BindingFlags.Instance | BindingFlags.NonPublic);
+            field?.SetValue(this, File.ReadAllBytes(ofd.FileName));
+            GetType().GetProperty(field.Name[1..].FirstToUpper())?.SetValue(this, ofd.FileName);
         }
 
         /// <summary>
@@ -401,6 +403,25 @@ namespace Plantjes.ViewModels
             {
                 selectedVariant = value;
             }
+        }
+
+        private string _bloeiImagePath;
+        public string BloeiImage
+        {
+            get => _bloeiImagePath;
+            set { _bloeiImagePath = value; OnPropertyChanged(); }
+        }
+        private string _habitusImagePath;
+        public string HabitusImage
+        {
+            get => _habitusImagePath;
+            set { _habitusImagePath = value; OnPropertyChanged(); }
+        }
+        private string _bladImagePath;
+        public string BladImage
+        {
+            get => _bladImagePath;
+            set { _bladImagePath = value; OnPropertyChanged(); }
         }
 
         public Command<string> FotoCommand { get; set; }

@@ -14,14 +14,14 @@ namespace Plantjes.Models.Extensions
     {
         public static string PlantToString(this Plant plant, string? delimiter)
         {
-            string type = plant.Type.FirstToUpper();
-            string familie = plant.Familie.FirstToUpper();
-            string geslacht = plant.Geslacht.FirstToUpper();
+            string type = plant.Type.FirstToUpperRestToLower();
+            string familie = plant.Familie.FirstToUpperRestToLower();
+            string geslacht = plant.Geslacht.FirstToUpperRestToLower();
             string soort = plant.Soort;
             soort =
-                soort == "__" ? string.Empty : plant.Soort.FirstToUpper();
-            string variant = plant.Variant.RemoveQuotes().FirstToUpper();
-            string nederlandsNaam = plant.NederlandsNaam.FirstToUpper();
+                soort == "__" ? string.Empty : plant.Soort.FirstToUpperRestToLower();
+            string variant = plant.Variant.RemoveQuotes().FirstToUpperRestToLower();
+            string nederlandsNaam = plant.NederlandsNaam.FirstToUpperRestToLower();
             return $"{type}{delimiter}{familie}{delimiter}{geslacht}{delimiter}{soort}{delimiter}" +
                    $"{variant}{delimiter}{nederlandsNaam}";
         }
