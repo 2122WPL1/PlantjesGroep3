@@ -44,7 +44,7 @@
                         Visibility="{Binding ElementName=btnAdd, Path=IsEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
                     Command="{Binding MainNavigationCommand}"
                     CommandParameter="VIEWADD"/>
-                <Button Content="{Binding }" Width="100" Height="30" Margin="5"
+                <Button Content="{Binding DetailTabText}" Width="100" Height="30" Margin="5"
                     Command="{Binding MainNavigationCommand}"
                     CommandParameter="VIEWDETAIL"/>
             </StackPanel>

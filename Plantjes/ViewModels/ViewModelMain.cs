@@ -12,14 +12,8 @@ namespace Plantjes.ViewModels
         private readonly SimpleIoc _iocc = SimpleIoc.Default;
         private readonly ViewModelRepo _viewModelRepo;
 
+        private string _detailTabText = "Detail";
         private ViewModelBase _currentViewModel;
-
-        public TabCommand MainNavigationCommand { get; set; }
-        public ViewModelBase CurrentViewModel
-        {
-            get { return _currentViewModel; }
-            set { SetProperty(ref _currentViewModel, value); }
-        }
 
         public ViewModelMain(ILoginUserService loginUserService)
         {
@@ -30,11 +24,24 @@ namespace Plantjes.ViewModels
             //  dialogService.ShowMessageBox(this, "", "");
         }
 
-        public Gebruiker Gebruiker { get; set; } = null;
-
         public void OnNavigationChanged(string userControlName)
         {
             CurrentViewModel = _viewModelRepo.GetViewModel(userControlName);
+        }
+
+        public string DetailTabText
+        {
+            get => _detailTabText;
+            set => SetProperty(ref _detailTabText, value);
+        }
+
+        public Gebruiker Gebruiker { get; set; } = null;
+
+        public TabCommand MainNavigationCommand { get; set; }
+        public ViewModelBase CurrentViewModel
+        {
+            get => _currentViewModel;
+            set => SetProperty(ref _currentViewModel, value);
         }
     }
 }

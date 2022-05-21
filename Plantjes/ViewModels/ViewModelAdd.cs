@@ -291,7 +291,8 @@ namespace Plantjes.ViewModels
 
             Helper.SwitchTabAndReset("VIEWDETAIL", 
                 () => new ViewModelPlantDetail(plant), 
-                () => new ViewModelAdd(SimpleIoc.Default.GetInstance<ISearchService>()));
+                () => new ViewModelAdd(SimpleIoc.Default.GetInstance<ISearchService>())
+                , plant);
         }
 
         public int SelectedTab
@@ -302,7 +303,6 @@ namespace Plantjes.ViewModels
                 if (IsRequiredFilled())
                 {
                     _selectedTab = value;
-                
                 }
             }
         }

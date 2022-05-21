@@ -33,17 +33,17 @@ namespace Plantjes.ViewModels.HelpClasses
             }
             return false;
         }
-        public static void SwitchTabAndReset<TCurrent, T>(string tab, Func<TCurrent> thisFactory, Func<T> factory) 
+        public static void SwitchTabAndReset<TCurrent, T>(string tab, Func<TCurrent> thisFactory, Func<T> factory, Plant plant) 
             where T : class
             where TCurrent : class
         {
             if (SimpleIoc.Default.IsRegistered<TCurrent>() || SimpleIoc.Default.ContainsCreated<T>())
                 SimpleIoc.Default.Unregister<TCurrent>();
             SimpleIoc.Default.Register(thisFactory);
-            SwitchTab<T>(tab, factory);
+            SwitchTab<T>(tab, plant, factory);
         }
 
-        public static void SwitchTab<T>(string tab, Func<T> factory = null) where T : class
+        public static void SwitchTab<T>(string tab, Plant plant = null, Func<T> factory = null) where T : class
         {
             if (factory != null)
             {
@@ -51,7 +51,10 @@ namespace Plantjes.ViewModels.HelpClasses
                     SimpleIoc.Default.Unregister<T>();
                 SimpleIoc.Default.Register(factory);
             }
-            SimpleIoc.Default.GetInstance<ViewModelMain>().OnNavigationChanged(tab);
+            var main = SimpleIoc.Default.GetInstance<ViewModelMain>();
+            main.OnNavigationChanged(tab);
+            if (tab == "VIEWDETAIL" && plant != null)
+                main.DetailTabText = "Detail: " + plant.GetPlantName().Trim();
         }
 
         // Written by Warre, converted to help method by Ian

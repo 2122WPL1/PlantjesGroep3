@@ -20,8 +20,6 @@ namespace Plantjes.Models.Classes
 {
     public class PlantItem : Grid
     {
-        private readonly Plant _plant;
-
         public PlantItem(bool isEmptyPlant = false)
         {
             Margin = new Thickness(0, 50, 0, 0);
@@ -31,7 +29,7 @@ namespace Plantjes.Models.Classes
 
         public PlantItem(Plant plant)
         {
-            _plant = plant;
+            Plant = plant;
 
             Children.Add(new Border() { BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3E4239")), BorderThickness = new Thickness(1) });
             Children.Add(new Rectangle() { Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F9F9F9")), Margin = new Thickness(1) });
@@ -59,9 +57,9 @@ namespace Plantjes.Models.Classes
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            Helper.SwitchTab("VIEWDETAIL", () => new ViewModelPlantDetail(Plant));
+            Helper.SwitchTab("VIEWDETAIL", Plant, () => new ViewModelPlantDetail(Plant));
         }
 
-        public Plant Plant { get { return _plant; } }
+        public Plant Plant { get; }
     }
 }
