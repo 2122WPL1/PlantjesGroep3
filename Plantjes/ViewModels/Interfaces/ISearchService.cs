@@ -1,9 +1,7 @@
-﻿using Plantjes.Models;
+﻿#nullable enable
 using Plantjes.Models.Db;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows.Media;
 
 namespace Plantjes.ViewModels.Interfaces
 {

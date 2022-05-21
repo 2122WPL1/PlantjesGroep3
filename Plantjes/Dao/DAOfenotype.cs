@@ -1,4 +1,5 @@
-﻿using Plantjes.Models.Db;
+﻿#nullable enable
+using Plantjes.Models.Db;
 using System;
 using System.Collections.Generic;
 using System.Linq;

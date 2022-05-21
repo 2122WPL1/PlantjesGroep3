@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Plantjes.Models.Db;
+using System;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
-using Plantjes.Models.Db;
 
 namespace Plantjes.Models.Extensions
 {
     //Written by Ian Dumalin on 05/05
     internal static class PlantExtensions
     {
-        public static string PlantToString(this Plant plant, string? delimiter)
+        public static string PlantToString(this Plant plant, string delimiter)
         {
             string type = plant.Type.FirstToUpperRestToLower();
             string familie = plant.Familie.FirstToUpperRestToLower();

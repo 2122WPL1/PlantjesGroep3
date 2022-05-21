@@ -1,22 +1,18 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using Plantjes.Dao;
+using Plantjes.Models.Db;
+using Plantjes.Models.Extensions;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Win32;
-using Plantjes.Dao;
-using Plantjes.Models.Db;
-using Plantjes.Models.Extensions;
-using Plantjes.ViewModels.Interfaces;
 
 namespace Plantjes.ViewModels.HelpClasses
 {
@@ -68,7 +64,7 @@ namespace Plantjes.ViewModels.HelpClasses
         public static byte[] HashString(string password)
         {
             var passwordBytes = Encoding.ASCII.GetBytes(password);
-            var md5Hasher = new MD5CryptoServiceProvider();
+            var md5Hasher = MD5.Create();
             var passwordHashed = md5Hasher.ComputeHash(passwordBytes);
             return passwordHashed;
         }

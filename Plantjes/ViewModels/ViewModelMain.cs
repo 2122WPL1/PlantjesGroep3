@@ -25,33 +25,18 @@ namespace Plantjes.ViewModels
 
         public ViewModelMain(ILoginUserService loginUserService)
         {
-            loggedInMessage = loginUserService.LoggedInMessage();
-            this._viewModelRepo = iocc.GetInstance<ViewModelRepo>();
+            _viewModelRepo = iocc.GetInstance<ViewModelRepo>();
             _currentViewModel = iocc.GetInstance<ViewModelSearch>();
 
-            mainNavigationCommand = new TabCommand(new Action<string>(OnNavigationChanged), loginUserService.Gebruiker);
+            mainNavigationCommand = new TabCommand(OnNavigationChanged, loginUserService.Gebruiker);
             //  dialogService.ShowMessageBox(this, "", "");
-        }
-
-        private string _loggedInMessage { get; set; }
-        public string loggedInMessage
-        {
-            get
-            {
-                return _loggedInMessage;
-            }
-            set
-            {
-                _loggedInMessage = value;
-                RaisePropertyChanged("loggedInMessage");
-            }
         }
 
         public Gebruiker Gebruiker { get; set; } = null;
 
         public void OnNavigationChanged(string userControlName)
         {
-            this.currentViewModel = this._viewModelRepo.GetViewModel(userControlName);
+            currentViewModel = _viewModelRepo.GetViewModel(userControlName);
         }
     }
 }

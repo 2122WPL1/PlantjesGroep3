@@ -18,7 +18,6 @@ namespace Plantjes.ViewModels.HelpClasses
             // registreren van utility services
             iocc.Register<ILoginUserService, LoginUserService>();
             iocc.Register<ISearchService, SearchService>();
-            iocc.Register<IDetailService, DetailService>();
         }
     }
 }

@@ -14,10 +14,5 @@ namespace Plantjes.Views.Home
             DataContext = SimpleIoc.Default.GetInstance<ViewModelMain>();
             InitializeComponent();
         }
-
-        private void btnDocent_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

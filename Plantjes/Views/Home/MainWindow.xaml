@@ -45,7 +45,7 @@
                         Visibility="{Binding ElementName=btnAdd, Path=IsEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
                     Command="{Binding mainNavigationCommand}"
                     CommandParameter="VIEWADD"/>
-                <Button Content="Detail" Width="100" Height="30" Margin="5"
+                <Button Content="{Binding }" Width="100" Height="30" Margin="5"
                     Command="{Binding mainNavigationCommand}"
                     CommandParameter="VIEWDETAIL"/>
             </StackPanel>
@@ -53,7 +53,7 @@
                 <Button x:Name="btnDocent" Content="Docent" Width="100" Height="30" Margin="5"
                     Command="{Binding mainNavigationCommand}"
                     CommandParameter="VIEWDOCENT"
-                    Visibility="{Binding ElementName=btnDocent, Path=IsEnabled, Converter={StaticResource BoolToVisibilityConverter}}" Click="btnDocent_Click"/>
+                    Visibility="{Binding ElementName=btnDocent, Path=IsEnabled, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
         </Grid >
 
