@@ -23,8 +23,8 @@ namespace Plantjes.Dao
             {
                 commensalisme.Strategie = strategie;
             }
-            context.Plants.First(p => p == plant).Commensalismes.Add(commensalisme);
-            context.SaveChanges();
+            Context.Plants.First(p => p == plant).Commensalismes.Add(commensalisme);
+            Context.SaveChanges();
             return commensalisme;
         }
 
@@ -35,8 +35,8 @@ namespace Plantjes.Dao
                 Eigenschap = eigenschap,
                 Waarde = waarde
             };
-            context.Plants.First(p => p == plant).CommensalismeMultis.Add(commensalismemulti);
-            context.SaveChanges();
+            Context.Plants.First(p => p == plant).CommensalismeMultis.Add(commensalismemulti);
+            Context.SaveChanges();
             return commensalismemulti;
         }
     }

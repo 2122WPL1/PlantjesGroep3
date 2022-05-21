@@ -39,10 +39,10 @@ namespace Plantjes.Dao
         public static Gebruiker AddUser(string vivesNr, string firstName, string lastName, string emailadres, string password)
         {
             var passwordHashed = Helper.HashString(password);
-            return AddUserToDB(vivesNr, firstName, lastName, emailadres, passwordHashed);
+            return UserToDb(vivesNr, firstName, lastName, emailadres, passwordHashed);
         }
 
-        public static Gebruiker AddUserToDB(string vivesNr, string firstName, string lastName, string emailadres, byte[] password)
+        public static Gebruiker UserToDb(string vivesNr, string firstName, string lastName, string emailadres, byte[] password)
         {
             //written by Warre
             int role = 2;
@@ -60,15 +60,15 @@ namespace Plantjes.Dao
                 RolId = role,
                 HashPaswoord = password
             };
-            context.Gebruikers.Add(gebruiker);
-            context.SaveChanges();
+            Context.Gebruikers.Add(gebruiker);
+            Context.SaveChanges();
             return gebruiker;
         }
 
         public static void UpdateUserLogin(Gebruiker gebruiker)
         {
-            context.Gebruikers.Update(gebruiker);
-            context.SaveChanges();
+            Context.Gebruikers.Update(gebruiker);
+            Context.SaveChanges();
         }
 
         public static void UpdateUser(Gebruiker gebruiker, byte[] password)
@@ -79,7 +79,7 @@ namespace Plantjes.Dao
                 gebruiker.HashPaswoord = password;
             }
             UpdateUserLogin(gebruiker);
-            context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

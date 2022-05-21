@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Controls;
@@ -128,22 +127,22 @@ namespace Plantjes.ViewModels.HelpClasses
         /// <summary>
         /// Loops through all de available users in the database, adding missing users from a .csv file.
         /// </summary>
-        public static IEnumerable<Gebruiker> PopulateDB(IEnumerable<Gebruiker> gebruiker)
+        public static IEnumerable<Gebruiker> PopulateDb(IEnumerable<Gebruiker> gebruiker)
         {
-            var gebruikerListCSV = CSVHelper.ImportNewMembersFromCSV();
-            Dictionary<string, string> gebruikerDictionary = new Dictionary<string, string>();
+            var gebruikerListCsv = CsvHelper.ImportNewMembersFromCsv();
+            Dictionary<string, string> gebruikerDictionary = new();
             foreach (Gebruiker g in gebruiker)
             {
                 gebruikerDictionary.Add(g.Vivesnr, g.Emailadres);
             }
 
-            if (gebruikerListCSV != null)
+            if (gebruikerListCsv != null)
             {
-                foreach (Gebruiker g in gebruikerListCSV)
+                foreach (Gebruiker g in gebruikerListCsv)
                 {
-                    if (!gebruikerDictionary.Keys.Contains(g.Vivesnr) && !gebruikerDictionary.Values.Contains(g.Emailadres))
+                    if (!gebruikerDictionary.ContainsKey(g.Vivesnr) && !gebruikerDictionary.ContainsValue(g.Emailadres))
                     {
-                        yield return DaoUser.AddUserToDB(g.Vivesnr, g.Voornaam, g.Achternaam, g.Emailadres, g.HashPaswoord);
+                        yield return DaoUser.UserToDb(g.Vivesnr, g.Voornaam, g.Achternaam, g.Emailadres, g.HashPaswoord);
                     }
                 } 
             }

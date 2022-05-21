@@ -31,8 +31,8 @@ namespace Plantjes.Dao
             {
                 abiotiek.AntagonischeOmgeving = antagonischeomgeving;
             }
-            context.Plants.First(p => p == plant).Abiotieks.Add(abiotiek);
-            context.SaveChanges();
+            Context.Plants.First(p => p == plant).Abiotieks.Add(abiotiek);
+            Context.SaveChanges();
             return abiotiek;
         }
 
@@ -43,8 +43,8 @@ namespace Plantjes.Dao
                 Eigenschap = eigenschap,
                 Waarde = waarde
             };
-            context.Plants.First(p => p == plant).AbiotiekMultis.Add(abiotiekMulti);
-            context.SaveChanges();
+            Context.Plants.First(p => p == plant).AbiotiekMultis.Add(abiotiekMulti);
+            Context.SaveChanges();
             return abiotiekMulti;
         }
     }

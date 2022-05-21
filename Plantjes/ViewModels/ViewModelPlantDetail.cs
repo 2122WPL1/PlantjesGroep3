@@ -21,7 +21,7 @@ namespace Plantjes.ViewModels
 
         public ViewModelPlantDetail(Plant plant)
         {
-            ExportCommand = new RelayCommand(ExportCSV);
+            ExportCommand = new RelayCommand(ExportCsv);
 
             Plant = plant;
             _eigenschappen = new List<Grid>();
@@ -39,9 +39,9 @@ namespace Plantjes.ViewModels
                 _eigenschappen.Add(new PlantEigenschap<Foto, object>(plant.Fotos));
         }
 
-        public void ExportCSV()
+        public void ExportCsv()
         {
-            CSVHelper.ExportPlantDetailsToCSV(Plant);
+            CsvHelper.ExportPlantDetailsToCsv(Plant);
         }
         public string PlantNaam { get => Plant.GetPlantName(); }
 

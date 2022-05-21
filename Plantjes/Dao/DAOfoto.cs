@@ -17,8 +17,8 @@ namespace Plantjes.Dao
                 UrlLocatie = urllocatie,
                 Tumbnail = thumbnail
             };
-            context.Plants.First(p => p == plant).Fotos.Add(foto);
-            context.SaveChanges();
+            Context.Plants.First(p => p == plant).Fotos.Add(foto);
+            Context.SaveChanges();
             return foto;
         }
     }

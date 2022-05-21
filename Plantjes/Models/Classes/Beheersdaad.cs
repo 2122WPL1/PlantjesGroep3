@@ -28,7 +28,7 @@ namespace Plantjes.Models.Classes
 
             panel.Children.Add(new Label() { Content = "Maand:", VerticalAlignment = VerticalAlignment.Center });
             Menu months = new Menu() { Width = 150, Height = 25 };
-            MenuItem header = new MenuItem() { VerticalAlignment = VerticalAlignment.Center, Header = "Maanden selecteren...", ItemsSource = makeMonths().ToList() };
+            MenuItem header = new MenuItem() { VerticalAlignment = VerticalAlignment.Center, Header = "Maanden selecteren...", ItemsSource = MakeMonths().ToList() };
             months.Items.Add(header);
             panel.Children.Add(months);
 
@@ -41,7 +41,7 @@ namespace Plantjes.Models.Classes
             Content = panel;
         }
 
-        private IEnumerable<MenuItem> makeMonths()
+        private IEnumerable<MenuItem> MakeMonths()
         {
             foreach (string item in Helper.GetMonthsList())
             {

@@ -12,7 +12,6 @@
 
     <Window.Resources>
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-        <conv:CommonMultiValueConverter x:Key="CommonMultiValueConverter"/>
 
         <DataTemplate DataType="{x:Type viewModels:ViewModelAdd}">
             <pages:UserControlAdd/>
@@ -39,19 +38,19 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button Content="Zoeken" Width="100" Height="30" Margin="5"
-                    Command="{Binding mainNavigationCommand}"
+                    Command="{Binding MainNavigationCommand}"
                     CommandParameter="VIEWSEARCH"/>
                 <Button Name="btnAdd" Content="Toevoegen" Width="100" Height="30" Margin="5"
                         Visibility="{Binding ElementName=btnAdd, Path=IsEnabled, Converter={StaticResource BoolToVisibilityConverter}}"
-                    Command="{Binding mainNavigationCommand}"
+                    Command="{Binding MainNavigationCommand}"
                     CommandParameter="VIEWADD"/>
                 <Button Content="{Binding }" Width="100" Height="30" Margin="5"
-                    Command="{Binding mainNavigationCommand}"
+                    Command="{Binding MainNavigationCommand}"
                     CommandParameter="VIEWDETAIL"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
                 <Button x:Name="btnDocent" Content="Docent" Width="100" Height="30" Margin="5"
-                    Command="{Binding mainNavigationCommand}"
+                    Command="{Binding MainNavigationCommand}"
                     CommandParameter="VIEWDOCENT"
                     Visibility="{Binding ElementName=btnDocent, Path=IsEnabled, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
@@ -62,7 +61,7 @@
                 <ColumnDefinition Width="307*"/>
                 <ColumnDefinition Width="943*"/>
             </Grid.ColumnDefinitions>
-            <ContentControl Content="{Binding currentViewModel}" Grid.ColumnSpan="2"/>
+            <ContentControl Content="{Binding CurrentViewModel}" Grid.ColumnSpan="2"/>
         </Grid>
     </DockPanel>
 </Window>

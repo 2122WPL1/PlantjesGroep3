@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using Plantjes.ViewModels.Interfaces;
-using Plantjes.ViewModels;
 
 namespace Plantjes.ViewModels.HelpClasses
 {  /*written by kenny*/
@@ -12,10 +11,10 @@ namespace Plantjes.ViewModels.HelpClasses
     {
         public ViewModelProvider()
         {
-            this.RegisterViewModels();
+            RegisterViewModels();
         }
 
-        private void RegisterViewModels()
+        private static void RegisterViewModels()
         {
             //basisstructuur kenny, mede gebruikt door Robin
             // gebruik de default instantie (singleton van de SimpleIoc class)
