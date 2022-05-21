@@ -16,7 +16,7 @@ namespace Plantjes.ViewModels
     // Export written bij Ian Dumalin on 4/5
     public class ViewModelSearch : ViewModelBase
     {
-        private readonly IEnumerable<PlantItem> _emptyPlants = new List<PlantItem>() { new PlantItem(), new PlantItem(true) };
+        private readonly IEnumerable<PlantItem> _emptyPlants = new List<PlantItem>() { new(), new(true) };
 
         private readonly ISearchService _searchService;
 
@@ -26,10 +26,10 @@ namespace Plantjes.ViewModels
 
         public ViewModelSearch(ISearchService searchService)
         {
-            this._searchService = searchService;
+            _searchService = searchService;
 
-            CollapseCommand = new Command(new Action(Collapse));
-            SearchCommand = new Command<object>(new Action<object>(Search));
+            CollapseCommand = new Command(Collapse);
+            SearchCommand = new Command<object>(Search);
             ExportCommand = new RelayCommand(ExportCsv);
 
             CmbHabitus = searchService.GetList<FenoHabitu>().Select(f => f.Naam).Prepend(string.Empty);
@@ -73,13 +73,9 @@ namespace Plantjes.ViewModels
         private void Collapse()
         {
             if (BtnCollapse == Visibility.Collapsed)
-            {
                 BtnCollapse = Visibility.Visible;
-            }
             else
-            {
                 BtnCollapse = Visibility.Collapsed;
-            }
             OnPropertyChanged("BtnCollapse");
         }
 
