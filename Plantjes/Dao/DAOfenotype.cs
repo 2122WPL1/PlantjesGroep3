@@ -10,8 +10,8 @@ namespace Plantjes.Dao
 {
     internal class DaoFenotype : DaoBase
     {
-        public static Fenotype AddFenotype(Plant plant, int? bladgrootte = null, string bladvorm = null, string ratiobloeiblad = null,
-            string spruitfenologie = null, string bloeiwijze = null, string habitus = null, string levensvorm = null)
+        public static Fenotype? AddFenotype(Plant plant, int? bladgrootte = null, string? bladvorm = null, string? ratiobloeiblad = null,
+            string? spruitfenologie = null, string? bloeiwijze = null, string? habitus = null, string? levensvorm = null)
         {
             if (bladgrootte == null && string.IsNullOrEmpty(bladvorm) && string.IsNullOrEmpty(ratiobloeiblad)
                 && string.IsNullOrEmpty(spruitfenologie) && string.IsNullOrEmpty(bloeiwijze) && string.IsNullOrEmpty(habitus) && string.IsNullOrEmpty(levensvorm)) 
