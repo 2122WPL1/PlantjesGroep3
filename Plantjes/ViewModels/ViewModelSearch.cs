@@ -72,10 +72,7 @@ namespace Plantjes.ViewModels
 
         private void Collapse()
         {
-            if (BtnCollapse == Visibility.Collapsed)
-                BtnCollapse = Visibility.Visible;
-            else
-                BtnCollapse = Visibility.Collapsed;
+            BtnCollapse = BtnCollapse == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
             OnPropertyChanged("BtnCollapse");
         }
 
