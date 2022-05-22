@@ -149,6 +149,7 @@ namespace Plantjes.ViewModels.HelpClasses
                     }
                 } 
             }
+            gebruikerListCsv.Clear();
         }
 
         // written by Warre
