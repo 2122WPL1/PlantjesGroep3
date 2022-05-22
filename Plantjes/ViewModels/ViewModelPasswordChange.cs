@@ -16,21 +16,21 @@ namespace Plantjes.ViewModels
     //written by Ian Dumalin on 4/5
     internal class ViewModelPasswordChange : ViewModelBase
     {
-        private string _PasswordInput;
-        private string _PasswordInputRepeat;
+        private string _passwordInput;
+        private string _passwordInputRepeat;
         private Gebruiker _currentGebruiker;
         public RelayCommand OkCommand { get; set; }
 
         public string PasswordInput
         {
-            get { return _PasswordInput; }
-            set { _PasswordInput = value; }
+            get { return _passwordInput; }
+            set { _passwordInput = value; }
         }
 
         public string PasswordInputRepeat
         {
-            get { return _PasswordInputRepeat; }
-            set { _PasswordInputRepeat = value; }
+            get { return _passwordInputRepeat; }
+            set { _passwordInputRepeat = value; }
         }
 
         public ViewModelPasswordChange(Gebruiker gebruiker)
@@ -41,10 +41,10 @@ namespace Plantjes.ViewModels
 
         public void OkClick()
         {
-            if (_PasswordInput == _PasswordInputRepeat)
+            if (_passwordInput == _passwordInputRepeat)
             {
                 MainWindow mainWindow = new MainWindow();
-                DaoUser.UpdateUser(_currentGebruiker, Helper.HashString(_PasswordInput));
+                DaoUser.UpdateUser(_currentGebruiker, Helper.HashString(_passwordInput));
                 mainWindow.Show();
                 Application.Current.Windows[0]?.Close();
             }

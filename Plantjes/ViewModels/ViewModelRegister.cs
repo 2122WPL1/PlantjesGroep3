@@ -9,7 +9,7 @@ namespace Plantjes.ViewModels
     //written by kenny
     public class ViewModelRegister : ViewModelBase
     {
-        private string errorMessage;
+        private string _errorMessage;
         private ILoginUserService _loginService;
 
         public ViewModelRegister(ILoginUserService loginUserService)
@@ -51,11 +51,11 @@ namespace Plantjes.ViewModels
         {
             get
             {
-                return errorMessage;
+                return _errorMessage;
             }
             set
             {
-                errorMessage = value;
+                _errorMessage = value;
             }
         }
 

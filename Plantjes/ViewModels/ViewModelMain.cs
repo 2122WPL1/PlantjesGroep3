@@ -1,9 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
-using MvvmHelpers.Commands;
 using Plantjes.Models.Db;
 using Plantjes.ViewModels.HelpClasses;
 using Plantjes.ViewModels.Interfaces;
-using System;
 
 namespace Plantjes.ViewModels
 {
@@ -11,47 +9,39 @@ namespace Plantjes.ViewModels
     {
         //geschreven door kenny, adhv een voorbeeld van roy
 
-        private SimpleIoc iocc = SimpleIoc.Default;
-        private ViewModelRepo _viewModelRepo;
+        private readonly SimpleIoc _iocc = SimpleIoc.Default;
+        private readonly ViewModelRepo _viewModelRepo;
 
+        private string _detailTabText = "Detail";
         private ViewModelBase _currentViewModel;
-
-        public TabCommand mainNavigationCommand { get; set; }
-        public ViewModelBase currentViewModel
-        {
-            get { return _currentViewModel; }
-            set { SetProperty(ref _currentViewModel, value); }
-        }
 
         public ViewModelMain(ILoginUserService loginUserService)
         {
-            loggedInMessage = loginUserService.LoggedInMessage();
-            this._viewModelRepo = iocc.GetInstance<ViewModelRepo>();
-            _currentViewModel = iocc.GetInstance<ViewModelSearch>();
+            _viewModelRepo = _iocc.GetInstance<ViewModelRepo>();
+            _currentViewModel = _iocc.GetInstance<ViewModelSearch>();
 
-            mainNavigationCommand = new TabCommand(new Action<string>(OnNavigationChanged), loginUserService.Gebruiker);
+            MainNavigationCommand = new TabCommand(OnNavigationChanged, loginUserService.Gebruiker);
             //  dialogService.ShowMessageBox(this, "", "");
         }
 
-        private string _loggedInMessage { get; set; }
-        public string loggedInMessage
+        public void OnNavigationChanged(string userControlName)
         {
-            get
-            {
-                return _loggedInMessage;
-            }
-            set
-            {
-                _loggedInMessage = value;
-                RaisePropertyChanged("loggedInMessage");
-            }
+            CurrentViewModel = _viewModelRepo.GetViewModel(userControlName);
+        }
+
+        public string DetailTabText
+        {
+            get => _detailTabText;
+            set => SetProperty(ref _detailTabText, value);
         }
 
         public Gebruiker Gebruiker { get; set; } = null;
 
-        public void OnNavigationChanged(string userControlName)
+        public TabCommand MainNavigationCommand { get; set; }
+        public ViewModelBase CurrentViewModel
         {
-            this.currentViewModel = this._viewModelRepo.GetViewModel(userControlName);
+            get => _currentViewModel;
+            set => SetProperty(ref _currentViewModel, value);
         }
     }
 }

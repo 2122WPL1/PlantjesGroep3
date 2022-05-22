@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using GalaSoft.MvvmLight.Helpers;
+﻿#nullable enable
 using Plantjes.Dao;
-using Plantjes.Models;
-using Plantjes.ViewModels.Interfaces;
 using Plantjes.Models.Db;
+using Plantjes.ViewModels.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Plantjes.ViewModels.Services
 {
@@ -36,7 +30,7 @@ namespace Plantjes.ViewModels.Services
         {
             var plantList = DaoPlant.GetPlants();
             // if search values are null => return every plant in DB.
-            if (naam == null && grondsoort == null && habitat == null && habitus == null && sociabiliteit == null && bezonning == null)
+            if (naam == null && grondsoort == null && habitat == null && habitus == null && sociabiliteit == null && bezonning == null && bladkleur == null && bloeikleur == null && bladvorm == null)
             {
                 return plantList;
             }

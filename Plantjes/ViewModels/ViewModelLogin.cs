@@ -15,18 +15,18 @@ namespace Plantjes.ViewModels
 {
     public class ViewModelLogin : ViewModelBase
     {
-        private string userNameInput;
-        private string passwordInput;
+        private string _userNameInput;
+        private string _passwordInput;
         //private string errorMessage;
 
-        private ILoginUserService _loginService { get; }
+        private ILoginUserService LoginService { get; }
         public RelayCommand LoginCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
         public RelayCommand RegisterCommand { get; set; }
 
         public ViewModelLogin(ILoginUserService loginUserService)
         {
-            this._loginService = loginUserService;
+            this.LoginService = loginUserService;
             LoginCommand = new RelayCommand(LoginButtonClick);
             CancelCommand = new RelayCommand(CancelButton);
             RegisterCommand = new RelayCommand(RegisterButtonView);
@@ -51,10 +51,10 @@ namespace Plantjes.ViewModels
             {
                 if (!string.IsNullOrWhiteSpace(UserNameInput))
                 {
-                    if (_loginService.IsLogin(UserNameInput, PasswordInput))
+                    if (LoginService.IsLogin(UserNameInput, PasswordInput))
                     {
                         //  loggedInMessage = _loginService.LoggedInMessage(userNameInput);
-                        var currentGebruiker = DaoUser.GetGebruiker(userNameInput);
+                        var currentGebruiker = DaoUser.GetGebruiker(_userNameInput);
                         if ((currentGebruiker.HashPaswoord == Helper.HashString(currentGebruiker.Vivesnr) || currentGebruiker.LastLogin == null) && currentGebruiker.Emailadres != "admin")
                         {
                             //ViewModelPasswordChange vmpc = new ViewModelPasswordChange(currentGebruiker);
@@ -95,11 +95,11 @@ namespace Plantjes.ViewModels
         {
             get
             {
-                return userNameInput;
+                return _userNameInput;
             }
             set
             {
-                userNameInput = value;
+                _userNameInput = value;
             }
         }
 
@@ -107,11 +107,11 @@ namespace Plantjes.ViewModels
         {
             get
             {
-                return passwordInput;
+                return _passwordInput;
             }
             set
             {
-                passwordInput = value;
+                _passwordInput = value;
             }
         }
     }

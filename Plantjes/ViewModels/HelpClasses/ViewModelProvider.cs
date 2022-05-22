@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using Plantjes.ViewModels.Interfaces;
-using Plantjes.ViewModels;
 
 namespace Plantjes.ViewModels.HelpClasses
 {  /*written by kenny*/
@@ -12,10 +11,10 @@ namespace Plantjes.ViewModels.HelpClasses
     {
         public ViewModelProvider()
         {
-            this.RegisterViewModels();
+            RegisterViewModels();
         }
 
-        private void RegisterViewModels()
+        private static void RegisterViewModels()
         {
             //basisstructuur kenny, mede gebruikt door Robin
             // gebruik de default instantie (singleton van de SimpleIoc class)
@@ -24,7 +23,6 @@ namespace Plantjes.ViewModels.HelpClasses
             // haal singletons (elke keer dezelfde instantie) van de services om de viewmodels te voorzien van de nodige services(service locator)
             var loginService = iocc.GetInstance<ILoginUserService>();
             var searchService = iocc.GetInstance<ISearchService>();
-            var detailService = iocc.GetInstance<IDetailService>();
 
 
             // registreer de viewmodels in de IoC Container

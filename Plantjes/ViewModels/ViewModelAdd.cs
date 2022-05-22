@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using GalaSoft.MvvmLight.Ioc;
+using Microsoft.Win32;
 using MvvmHelpers.Commands;
 using Plantjes.Dao;
 using Plantjes.Models.Classes;
@@ -9,92 +10,67 @@ using Plantjes.ViewModels.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Drawing;
-using GalaSoft.MvvmLight.Ioc;
-using System.Reflection;
+using Plantjes.ViewModels.Converters;
 
 namespace Plantjes.ViewModels
 {
     //written by Warre
     internal class ViewModelAdd : ViewModelBase
     {
-        private readonly ISearchService searchService;
+        private readonly ISearchService _searchService;
 
-        private int selectedTab;
-        private TfgsvType selectedType;
-        private TfgsvFamilie selectedFamilie;
-        private TfgsvGeslacht selectedGeslacht;
-        private TfgsvSoort selectedSoort;
-        private TfgsvVariant selectedVariant;
-        private string selectedFenotypeMaand;
+        private int _selectedTab;
+        private TfgsvType _selectedType;
+        private TfgsvFamilie _selectedFamilie;
+        private TfgsvGeslacht _selectedGeslacht;
+        private TfgsvSoort _selectedSoort;
+        private string _selectedFenotypeMaand;
 
-        private ObservableCollection<Beheersdaad> beheersdaden;
-        private ObservableCollection<FenotypeMonth> fenotypeMonths;
-
-        private byte[] _bloeiImage = new byte[0];
-        private byte[] _habitusImage = new byte[0];
-        private byte[] _bladImage = new byte[0];
-
-        private IEnumerable<TfgsvType> _cmbTypes;
-        private IEnumerable<string> _cmbBladgrootte;
-        private IEnumerable<string> _cmbBladvorm;
-        private IEnumerable<StackPanel> _cmbBloeiwijze;
-        private IEnumerable<StackPanel> _cmbHabitus;
-        private IEnumerable<string> _cmbMaand;
-        private IEnumerable<string> _cmbSpruitfenologie;
-        private IEnumerable<MenuItem> _mBladkleur;
-        private IEnumerable<MenuItem> _mBloeikleur;
-        private IEnumerable<MenuItem> _mBezonning;
-        private IEnumerable<MenuItem> _mGrondsoort;
-        private IEnumerable<string> _cmbVochtbehoefte;
-        private IEnumerable<MenuItem> _mVoedingsbehoefte;
-        private IEnumerable<MenuItem> _mHabitat;
-        private IEnumerable<string> _CmbOntwikkeligssnelheid;
-        private IEnumerable<MenuItem> _mStrategie;
-        private IEnumerable<MenuItem> _mConcurrentiekracht;
-        private IEnumerable<string> _cbPollen;
-        private IEnumerable<string> _cbNectar;
+        private readonly ObservableCollection<Beheersdaad> _beheersdaden;
+        private readonly ObservableCollection<FenotypeMonth> _fenotypeMonths;
+        
+        private byte[] _bloeiImage = Array.Empty<byte>();
+        private byte[] _habitusImage = Array.Empty<byte>();
+        private byte[] _bladImage = Array.Empty<byte>();
 
         public ViewModelAdd(ISearchService searchService)
         {
-            this.searchService = searchService;
-            selectedTab = 0;
+            _searchService = searchService;
+            _selectedTab = 0;
 
-            beheersdaden = new ObservableCollection<Beheersdaad>() { new Beheersdaad() };
-            fenotypeMonths = new ObservableCollection<FenotypeMonth>() { new FenotypeMonth() };
+            _beheersdaden = new ObservableCollection<Beheersdaad>() { new() };
+            _fenotypeMonths = new ObservableCollection<FenotypeMonth>() { new() };
 
-            _cmbTypes = searchService.GetList<TfgsvType>().OrderBy(t => t.Planttypenaam);
-            _cmbBladgrootte = searchService.GetList<FenoBladgrootte>().Select(f => f.Bladgrootte);
-            _cmbBladvorm = searchService.GetList<FenoBladvorm>().Select(f => f.Vorm);
-            _cmbBloeiwijze = searchService.GetList<FenoBloeiwijze>().Select(f => new StackLabelImage(f.Naam, false));
-            _cmbHabitus = searchService.GetList<FenoHabitu>().Select(f => new StackLabelImage(f.Naam, true));
-            _cmbMaand = Helper.GetMonthsList();
-            _cmbSpruitfenologie = searchService.GetList<FenoSpruitfenologie>().Select(f => f.Fenologie);
-            _mBladkleur = Helper.MakeColorMenuItemList().ToList();
-            _mBloeikleur = Helper.MakeColorMenuItemList().ToList();
-            _mBezonning = Helper.MakeMenuItemList<AbioBezonning>(a => a.Naam).ToList();
-            _mGrondsoort = Helper.MakeMenuItemList<AbioGrondsoort>(a => a.Grondsoort).ToList();
-            _cmbVochtbehoefte = searchService.GetList<AbioVochtbehoefte>().Select(v => v.Vochtbehoefte);
-            _mVoedingsbehoefte = Helper.MakeMenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
-            _mHabitat = Helper.MakeMenuItemList<AbioHabitat>(a => a.Afkorting).ToList();
-            _CmbOntwikkeligssnelheid = searchService.GetList<CommOntwikkelsnelheid>().Select(o => o.Snelheid);
-            _mStrategie = Helper.MakeMenuItemList<CommStrategie>(s => s.Strategie).ToList();
-            _mConcurrentiekracht = Helper.MakeMenuItemList<CommLevensvorm>(a => a.Levensvorm).ToList();
-            _cbPollen = searchService.GetList<ExtraPollenwaarde>().Select(o => o.Waarde);
-            _cbNectar = searchService.GetList<ExtraNectarwaarde>().Select(o => o.Waarde);
+            CmbTypes = searchService.GetList<TfgsvType>().OrderBy(t => t.Planttypenaam);
+            CmbBladgrootte = searchService.GetList<FenoBladgrootte>().Select(f => f.Bladgrootte);
+            CmbBladvorm = searchService.GetList<FenoBladvorm>().Select(f => f.Vorm);
+            CmbBloeiwijze = searchService.GetList<FenoBloeiwijze>().Select(f => new StackLabelImage(f.Naam, false));
+            CmbHabitus = searchService.GetList<FenoHabitu>().Select(f => new StackLabelImage(f.Naam, true));
+            CmbMaand = Helper.GetMonthsList();
+            CmbSpruitfenologie = searchService.GetList<FenoSpruitfenologie>().Select(f => f.Fenologie);
+            MBladkleur = Helper.MakeColorMenuItemList().ToList();
+            MBloeikleur = Helper.MakeColorMenuItemList().ToList();
+            MBezonning = Helper.MakeMenuItemList<AbioBezonning>(a => a.Naam).ToList();
+            MGrondsoort = Helper.MakeMenuItemList<AbioGrondsoort>(a => a.Grondsoort).ToList();
+            CmbVochtbehoefte = searchService.GetList<AbioVochtbehoefte>().Select(v => v.Vochtbehoefte);
+            MVoedingsbehoefte = Helper.MakeMenuItemList<AbioVoedingsbehoefte>(a => a.Voedingsbehoefte);
+            MHabitat = Helper.MakeMenuItemList<AbioHabitat>(a => a.Afkorting).ToList();
+            CmbOntwikkelingssnelheid = searchService.GetList<CommOntwikkelsnelheid>().Select(o => o.Snelheid);
+            MStrategie = Helper.MakeMenuItemList<CommStrategie>(s => s.Strategie).ToList();
+            MConcurrentiekracht = Helper.MakeMenuItemList<CommLevensvorm>(a => a.Levensvorm).ToList();
+            CbPollen = searchService.GetList<ExtraPollenwaarde>().Select(o => o.Waarde);
+            CbNectar = searchService.GetList<ExtraNectarwaarde>().Select(o => o.Waarde);
 
-            AddBeheersdaadCommand = new Command(new Action(AddBeheersdaadItem));
-            AddFenotypeMonthCommand = new Command(new Action(AddFenotypeMonth));
-            AddPlantCommand = new Command<object>(new Action<object>(AddPlant));
-            FotoCommand = new Command<string>(new Action<string>(AddFoto));
+            BeheersdaadCommand = new Command(AddBeheersdaadItem);
+            FenotypeMonthCommand = new Command(AddFenotypeMonth);
+            AddPlantCommand = new Command<object>(AddPlant);
+            FotoCommand = new Command<string>(AddFoto);
         }
 
         private bool IsRequiredFilled()
@@ -102,7 +78,7 @@ namespace Plantjes.ViewModels
             if (new List<string>() { SelectedType?.Planttypenaam, TextFamilie, TextGeslacht }.Any(s => string.IsNullOrEmpty(s)))
             {
                 MessageBox.Show("Zorg dat je de verplichte velden ingevuld hebt!");
-                selectedTab = 0;
+                _selectedTab = 0;
                 OnPropertyChanged();
                 return false;
             }
@@ -110,31 +86,40 @@ namespace Plantjes.ViewModels
         }
 
         /// <summary>
-        /// Adds a <see cref="Beheersdaad"/> to <see cref="beheersdaden"/>.
+        /// Adds a <see cref="Beheersdaad"/> to <see cref="_beheersdaden"/>.
         /// </summary>
         private void AddBeheersdaadItem()
         {
-            beheersdaden.Add(new Beheersdaad());
+            _beheersdaden.Add(new Beheersdaad());
         }
 
         /// <summary>
-        /// Adds a <see cref="FenotypeMonth"/> to <see cref="fenotypeMonths"/>.
+        /// Adds a <see cref="FenotypeMonth"/> to <see cref="_fenotypeMonths"/>.
         /// </summary>
         private void AddFenotypeMonth()
         {
-            fenotypeMonths.Add(new FenotypeMonth());
+            
+            _fenotypeMonths.Add(new FenotypeMonth());
         }
 
         private void AddFoto(string imageName)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Image|*.jpeg;*.png;*.jpg";
-
+            OpenFileDialog ofd = new()
+            {
+                Filter = "Image|*.jpeg;*.png;*.jpg",
+                InitialDirectory = SHGetKnownFolderPath(new Guid("374DE290-123F-4565-9164-39C4925E467B"), 0),
+            };
+            
             if (!(ofd.ShowDialog() ?? false))
                 return;
 
-            GetType().GetField(imageName, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(this, File.ReadAllBytes(ofd.FileName));
+            var field = GetType().GetField(imageName, BindingFlags.Instance | BindingFlags.NonPublic);
+            field?.SetValue(this, File.ReadAllBytes(ofd.FileName));
+            GetType().GetProperty(field.Name[1..].FirstToUpper())?.SetValue(this, ofd.FileName);
         }
+
+        [DllImport("shell32", CharSet = CharSet.Unicode, ExactSpelling = true, PreserveSig = false)]
+        private static extern string SHGetKnownFolderPath([MarshalAs(UnmanagedType.LPStruct)] Guid rfid, uint dwFlags, nint hToken = 0);
 
         /// <summary>
         /// Adds a new <see cref="Plant"/> and all its eigenschappen to the database.
@@ -306,18 +291,18 @@ namespace Plantjes.ViewModels
 
             Helper.SwitchTabAndReset("VIEWDETAIL", 
                 () => new ViewModelPlantDetail(plant), 
-                () => new ViewModelAdd(SimpleIoc.Default.GetInstance<ISearchService>()));
+                () => new ViewModelAdd(SimpleIoc.Default.GetInstance<ISearchService>())
+                , plant);
         }
 
         public int SelectedTab
         {
-            get { return selectedTab; }
+            get => _selectedTab;
             set
             {
                 if (IsRequiredFilled())
                 {
-                    selectedTab = value;
-                
+                    _selectedTab = value;
                 }
             }
         }
@@ -325,127 +310,115 @@ namespace Plantjes.ViewModels
         public Command<object> AddPlantCommand { get; set; }
 
         #region Algemene Info
-        public IEnumerable<TfgsvType> CmbTypes
-        {
-            get => _cmbTypes;
-        }
-        public IEnumerable<TfgsvFamilie> CmbFamilies
-        {
-            get => SelectedType == null ?
+        public IEnumerable<TfgsvType> CmbTypes { get; }
+
+        public IEnumerable<TfgsvFamilie> CmbFamilies =>
+            SelectedType == null ?
                 Enumerable.Empty<TfgsvFamilie>() :
-                searchService.GetListWhere<TfgsvFamilie>(f => f.TypeTypeid == SelectedType.Planttypeid).OrderBy(f => f.Familienaam);
-        }
-        public IEnumerable<TfgsvGeslacht> CmbGeslacht
-        {
-            get => SelectedFamilie == null ?
+                _searchService.GetListWhere<TfgsvFamilie>(f => f.TypeTypeid == SelectedType.Planttypeid).OrderBy(f => f.Familienaam);
+
+        public IEnumerable<TfgsvGeslacht> CmbGeslacht =>
+            SelectedFamilie == null ?
                 Enumerable.Empty<TfgsvGeslacht>() :
-                searchService.GetListWhere<TfgsvGeslacht>(g => g.FamilieFamileId == SelectedFamilie.FamileId).OrderBy(g => g.Geslachtnaam);
-        }
-        public IEnumerable<TfgsvSoort> CmbSoort
-        {
-            get => SelectedGeslacht == null ?
+                _searchService.GetListWhere<TfgsvGeslacht>(g => g.FamilieFamileId == SelectedFamilie.FamileId).OrderBy(g => g.Geslachtnaam);
+
+        public IEnumerable<TfgsvSoort> CmbSoort =>
+            SelectedGeslacht == null ?
                 Enumerable.Empty<TfgsvSoort>() :
-                searchService.GetListWhere<TfgsvSoort>(s => s.GeslachtGeslachtId == SelectedGeslacht.GeslachtId).OrderBy(s => s.Soortnaam);
-        }
-        public IEnumerable<TfgsvVariant> CmbVariant
-        {
-            get => SelectedSoort == null ?
+                _searchService.GetListWhere<TfgsvSoort>(s => s.GeslachtGeslachtId == SelectedGeslacht.GeslachtId).OrderBy(s => s.Soortnaam);
+
+        public IEnumerable<TfgsvVariant> CmbVariant =>
+            SelectedSoort == null ?
                 Enumerable.Empty<TfgsvVariant>() :
-                searchService.GetListWhere<TfgsvVariant>(v => v.SoortSoortid == SelectedSoort.Soortid).OrderBy(v => v.Variantnaam);
-        }
+                _searchService.GetListWhere<TfgsvVariant>(v => v.SoortSoortid == SelectedSoort.Soortid).OrderBy(v => v.Variantnaam);
 
         public TfgsvType SelectedType
         {
-            get { return selectedType; }
+            get => _selectedType;
             set
             {
-                selectedType = value;
+                _selectedType = value;
                 OnPropertyChanged("CmbFamilies");
             }
         }
         public string TextFamilie { get; set; }
         public TfgsvFamilie SelectedFamilie
         {
-            get { return selectedFamilie; }
+            get => _selectedFamilie;
             set
             {
-                selectedFamilie = value;
+                _selectedFamilie = value;
                 OnPropertyChanged("CmbGeslacht");
             }
         }
         public string TextGeslacht { get; set; }
         public TfgsvGeslacht SelectedGeslacht
         {
-            get { return selectedGeslacht; }
+            get => _selectedGeslacht;
             set
             {
-                selectedGeslacht = value;
+                _selectedGeslacht = value;
                 OnPropertyChanged("CmbSoort");
             }
         }
         public string TextSoort { get; set; }
         public TfgsvSoort SelectedSoort
         {
-            get { return selectedSoort; }
+            get => _selectedSoort;
             set
             {
-                selectedSoort = value;
+                _selectedSoort = value;
                 OnPropertyChanged("CmbVariant");
             }
         }
         public string TextVariant { get; set; }
-        public TfgsvVariant SelectedVariant
+        public TfgsvVariant SelectedVariant { get; set; }
+
+        private string _bloeiImagePath;
+        public string BloeiImage
         {
-            get { return selectedVariant; }
-            set
-            {
-                selectedVariant = value;
-            }
+            get => _bloeiImagePath;
+            set { _bloeiImagePath = value; OnPropertyChanged(); }
+        }
+        private string _habitusImagePath;
+        public string HabitusImage
+        {
+            get => _habitusImagePath;
+            set { _habitusImagePath = value; OnPropertyChanged(); }
+        }
+        private string _bladImagePath;
+        public string BladImage
+        {
+            get => _bladImagePath;
+            set { _bladImagePath = value; OnPropertyChanged(); }
         }
 
         public Command<string> FotoCommand { get; set; }
         #endregion
 
         #region Fenotype
-        public IEnumerable<string> CmbBladgrootte
-        {
-            get => _cmbBladgrootte;
-        }
-        public IEnumerable<string> CmbBladvorm
-        {
-            get => _cmbBladvorm;
-        }
-        public IEnumerable<StackPanel> CmbBloeiwijze
-        {
-            get => _cmbBloeiwijze;
-        }
-        public IEnumerable<StackPanel> CmbHabitus
-        {
-            get => _cmbHabitus;
-        }
-        public IEnumerable<string> CmbMaand
-        {
-            get => _cmbMaand;
-        }
-        public IEnumerable<string> CmbSpruitfenologie
-        {
-            get => _cmbSpruitfenologie;
-        }
-        public IEnumerable<MenuItem> MBladkleur
-        {
-            get => _mBladkleur;
-        }
-        public IEnumerable<MenuItem> MBloeikleur
-        {
-            get => _mBloeikleur;
-        }
+        public IEnumerable<string> CmbBladgrootte { get; }
+
+        public IEnumerable<string> CmbBladvorm { get; }
+
+        public IEnumerable<StackPanel> CmbBloeiwijze { get; }
+
+        public IEnumerable<StackPanel> CmbHabitus { get; }
+
+        public IEnumerable<string> CmbMaand { get; }
+
+        public IEnumerable<string> CmbSpruitfenologie { get; }
+
+        public IEnumerable<MenuItem> MBladkleur { get; }
+
+        public IEnumerable<MenuItem> MBloeikleur { get; }
 
         public string SelectedFenotypeMaand
         {
-            get { return selectedFenotypeMaand; }
+            get => _selectedFenotypeMaand;
             set
             {
-                selectedFenotypeMaand = value;
+                _selectedFenotypeMaand = value;
                 OnPropertyChanged("CmbBladkleur");
                 OnPropertyChanged("CmbBloeikleur");
                 OnPropertyChanged("CmbBladhoogteMax");
@@ -454,71 +427,44 @@ namespace Plantjes.ViewModels
             }
         }
 
-        public ObservableCollection<FenotypeMonth> IctrlFenotypeMonth
-        {
-            get => fenotypeMonths;
-        }
+        public ObservableCollection<FenotypeMonth> IctrlFenotypeMonth => _fenotypeMonths;
 
-        public Command AddFenotypeMonthCommand { get; set; }
+        public Command FenotypeMonthCommand { get; set; }
         #endregion
 
         #region Abiotische Factoren
-        public IEnumerable<MenuItem> MBezonning
-        {
-            get => _mBezonning;
-        }
-        public IEnumerable<MenuItem> MGrondsoort
-        {
-            get => _mGrondsoort;
-        }
-        public IEnumerable<string> CmbVochtbehoefte
-        {
-            get => _cmbVochtbehoefte;
-        }
-        public IEnumerable<MenuItem> MVoedingsbehoefte
-        {
-            get => _mVoedingsbehoefte;
-        }
-        public IEnumerable<MenuItem> MHabitat
-        {
-            get => _mHabitat;
-        }
+        public IEnumerable<MenuItem> MBezonning { get; }
+
+        public IEnumerable<MenuItem> MGrondsoort { get; }
+
+        public IEnumerable<string> CmbVochtbehoefte { get; }
+
+        public IEnumerable<MenuItem> MVoedingsbehoefte { get; }
+
+        public IEnumerable<MenuItem> MHabitat { get; }
+
         #endregion
 
         #region Beheersdaden
-        public ObservableCollection<Beheersdaad> IctrlBeheersdaad
-        {
-            get => beheersdaden;
-        }
-        public Command AddBeheersdaadCommand { get; set; }
+        public ObservableCollection<Beheersdaad> IctrlBeheersdaad => _beheersdaden;
+        public Command BeheersdaadCommand { get; set; }
         #endregion
 
         #region Commensalisme
-        public IEnumerable<string> CmbOntwikkelingssnelheid
-        {
-            get => _CmbOntwikkeligssnelheid;
-        }
-        public IEnumerable<MenuItem> MStrategie
-        {
-            get => _mStrategie;
-        }
-        public IEnumerable<MenuItem> MConcurrentiekracht
-        {
-            get => _mConcurrentiekracht;
-        }
+        public IEnumerable<string> CmbOntwikkelingssnelheid { get; }
+
+        public IEnumerable<MenuItem> MStrategie { get; }
+
+        public IEnumerable<MenuItem> MConcurrentiekracht { get; }
+
         #endregion
 
         #region Extra
         // Written by Ian Dumalin on 18/03
-        public IEnumerable<string> CbPollen
-        {
-            get => _cbPollen;
-        }
+        public IEnumerable<string> CbPollen { get; }
 
-        public IEnumerable<string> CbNectar
-        {
-            get => _cbNectar;
-        }
+        public IEnumerable<string> CbNectar { get; }
+
         #endregion
     }
 }

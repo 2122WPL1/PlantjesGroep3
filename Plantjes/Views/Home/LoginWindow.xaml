@@ -38,7 +38,7 @@
             </StackPanel>
             <!--<Button x:Name="btnCancel" Content="Cancel" Command="{Binding CancelCommand}" MinWidth="70" Margin="5" HorizontalAlignment="Right" 
                         Background="{StaticResource tertiary}" Foreground="{StaticResource highlight}"/>-->
-            <Button x:Name="btnLogin" Content="Login" Command="{Binding LoginCommand}" MinWidth="70" Margin="5" HorizontalAlignment="Right" Height="45" VerticalAlignment="Bottom"
+            <Button x:Name="btnLogin" Content="Login" Command="{Binding LoginCommand}" Width="70" Margin="5" HorizontalAlignment="Right" Height="45" VerticalAlignment="Bottom"
                         Background="{StaticResource tertiary}" Foreground="{StaticResource highlight}"/>
         </DockPanel>
 

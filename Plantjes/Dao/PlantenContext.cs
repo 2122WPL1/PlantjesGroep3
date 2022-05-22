@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using Plantjes.Models.Db;
 
 namespace Plantjes.Dao
 {
-    public partial class plantenContext : DbContext
+    public partial class PlantenContext : DbContext
     {
-        public plantenContext()
+        public PlantenContext()
         {
         }
 
-        public plantenContext(DbContextOptions<plantenContext> options)
+        public PlantenContext(DbContextOptions<PlantenContext> options)
             : base(options)
         {
         }
@@ -59,7 +56,6 @@ namespace Plantjes.Dao
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer(SQLConnection.connectionstring);
             }
         }

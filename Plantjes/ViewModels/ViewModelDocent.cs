@@ -38,12 +38,12 @@ namespace Plantjes.ViewModels
 
         private void ExportClick()
         {
-            CSVHelper.ExportUsersToCSV(Gebruikers);
+            CsvHelper.ExportUsersToCsv(Gebruikers);
         }
 
         private void ImportClick()
         {
-            _gebruikers = Helper.PopulateDB(_gebruikers).ToList();
+            _gebruikers = Helper.PopulateDb(_gebruikers).ToList();
             OnPropertyChanged("Gebruikers");
         }
     }

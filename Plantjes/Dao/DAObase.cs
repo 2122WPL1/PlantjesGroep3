@@ -13,7 +13,7 @@ namespace Plantjes.Dao
 {
     public abstract class DaoBase
     {
-        protected static readonly plantenContext context = new plantenContext();
+        protected static readonly PlantenContext Context = new PlantenContext();
 
         #region Get methods
         //written by Warre
@@ -25,7 +25,7 @@ namespace Plantjes.Dao
         /// <returns>Returns a <see cref="IEnumerable{T}"/> of type <see cref="DbSet{TEntity}"/>.</returns>
         public static IEnumerable<TEntity> GetList<TEntity>(bool distinct = false) where TEntity : class
         {
-            var dbset = context.Set<TEntity>().ToList();
+            var dbset = Context.Set<TEntity>().ToList();
 
             return distinct ? dbset.Distinct() : dbset;
         }

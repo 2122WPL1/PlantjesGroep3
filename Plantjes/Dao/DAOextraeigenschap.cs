@@ -48,8 +48,8 @@ namespace Plantjes.Dao
             {
                 extraEigenschap.Vorstgevoelig = voorstgevoelig;
             };
-            context.Plants.First(x=>x==plant).ExtraEigenschaps.Add(extraEigenschap);
-            context.SaveChanges();
+            Context.Plants.First(x=>x==plant).ExtraEigenschaps.Add(extraEigenschap);
+            Context.SaveChanges();
             return extraEigenschap;
         }
     }

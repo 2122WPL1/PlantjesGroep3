@@ -13,32 +13,32 @@ namespace Plantjes.Dao
         public static TfgsvFamilie AddFamilie(TfgsvType type, string familieNaam)
         {
             var familie = new TfgsvFamilie() { TypeType = type, Familienaam = familieNaam };
-            context.TfgsvFamilies.Add(familie);
-            context.SaveChanges();
+            Context.TfgsvFamilies.Add(familie);
+            Context.SaveChanges();
             return familie;
         }
 
         public static TfgsvGeslacht AddGeslacht(TfgsvFamilie familie, string geslachtNaam)
         {
             var geslacht = new TfgsvGeslacht() { FamilieFamile = familie, Geslachtnaam = geslachtNaam };
-            context.TfgsvGeslachts.Add(geslacht);
-            context.SaveChanges();
+            Context.TfgsvGeslachts.Add(geslacht);
+            Context.SaveChanges();
             return geslacht;
         }
 
         public static TfgsvSoort AddSoort(TfgsvGeslacht geslacht, string soortNaam)
         {
             var soort = new TfgsvSoort() { GeslachtGeslacht = geslacht, Soortnaam = soortNaam };
-            context.TfgsvSoorts.Add(soort);
-            context.SaveChanges();
+            Context.TfgsvSoorts.Add(soort);
+            Context.SaveChanges();
             return soort;
         }
 
         public static TfgsvVariant AddVariant(TfgsvSoort soort, string variantNaam)
         {
             var variant = new TfgsvVariant() { SoortSoort = soort, Variantnaam = variantNaam };
-            context.TfgsvVariants.Add(variant);
-            context.SaveChanges();
+            Context.TfgsvVariants.Add(variant);
+            Context.SaveChanges();
             return variant;
         }
     }

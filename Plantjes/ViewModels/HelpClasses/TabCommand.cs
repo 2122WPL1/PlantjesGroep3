@@ -1,7 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using Plantjes.Dao;
 using Plantjes.Models.Db;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Plantjes.ViewModels.HelpClasses
@@ -27,7 +28,9 @@ namespace Plantjes.ViewModels.HelpClasses
         {
             try
             {
-                if (parameter as string == "VIEWDOCENT" && _gebruiker?.RolId > 1)
+                if (parameter as string == "VIEWDOCENT" && _gebruiker?.RolId > DaoUser.GetList<Rol>().ToList()[0].Id)
+                    return false;
+                if (parameter as string == "VIEWADD" && _gebruiker?.RolId > DaoUser.GetList<Rol>().ToList()[1].Id)
                     return false;
                 SimpleIoc.Default.GetInstance<ViewModelRepo>().GetViewModel(parameter as string);
                 return true;

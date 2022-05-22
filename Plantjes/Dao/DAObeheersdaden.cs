@@ -29,8 +29,8 @@ namespace Plantjes.Dao
             };
         
 
-            context.Plants.First(p => p == plant).BeheerMaands.Add(beheerMaand);
-            context.SaveChanges();
+            Context.Plants.First(p => p == plant).BeheerMaands.Add(beheerMaand);
+            Context.SaveChanges();
             return beheerMaand;
 
         }

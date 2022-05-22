@@ -1,22 +1,17 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using Plantjes.Dao;
+using Plantjes.Models.Db;
+using Plantjes.Models.Extensions;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Win32;
-using Plantjes.Dao;
-using Plantjes.Models.Db;
-using Plantjes.Models.Extensions;
-using Plantjes.ViewModels.Interfaces;
 
 namespace Plantjes.ViewModels.HelpClasses
 {
@@ -38,17 +33,17 @@ namespace Plantjes.ViewModels.HelpClasses
             }
             return false;
         }
-        public static void SwitchTabAndReset<TCurrent, T>(string tab, Func<TCurrent> thisFactory, Func<T> factory) 
+        public static void SwitchTabAndReset<TCurrent, T>(string tab, Func<TCurrent> thisFactory, Func<T> factory, Plant plant) 
             where T : class
             where TCurrent : class
         {
             if (SimpleIoc.Default.IsRegistered<TCurrent>() || SimpleIoc.Default.ContainsCreated<T>())
                 SimpleIoc.Default.Unregister<TCurrent>();
             SimpleIoc.Default.Register(thisFactory);
-            SwitchTab<T>(tab, factory);
+            SwitchTab<T>(tab, plant, factory);
         }
 
-        public static void SwitchTab<T>(string tab, Func<T> factory = null) where T : class
+        public static void SwitchTab<T>(string tab, Plant plant = null, Func<T> factory = null) where T : class
         {
             if (factory != null)
             {
@@ -56,7 +51,10 @@ namespace Plantjes.ViewModels.HelpClasses
                     SimpleIoc.Default.Unregister<T>();
                 SimpleIoc.Default.Register(factory);
             }
-            SimpleIoc.Default.GetInstance<ViewModelMain>().OnNavigationChanged(tab);
+            var main = SimpleIoc.Default.GetInstance<ViewModelMain>();
+            main.OnNavigationChanged(tab);
+            if (tab == "VIEWDETAIL" && plant != null)
+                main.DetailTabText = "Detail: " + plant.GetPlantName().Trim();
         }
 
         // Written by Warre, converted to help method by Ian
@@ -68,7 +66,7 @@ namespace Plantjes.ViewModels.HelpClasses
         public static byte[] HashString(string password)
         {
             var passwordBytes = Encoding.ASCII.GetBytes(password);
-            var md5Hasher = new MD5CryptoServiceProvider();
+            var md5Hasher = MD5.Create();
             var passwordHashed = md5Hasher.ComputeHash(passwordBytes);
             return passwordHashed;
         }
@@ -95,6 +93,8 @@ namespace Plantjes.ViewModels.HelpClasses
                         Fill = (SolidColorBrush)new BrushConverter().ConvertFromString("#" + Convert.ToHexString(item.HexWaarde)),
                     },
                     InputGestureText = item.NaamKleur.FirstToUpper(),
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F9F9F9")),
+                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3E4239"))
                 };
             }
         }
@@ -120,6 +120,8 @@ namespace Plantjes.ViewModels.HelpClasses
                     IsCheckable = true,
                     StaysOpenOnClick = true,
                     Header = selector(item).FirstToUpper(),
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F9F9F9")),
+                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3E4239"))
                 };
             }
         }
@@ -128,22 +130,22 @@ namespace Plantjes.ViewModels.HelpClasses
         /// <summary>
         /// Loops through all de available users in the database, adding missing users from a .csv file.
         /// </summary>
-        public static IEnumerable<Gebruiker> PopulateDB(IEnumerable<Gebruiker> gebruiker)
+        public static IEnumerable<Gebruiker> PopulateDb(IEnumerable<Gebruiker> gebruiker)
         {
-            var gebruikerListCSV = CSVHelper.ImportNewMembersFromCSV();
-            Dictionary<string, string> gebruikerDictionary = new Dictionary<string, string>();
+            var gebruikerListCsv = CsvHelper.ImportNewMembersFromCsv();
+            Dictionary<string, string> gebruikerDictionary = new();
             foreach (Gebruiker g in gebruiker)
             {
                 gebruikerDictionary.Add(g.Vivesnr, g.Emailadres);
             }
 
-            if (gebruikerListCSV != null)
+            if (gebruikerListCsv != null)
             {
-                foreach (Gebruiker g in gebruikerListCSV)
+                foreach (Gebruiker g in gebruikerListCsv)
                 {
-                    if (!gebruikerDictionary.Keys.Contains(g.Vivesnr) && !gebruikerDictionary.Values.Contains(g.Emailadres))
+                    if (!gebruikerDictionary.ContainsKey(g.Vivesnr) && !gebruikerDictionary.ContainsValue(g.Emailadres))
                     {
-                        yield return DaoUser.AddUserToDB(g.Vivesnr, g.Voornaam, g.Achternaam, g.Emailadres, g.HashPaswoord);
+                        yield return DaoUser.UserToDb(g.Vivesnr, g.Voornaam, g.Achternaam, g.Emailadres, g.HashPaswoord);
                     }
                 } 
             }

@@ -1,17 +1,13 @@
-﻿using MvvmHelpers.Commands;
-using Plantjes.Dao;
+﻿using GalaSoft.MvvmLight.Command;
+using MvvmHelpers.Commands;
 using Plantjes.Models.Classes;
 using Plantjes.Models.Db;
+using Plantjes.ViewModels.HelpClasses;
 using Plantjes.ViewModels.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using GalaSoft.MvvmLight.Command;
-using Plantjes.ViewModels.HelpClasses;
-using System.Windows.Shapes;
 using System.Windows.Controls;
 
 namespace Plantjes.ViewModels
@@ -20,39 +16,29 @@ namespace Plantjes.ViewModels
     // Export written bij Ian Dumalin on 4/5
     public class ViewModelSearch : ViewModelBase
     {
-        private readonly IEnumerable<PlantItem> emptyPlants = new List<PlantItem>() { new PlantItem(), new PlantItem(true) };
+        private readonly IEnumerable<PlantItem> _emptyPlants = new List<PlantItem>() { new(), new(true) };
 
-        private readonly ISearchService searchService;
+        private readonly ISearchService _searchService;
 
-        private IEnumerable<Plant> plants;
-        private IEnumerable<string> _cmbHabitus;
-        private IEnumerable<string> _cmbBezonning;
-        private IEnumerable<string> _cmbHabitat;
-        private IEnumerable<string> _cmbGrondsoort;
-
-        private IEnumerable<StackPanel> _mBladkleur;
-        private IEnumerable<StackPanel> _mBloeikleur;
-        private IEnumerable<string> _cmbBladvorm;
-
-        private Visibility _btnCollapse = Visibility.Collapsed;
+        private IEnumerable<Plant> _plants;
 
         public Command CollapseCommand { get; set; }
 
         public ViewModelSearch(ISearchService searchService)
         {
-            this.searchService = searchService;
+            _searchService = searchService;
 
-            CollapseCommand = new Command(new Action(Collapse));
-            SearchCommand = new Command<object>(new Action<object>(Search));
-            ExportCommand = new RelayCommand(ExportCSV);
+            CollapseCommand = new Command(Collapse);
+            SearchCommand = new Command<object>(Search);
+            ExportCommand = new RelayCommand(ExportCsv);
 
-            _cmbHabitus = searchService.GetList<FenoHabitu>().Select(f => f.Naam).Prepend(string.Empty);
-            _cmbBezonning = searchService.GetList<AbioBezonning>().Select(a => a.Naam).Prepend(string.Empty);
-            _cmbHabitat = searchService.GetList<AbioHabitat>().Select(a => a.Afkorting).Prepend(string.Empty);
-            _cmbGrondsoort = searchService.GetList<AbioGrondsoort>().Select(a => a.Grondsoort).Prepend(string.Empty);
-            _mBladkleur = searchService.GetList<FenoKleur>().Select(a => new StackLabelRect(a)).Prepend(StackLabelRect.Empty);
-            _mBloeikleur = searchService.GetList<FenoKleur>().Select(a => new StackLabelRect(a)).Prepend(StackLabelRect.Empty);
-            _cmbBladvorm = searchService.GetList<FenoBladvorm>().Select(f => f.Vorm).Prepend(string.Empty);
+            CmbHabitus = searchService.GetList<FenoHabitu>().Select(f => f.Naam).Prepend(string.Empty);
+            CmbBezonning = searchService.GetList<AbioBezonning>().Select(a => a.Naam).Prepend(string.Empty);
+            CmbHabitat = searchService.GetList<AbioHabitat>().Select(a => a.Afkorting).Prepend(string.Empty);
+            CmbGrondsoort = searchService.GetList<AbioGrondsoort>().Select(a => a.Grondsoort).Prepend(string.Empty);
+            CbBladkleur = searchService.GetList<FenoKleur>().Select(a => new StackLabelRect(a)).Prepend(StackLabelRect.Empty);
+            CbBloeikleur = searchService.GetList<FenoKleur>().Select(a => new StackLabelRect(a)).Prepend(StackLabelRect.Empty);
+            CmbBladvorm = searchService.GetList<FenoBladvorm>().Select(f => f.Vorm).Prepend(string.Empty);
         }
 
         private void Search(object parameters)
@@ -71,7 +57,7 @@ namespace Plantjes.ViewModels
                 socIndex++;
             }
 
-            plants = searchService.GetListPlants(
+            _plants = _searchService.GetListPlants(
                 items[0] as string,
                 items[1] as string,
                 items[2] as string,
@@ -86,20 +72,13 @@ namespace Plantjes.ViewModels
 
         private void Collapse()
         {
-            if (_btnCollapse == Visibility.Collapsed)
-            {
-                _btnCollapse = Visibility.Visible;
-            }
-            else
-            {
-                _btnCollapse = Visibility.Collapsed;
-            }
+            BtnCollapse = BtnCollapse == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
             OnPropertyChanged("BtnCollapse");
         }
 
-        private void ExportCSV()
+        private void ExportCsv()
         {
-            CSVHelper.ExportPlantsToCSV(plants);
+            CsvHelper.ExportPlantsToCsv(_plants);
         }
 
         public Command SearchCommand { get; set; }
@@ -107,44 +86,23 @@ namespace Plantjes.ViewModels
 
         public IEnumerable<PlantItem> Plants
         {
-            get { return plants == null ? Enumerable.Empty<PlantItem>() : plants.Count() == 0 ? emptyPlants : plants.Select(p => new PlantItem(p)); }
+            get { return _plants == null ? Enumerable.Empty<PlantItem>() : !_plants.Any() ? _emptyPlants : _plants.Select(p => new PlantItem(p)); }
         }
 
-        public IEnumerable<string> CmbHabitus
-        {
-            get => _cmbHabitus;
-        }
+        public IEnumerable<string> CmbHabitus { get; }
 
-        public IEnumerable<string> CmbBezonning
-        {
-            get => _cmbBezonning;
-        }
+        public IEnumerable<string> CmbBezonning { get; }
 
-        public IEnumerable<string> CmbHabitat
-        {
-            get => _cmbHabitat;
-        }
+        public IEnumerable<string> CmbHabitat { get; }
 
-        public IEnumerable<string> CmbGrondsoort
-        {
-            get => _cmbGrondsoort;
-        }
+        public IEnumerable<string> CmbGrondsoort { get; }
 
-        public Visibility BtnCollapse
-        {
-            get => _btnCollapse;
-        }
-        public IEnumerable<StackPanel> CbBladkleur
-        {
-            get => _mBladkleur;
-        }
-        public IEnumerable<StackPanel> CbBloeikleur
-        {
-            get => _mBloeikleur;
-        }
-        public IEnumerable<string> CmbBladvorm
-        {
-            get => _cmbBladvorm;
-        }
+        public Visibility BtnCollapse { get; private set; } = Visibility.Collapsed;
+
+        public IEnumerable<StackPanel> CbBladkleur { get; }
+
+        public IEnumerable<StackPanel> CbBloeikleur { get; }
+
+        public IEnumerable<string> CmbBladvorm { get; }
     }
 }

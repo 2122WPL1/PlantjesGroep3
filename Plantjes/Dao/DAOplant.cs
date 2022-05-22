@@ -12,7 +12,7 @@ namespace Plantjes.Dao
     {
         public static IEnumerable<Plant> GetPlants()
         {
-            return context.Plants
+            return Context.Plants
                 .Include(p => p.Abiotieks)
                 .Include(p => p.AbiotiekMultis)
                 .Include(p => p.Commensalismes)
@@ -21,7 +21,8 @@ namespace Plantjes.Dao
                 .Include(p => p.FenotypeMultis)
                 .Include(p => p.ExtraEigenschaps)
                 .Include(p => p.BeheerMaands)
-                .Include(p => p.Fotos);
+                .Include(p => p.Fotos)
+                .ToList();
         }
 
         public static Plant AddPlant(string type, string familie, string geslacht, string soort = null, string variant = null)
@@ -40,8 +41,8 @@ namespace Plantjes.Dao
             {
                 plant.Variant = variant;
             }
-            context.Plants.Add(plant);
-            context.SaveChanges();
+            Context.Plants.Add(plant);
+            Context.SaveChanges();
             return plant;
         }
         public static UpdatePlant AddUpdatePlant(Plant plant, int userid)
@@ -51,8 +52,8 @@ namespace Plantjes.Dao
                 Userid = userid,
                 Updatedatum = DateTime.Now
             };
-            context.UpdatePlants.Add(updateplant);
-            context.SaveChanges();
+            Context.UpdatePlants.Add(updateplant);
+            Context.SaveChanges();
             return updateplant;
         }
 

@@ -13,9 +13,9 @@ using Plantjes.Models.Extensions;
 
 namespace Plantjes.ViewModels.HelpClasses
 {
-    internal class CSVHelper
+    internal class CsvHelper
     {
-        public static List<Gebruiker> ImportNewMembersFromCSV()
+        public static List<Gebruiker> ImportNewMembersFromCsv()
         {
             // Written by Ian Dumalin on 11/05
             List<Gebruiker> readGebruikers = new List<Gebruiker>();
@@ -64,7 +64,7 @@ namespace Plantjes.ViewModels.HelpClasses
         /// Exports a list of plants to a CSV with their values
         /// </summary>
         /// <param name="plantList">List of plants to get parameters from</param>
-        public static void ExportPlantsToCSV(IEnumerable<Plant> plantList)
+        public static void ExportPlantsToCsv(IEnumerable<Plant> plantList)
         {
             if (plantList == null || plantList.Count() == 0)
                 return;
@@ -87,7 +87,7 @@ namespace Plantjes.ViewModels.HelpClasses
         /// Exports beheersdaden of a plant to a CSV
         /// </summary>
         /// <param name="plant">Plant to get beheersdaden from</param>
-        public static void ExportPlantDetailsToCSV(Plant plant)
+        public static void ExportPlantDetailsToCsv(Plant plant)
         {
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "CSV file(*.csv)|*.csv";
@@ -116,7 +116,7 @@ namespace Plantjes.ViewModels.HelpClasses
             }
         }
 
-        public static void ExportUsersToCSV(IEnumerable<Gebruiker> gebruikers)
+        public static void ExportUsersToCsv(IEnumerable<Gebruiker> gebruikers)
         {
             try
             {
@@ -141,7 +141,7 @@ namespace Plantjes.ViewModels.HelpClasses
         }
 
         [Obsolete("Members are registered to database and not a CSV file")]
-        public static void RegisterMemberToCSV(string csvLocation, string email, string rNumber, string password)
+        public static void RegisterMemberToCsv(string csvLocation, string email, string rNumber, string password)
         {
             using (FileStream fileStream = new FileStream(csvLocation, FileMode.Append, FileAccess.ReadWrite))
             {
