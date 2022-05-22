@@ -38,7 +38,7 @@ namespace Plantjes.ViewModels.Services
 
             //check if email is valid email
             Gebruiker currentGebruiker;
-            if (Helper.IsEmail(emailInput) || emailInput == "admin@vives.be")
+            if (Helper.IsEmail(emailInput))
             {   //gebruiker zoeken in de databank
                 currentGebruiker = DaoUser.GetGebruiker(emailInput);
             }
