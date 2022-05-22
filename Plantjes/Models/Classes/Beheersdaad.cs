@@ -49,7 +49,9 @@ namespace Plantjes.Models.Classes
                 {
                     IsCheckable = true,
                     StaysOpenOnClick = true,
-                    Header = item
+                    Header = item,
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F9F9F9")),
+                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3E4239"))
                 };
             }
         }
