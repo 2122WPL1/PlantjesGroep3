@@ -28,9 +28,9 @@ namespace Plantjes.ViewModels.HelpClasses
         {
             try
             {
-                if (parameter as string == "VIEWDOCENT" && _gebruiker?.RolId > DaoUser.GetList<Rol>().ToList()[0].Id)
+                if (parameter as string == "VIEWDOCENT" && _gebruiker?.RolId > DaoUser.GetList<Rol>().OrderBy(r => r.Id).ToList()[0].Id)
                     return false;
-                if (parameter as string == "VIEWADD" && _gebruiker?.RolId > DaoUser.GetList<Rol>().ToList()[1].Id)
+                if (parameter as string == "VIEWADD" && _gebruiker?.RolId > DaoUser.GetList<Rol>().OrderBy(r => r.Id).ToList()[1].Id)
                     return false;
                 SimpleIoc.Default.GetInstance<ViewModelRepo>().GetViewModel(parameter as string);
                 return true;

@@ -45,11 +45,12 @@ namespace Plantjes.Dao
         public static Gebruiker UserToDb(string vivesNr, string firstName, string lastName, string emailadres, byte[] password)
         {
             //written by Warre
-            int role = 2;
+            List<Rol> roles = GetList<Rol>().OrderBy(r => r.Id).ToList();
+            int role = roles[2].Id;
             if (emailadres.ToLower().Contains("@vives.be"))
-                role = 0;
+                role = roles[0].Id;
             if (emailadres.ToLower().Contains("@student.vives.be"))
-                role = 1;
+                role = roles[1].Id;
 
             var gebruiker = new Gebruiker()
             {
