@@ -47,7 +47,7 @@
                                    Command="{Binding ExportCommand}"/>
                 </StackPanel>
             </StackPanel>
-            <WrapPanel x:Name="stkMore" Visibility="{Binding BtnCollapse}" HorizontalAlignment="Center" Margin="0,10">
+            <WrapPanel x:Name="stkMore" Visibility="{Binding BtnCollapse}" HorizontalAlignment="Center" Margin="0,10" MaxWidth="1200">
                 <StackPanel Orientation="Horizontal" Margin="10,0" Height="25">
                     <Label x:Name="lblGrondsoort" Content="Grondsoort:"/>
                     <ComboBox x:Name="cbGrondsoort" Width="200"
