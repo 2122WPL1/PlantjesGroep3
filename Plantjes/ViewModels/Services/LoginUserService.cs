@@ -37,15 +37,13 @@ namespace Plantjes.ViewModels.Services
             //var loginResult = new LoginResult() {loginStatus = LoginStatus.NotLoggedIn};
 
             //check if email is valid email
-            Gebruiker currentGebruiker;
-            if (Helper.IsEmail(emailInput))
-            {   //gebruiker zoeken in de databank
-                currentGebruiker = DaoUser.GetGebruiker(emailInput);
-            }
-            else
-            {//indien geen geldig emailadress, errorMessage opvullen
+            if (!Helper.IsEmail(emailInput))
+            {
+                //indien geen geldig emailadress, errorMessage opvullen
                 throw new Exception("Dit is geen geldig emailadres.");
             }
+            //gebruiker zoeken in de databank
+            Gebruiker currentGebruiker = DaoUser.GetGebruiker(emailInput);
 
             //omzetten van het ingegeven passwoord naar een gehashed passwoord
             var passwordHashed = Helper.HashString(passwordInput);

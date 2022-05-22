@@ -6,9 +6,9 @@ using System.Windows.Media.Imaging;
 
 namespace Plantjes.Models.Extensions
 {
-    //Written by Ian Dumalin on 05/05
     internal static class PlantExtensions
     {
+        //Written by Ian Dumalin on 05/05
         public static string PlantToString(this Plant plant, string delimiter)
         {
             string type = plant.Type.FirstToUpperRestToLower();
@@ -23,6 +23,7 @@ namespace Plantjes.Models.Extensions
                    $"{variant}{delimiter}{nederlandsNaam}";
         }
 
+        //written by Warre
         public static BitmapImage GetPlantImage(this Plant plant)
         {
             BitmapImage biImage = null;
@@ -38,6 +39,7 @@ namespace Plantjes.Models.Extensions
             return biImage ?? new BitmapImage(new Uri(Environment.CurrentDirectory + @"\Image\default-plant.png", UriKind.Absolute));
         }
 
+        //written by Warre
         public static string GetPlantName(this Plant plant)
             => plant.Variant.RemoveQuotes() ?? $"{plant.Geslacht.FirstToUpper()} {plant.Soort.FirstToUpper()}";
     }

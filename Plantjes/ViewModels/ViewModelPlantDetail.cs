@@ -25,6 +25,7 @@ namespace Plantjes.ViewModels
 
             Plant = plant;
             _eigenschappen = new List<Grid>();
+            //written by Warre
             if (plant.Fenotypes.Count > 0 || plant.FenotypeMultis.Count > 0)
                 _eigenschappen.Add(new PlantEigenschap<Fenotype, FenotypeMulti>(plant.Fenotypes, plant.FenotypeMultis));
             if (plant.Abiotieks.Count > 0 || plant.AbiotiekMultis.Count > 0)

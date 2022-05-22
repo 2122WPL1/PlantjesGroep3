@@ -225,7 +225,7 @@
                                   ItemsSource="{Binding IctrlFenotypeMonth}"/>
 
                     <Button x:Name="btnAddMonthFenotype" Content="+" Width="20" 
-                            Command="{Binding AddFenotypeMonthCommand}"/>
+                            Command="{Binding FenotypeMonthCommand}"/>
                 </StackPanel>
             </TabItem>
             <!--#endregion-->
@@ -273,7 +273,7 @@
             <TabItem Header="Beheersdaden" IsSelected="{Binding SelectedTab}" x:Name="tiBeheersdaden">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <ItemsControl x:Name="icBeheesdaadMonth" ItemsSource="{Binding IctrlBeheersdaad}"/>
-                    <Button x:Name="btnAddMonthBeheersdaad" Content="+" Width="20" Command="{Binding AddBeheersdaadCommand}"/>
+                    <Button x:Name="btnAddMonthBeheersdaad" Content="+" Width="20" Command="{Binding BeheersdaadCommand}"/>
                 </StackPanel>
             </TabItem>
             <!--#endregion-->
